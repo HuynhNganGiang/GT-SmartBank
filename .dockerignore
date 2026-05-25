@@ -1,0 +1,22 @@
+# Bỏ qua các thư mục build local
+bin/
+obj/
+
+# Bỏ qua các thư mục cấu hình IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# Bỏ qua git
+.git/
+.gitignore
+
+# Bỏ qua thư mục frontend độc lập (vì đã deploy Vercel)
+frontend/
+
+# Bỏ qua các file log và database local
+*.log
+database.sql
+appsettings.Development.json

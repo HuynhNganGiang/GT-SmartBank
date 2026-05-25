@@ -1,0 +1,100 @@
+/* GT SmartBank Public Stylesheet */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --brand-red: #b60000;
+    --brand-red-dark: #9c0000;
+    --brand-gold: #f7b500;
+    --brand-gold-dark: #d97706;
+}
+
+body {
+    font-family: 'Poppins', 'Inter', sans-serif;
+    color: #1e293b;
+    background-color: #f8fafc;
+}
+
+/* Custom Mega Menu Animations */
+.mega-menu {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+
+.group:hover .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Premium Gradient Hero */
+.hero-gradient {
+    background: linear-gradient(135deg, #b60000 0%, #7e0000 50%, #520000 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-gradient::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(247, 181, 0, 0.15) 0%, rgba(247, 181, 0, 0) 70%);
+    pointer-events: none;
+    border-radius: 50%;
+}
+
+/* Glassmorphism */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark-panel {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Service Card Hover */
+.service-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px -8px rgba(182, 0, 0, 0.15);
+}
+
+/* Glow effects */
+.glow-gold {
+    box-shadow: 0 0 20px rgba(247, 181, 0, 0.3);
+}
+
+.glow-red {
+    box-shadow: 0 0 20px rgba(182, 0, 0, 0.2);
+}

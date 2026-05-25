@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>GT SmartBank — Ngân hàng số thế hệ mới</title>
+    <meta name="description" content="GT SmartBank — Hệ thống ngân hàng số thông minh thế hệ mới. Mở tài khoản, chuyển tiền, gửi tiết kiệm online 24/7 an toàn và bảo mật.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['Poppins', 'Inter', 'sans-serif'],
+                        montserrat: ['Montserrat', 'sans-serif']
+                    },
+                    colors: {
+                        brand: {
+                            50:  '#fff5f5',
+                            100: '#ffe3e3',
+                            200: '#ffc9c9',
+                            300: '#ffa3a3',
+                            400: '#ff7373',
+                            500: '#f03e3e',
+                            600: '#e03131',
+                            700: '#c92a2a',
+                            800: '#b60000', /* Primary Red */
+                            900: '#9c0000',
+                            950: '#5c0000'
+                        },
+                        secondary: {
+                            50:  '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#f7b500', /* Secondary Gold */
+                            800: '#92400e',
+                            900: '#78350f'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Poppins', 'Inter', sans-serif; background-color: #f5f6fa; }
+
+        /* ── Layout & Sidebar styling ── */
+        .sidebar-gradient {
+            background: linear-gradient(185deg, #b60000 0%, #800000 100%);
+            box-shadow: 4px 0 25px rgba(182, 0, 0, 0.15);
+        }
+        .nav-link {
+            transition: all 0.2s ease;
+        }
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            transform: translateX(4px);
+        }
+        .nav-link.active {
+            background: #ffffff;
+            color: #b60000 !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ── Stat Card style ── */
+        .stat-card-shadow {
+            box-shadow: 0 4px 20px rgba(182, 0, 0, 0.03);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .stat-card-shadow:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(182, 0, 0, 0.08);
+        }
+        
+        /* ── Scrollbar customization ── */
+        .tx-scroll {
+            max-height: 320px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #b60000 #f1f5f9;
+        }
+        .tx-scroll::-webkit-scrollbar { width: 5px; }
+        .tx-scroll::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 99px; }
+        .tx-scroll::-webkit-scrollbar-thumb { background: #b60000; border-radius: 99px; }
+
+        /* ── Fintech Premium Card 3D Tilt & Shimmer ── */
+        @keyframes shimmer {
+            0% { left: -150%; }
+            100% { left: 150%; }
+        }
+        .card-shimmer::after {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            left: -150%;
+            width: 50%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.18), transparent);
+            animation: shimmer 4.5s infinite;
+        }
+
+        /* ── Mobile Menu Transition ── */
+        #mobileMenu { max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1); }
+        #mobileMenu.open { max-height: 90vh; overflow-y: auto; }
+
+        /* ── Premium banking table ── */
+        .fintech-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .fintech-table th {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #888888;
+            padding: 12px 16px;
+            border-bottom: 2px solid #f1f5f9;
+            text-align: left;
+        }
+        .fintech-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f8fafc;
+        }
+        .fintech-table tbody tr:hover {
+            background-color: #fafbfc;
+        }
+
+        .status-badge {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 99px;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+        .status-badge.success { background-color: #dcfce7; color: #166534; }
+        .status-badge.failed { background-color: #fee2e2; color: #991b1b; }
+        .status-badge.pending { background-color: #fef3c7; color: #92400e; }
+
+        .tx-amount.plus { color: #15803d; }
+        .tx-amount.minus { color: #b60000; }
+        
+        .stat-badge {
+            background-color: rgba(182, 0, 0, 0.08);
+            color: #b60000;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 1.5px 5px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-800 antialiased bg-[#f5f6fa] dark:bg-slate-950 dark:text-slate-100">
+
+<!-- ════════════════════════════════════════════════════════
+     TOP UTILITY BAR (DASHBOARD STATE)
+     ════════════════════════════════════════════════════════ -->
+<div class="hidden md:block bg-brand-900 border-b border-brand-850 text-white/80 text-xs relative z-50">
+    <div class="max-w-screen-xl mx-auto px-4 md:px-8 h-9 flex items-center justify-between">
+        <div class="flex items-center gap-5">
+            <span class="flex items-center gap-1.5 text-white/95 font-medium">
+                <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-secondary-400 flex-shrink-0">
+                    <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+                </svg>
+                Hotline: <strong class="text-secondary-300 font-bold ml-0.5">1800 9999</strong>
+            </span>
+            <span class="text-white/20">|</span>
+            <a href="#" class="util-link">Lãi suất</a>
+            <a href="#" class="util-link">Tỷ giá</a>
+            <a href="/bank-ui/pages/chinhanh.html" class="util-link">Mạng lưới Chi nhánh / ATM</a>
+            <a href="#" class="util-link">Hỗ trợ</a>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></div>
+                <span id="userFullName" class="font-extrabold text-white truncate max-w-[130px]">Đang tải...</span>
+                <span class="text-white/30">—</span>
+                <span id="userRole" class="text-secondary-300 font-black uppercase text-[10px] tracking-wide">...</span>
+                <span class="text-white/20">|</span>
+                <a href="#" onclick="logout(); return false;" class="text-secondary-300 hover:text-white font-black transition-colors">Đăng xuất</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="flex min-h-screen relative">
+    
+    <!-- ════════════════════════════════════════════════════════
+         SIDEBAR (DESKTOP)
+         ════════════════════════════════════════════════════════ -->
+    <aside class="sidebar-gradient hidden lg:flex flex-col justify-between w-68 text-white p-6 flex-shrink-0 relative z-30 min-h-screen">
+        <div class="space-y-8">
+            <!-- Brand -->
+            <a href="/bank-ui/index.html" class="flex items-center gap-3 group">
+                <div class="w-9 h-9 rounded-xl bg-white flex items-center justify-center shadow-lg border border-white/20">
+                    <svg viewBox="0 0 100 100" class="w-6.5 h-6.5">
+                        <path d="M50 12 L82 22 V48 C82 66 69 82 50 88 C31 82 18 66 18 48 V22 Z" fill="#b60000" />
+                        <path d="M43 38 H57 C60 38 62 40 62 43 V46 H52 V43 H44 V55 H57 V52 H62 V55 C62 58 60 60 57 60 H43 C40 60 38 58 38 55 V43 C38 40 40 38 43 38 Z" fill="#f7b500" />
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-base font-black text-white leading-none tracking-tight font-montserrat">GT SmartBank</h2>
+                    <p class="text-[8px] font-bold text-secondary-300 uppercase tracking-widest leading-none mt-1">Digital Banking</p>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="space-y-1.5">
+                <a href="/bank-ui/index.html" class="nav-link active flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-black">
+                    <svg viewBox="0 0 24 24" class="w-4.5 h-4.5"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                    Tổng quan hệ thống
+                </a>
+                <a href="/bank-ui/pages/taikhoan.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold text-slate-100/80 hover:text-white">
+                    <svg viewBox="0 0 24 24" class="w-4.5 h-4.5"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+                    Quản lý tài khoản
+                </a>
+                <a href="/bank-ui/pages/chuyentien.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold text-slate-100/80 hover:text-white">
+                    <svg viewBox="0 0 24 24" class="w-4.5 h-4.5"><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/></svg>
+                    Chuyển khoản 24/7
+                </a>
+                <a href="/bank-ui/pages/giaodich.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold text-slate-100/80 hover:text-white">
+                    <svg viewBox="0 0 24 24" class="w-4.5 h-4.5"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    Lịch sử giao dịch
+                </a>
+                <a href="/bank-ui/pages/sotietkiem.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold text-slate-100/80 hover:text-white">
+                    <svg viewBox="0 0 24 24" class="w-4.5 h-4.5"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.9 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                    Sổ tiết kiệm E-Savings
+                </a>
+                <a href="/bank-ui/pages/khachhang.html" id="navCustomers" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold text-slate-100/80 hover:text-white">
+                    <svg viewBox="0 0 24 24" class="w-4.5 h-4.5"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    Danh sách khách hàng
+                </a>
+            </nav>
+        </div>
+
+        <div class="space-y-4">
+            <div class="p-4 bg-white/5 rounded-2xl border border-white/10 text-center">
+                <span class="text-[10px] text-secondary-300 font-extrabold uppercase block font-montserrat">Security Level</span>
+                <span class="text-xs font-black text-white block mt-1">SSL 256-BIT ENCRYPTED</span>
+            </div>
+            <a href="/swagger/index.html" target="_blank" class="block w-full py-2.5 rounded-xl border border-white/20 text-center text-xs font-extrabold hover:bg-white hover:text-brand-900 transition-colors">
+                Open Swagger API Docs
+            </a>
+        </div>
+    </aside>
+
+    <!-- ════════════════════════════════════════════════════════
+         MAIN CONTENT AREA
+         ════════════════════════════════════════════════════════ -->
+    <main class="flex-1 p-5 md:p-8 lg:p-10 w-full min-w-0 max-w-7xl mx-auto">
+        
+        <!-- HEADER / NAVIGATION (FOR TABLET/MOBILE & DESKTOP SUBNAV) -->
+        <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-sm border border-slate-100 dark:border-slate-800 p-4 rounded-3xl mb-8 flex items-center justify-between lg:hidden">
+            <a href="/bank-ui/index.html" class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-800 to-brand-900 flex items-center justify-center">
+                    <svg viewBox="0 0 100 100" class="w-5.5 h-5.5">
+                        <path d="M50 12 L82 22 V48 C82 66 69 82 50 88 C31 82 18 66 18 48 V22 Z" fill="#ffffff" />
+                        <path d="M43 38 H57 C60 38 62 40 62 43 V46 H52 V43 H44 V55 H57 V52 H62 V55 C62 58 60 60 57 60 H43 C40 60 38 58 38 55 V43 C38 40 40 38 43 38 Z" fill="#b60000" />
+                    </svg>
+                </div>
+                <span class="text-sm font-black text-brand-800 dark:text-white font-montserrat">GT SmartBank</span>
+            </a>
+            
+            <button onclick="toggleMobileMenu()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200">
+                <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current" id="hamburgerIcon">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
+            </button>
+        </header>
+
+        <!-- Mobile Drawer menu -->
+        <div id="mobileMenu" class="lg:hidden border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-b-3xl shadow-lg mb-8">
+            <div class="py-4 px-2 flex flex-col gap-1">
+                <div class="flex items-center gap-3 p-3 mx-2 mb-2 bg-brand-50/50 dark:bg-slate-800/50 rounded-2xl border border-brand-100/30">
+                    <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-800 flex items-center justify-center flex-shrink-0">
+                        <svg viewBox="0 0 24 24" class="w-4.5 h-4.5 fill-current"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    </div>
+                    <div class="min-w-0">
+                        <div class="text-sm font-bold text-slate-800 dark:text-white truncate" id="mobileUserName">Đang tải...</div>
+                        <div class="text-[10px] text-brand-800 dark:text-secondary-400 font-extrabold uppercase" id="mobileUserRole">...</div>
+                    </div>
+                </div>
+
+                <a href="/bank-ui/index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-brand-800 bg-brand-50/80"><svg viewBox="0 0 24 24" class="w-5 h-5 fill-current flex-shrink-0"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Tổng quan</a>
+                <a href="/bank-ui/pages/taikhoan.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-55"><svg viewBox="0 0 24 24" class="w-5 h-5 fill-current flex-shrink-0"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>Tài khoản</a>
+                <a href="/bank-ui/pages/chuyentien.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-55"><svg viewBox="0 0 24 24" class="w-5 h-5 fill-current flex-shrink-0"><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/></svg>Chuyển tiền</a>
+                <a href="/bank-ui/pages/giaodich.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-55"><svg viewBox="0 0 24 24" class="w-5 h-5 fill-current flex-shrink-0"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>Giao dịch</a>
+                <a href="/bank-ui/pages/sotietkiem.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-55"><svg viewBox="0 0 24 24" class="w-5 h-5 fill-current flex-shrink-0"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.9 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>Sổ tiết kiệm</a>
+                <a href="/bank-ui/pages/khachhang.html" id="mobileNavCustomers" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-55"><svg viewBox="0 0 24 24" class="w-5 h-5 fill-current flex-shrink-0"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Khách hàng</a>
+                <hr class="border-slate-100 dark:border-slate-800 my-1 mx-4">
+                <a href="#" onclick="logout(); return false;" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-rose-600 hover:bg-rose-50 mx-1">
+                    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current flex-shrink-0"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+                    Đăng xuất
+                </a>
+            </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════════════════
+             HERO BANNER
+             ════════════════════════════════════════════════════════ -->
+        <section class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-brand-800 to-brand-950 text-white p-8 md:p-12 mb-8 shadow-xl border border-brand-900/50">
+            <div class="absolute inset-0 bg-gradient-to-br from-secondary-700/10 to-transparent pointer-events-none"></div>
+            <div class="absolute -right-32 top-1/2 -translate-y-1/2 w-[420px] h-[420px] rounded-full border border-white/5 pointer-events-none hidden lg:block"></div>
+            
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10">
+                <!-- Text Column -->
+                <div class="flex-1 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/10 border border-white/15 rounded-full text-secondary-300 text-[10px] font-black uppercase tracking-wider mb-5">
+                        <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full inline-block animate-pulse"></span>
+                        Hệ thống hoạt động ổn định 24/7
+                    </div>
+                    <h1 id="bannerTitle" class="text-3xl sm:text-4xl font-black leading-tight tracking-tight mb-4 font-montserrat">
+                        GT SmartBank<br>
+                        <span class="text-secondary-300">Smart Digital Banking</span>
+                    </h1>
+                    <p id="bannerDesc" class="text-slate-200 text-sm leading-relaxed max-w-xl mb-6 mx-auto lg:mx-0 font-medium">
+                        Hệ thống quản lý tài chính thông minh — bảo mật vượt trội. Mở tài khoản, chuyển tiền 24/7, gửi tiết kiệm online với lãi suất ưu đãi.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
+                        <a href="/bank-ui/pages/taikhoan.html" id="bannerActionBtn"
+                           class="btn-gold-gradient text-brand-950 w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-extrabold text-xs shadow-md">
+                            MỞ TÀI KHOẢN NGAY
+                        </a>
+                        <a href="/bank-ui/pages/chuyentien.html"
+                           class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-xs bg-white/10 hover:bg-white/15 border border-white/15 transition-all">
+                            Chuyển tiền nhanh
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Virtual Card Container (Right Side) -->
+                <div id="virtualCardContainer" class="hidden lg:flex flex-col items-center gap-2.5 flex-shrink-0">
+                    <div class="card-shimmer relative w-[310px] h-[190px] rounded-2xl overflow-hidden cursor-pointer shadow-2xl border border-white/10"
+                         style="background: linear-gradient(135deg, #7f0000 0%, #1e1b4b 60%, #09090b 100%);">
+                        <div class="absolute inset-0 bg-gradient-to-br from-secondary-700/8 to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 right-0 w-36 h-36 rounded-full bg-secondary-700/5 translate-x-12 translate-y-12 pointer-events-none"></div>
+                        <div class="relative z-10 h-full p-5 flex flex-col justify-between">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <svg viewBox="0 0 100 100" class="w-6 h-6">
+                                        <path d="M50 12 L82 22 V48 C82 66 69 82 50 88 C31 82 18 66 18 48 V22 Z" fill="#ffffff" />
+                                        <path d="M43 38 H57 C60 38 62 40 62 43 V46 H52 V43 H44 V55 H57 V52 H62 V55 C62 58 60 60 57 60 H43 C40 60 38 58 38 55 V43 C38 40 40 38 43 38 Z" fill="#b60000" />
+                                    </svg>
+                                    <span class="text-xs font-black tracking-widest text-white font-montserrat">GT SMART</span>
+                                </div>
+                                <span class="text-[8px] font-black tracking-wider text-secondary-300 border border-secondary-700/30 bg-secondary-700/10 px-2.5 py-0.5 rounded">DEBIT</span>
+                            </div>
+                            <div class="w-10 h-7 bg-gradient-to-br from-yellow-200 to-amber-600 rounded shadow-inner"></div>
+                            <div class="text-[17px] font-bold tracking-[0.2em] text-white/85 font-mono" id="virtualCardNumber">•••• •••• •••• ••••</div>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <div class="text-[8px] uppercase tracking-wider text-white/40 font-bold mb-0.5">Chủ thẻ</div>
+                                    <div class="text-xs font-bold text-white tracking-wide font-montserrat" id="virtualCardHolder">ĐANG TẢI...</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-[8px] uppercase tracking-wider text-white/40 font-bold mb-0.5">Hạn dùng</div>
+                                    <div class="text-xs font-bold text-white font-mono">12/30</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-[10px] text-slate-350 font-bold tracking-wide font-montserrat">GT SMARTBANK PREMIUM VISA</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════════════════════
+             THAO TÁC NHANH (Tôi muốn...)
+             ════════════════════════════════════════════════════════ -->
+        <section class="mb-8">
+            <h3 class="text-xs font-black uppercase text-brand-800 dark:text-secondary-400 tracking-wider mb-4 font-montserrat">Tôi muốn...</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Mở tài khoản -->
+                <a href="/bank-ui/pages/taikhoan.html" class="flex items-center gap-3.5 p-4 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl shadow-sm hover:shadow-md hover:border-brand-200 transition-all group">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-800 to-brand-900 flex items-center justify-center text-white shadow-md shadow-brand-800/10 flex-shrink-0">
+                        <svg viewBox="0 0 24 24" class="w-5.5 h-5.5 fill-current"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                    </div>
+                    <div class="min-w-0">
+                        <div class="font-bold text-slate-800 dark:text-white text-xs md:text-sm truncate">Mở tài khoản</div>
+                        <div class="text-[10px] text-slate-400 mt-0.5 truncate font-medium">Chỉ 5 phút online</div>
+                    </div>
+                </a>
+                <!-- Chuyển tiền -->
+                <a href="/bank-ui/pages/chuyentien.html" class="flex items-center gap-3.5 p-4 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl shadow-sm hover:shadow-md hover:border-brand-200 transition-all group">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-800 to-brand-900 flex items-center justify-center text-white shadow-md shadow-brand-800/10 flex-shrink-0">
+                        <svg viewBox="0 0 24 24" class="w-5.5 h-5.5 fill-current"><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/></svg>
+                    </div>
+                    <div class="min-w-0">
+                        <div class="font-bold text-slate-800 dark:text-white text-xs md:text-sm truncate">Chuyển tiền</div>
+                        <div class="text-[10px] text-slate-400 mt-0.5 truncate font-medium">Napas nhanh 24/7</div>
+                    </div>
+                </a>
+                <!-- Gửi tiết kiệm -->
+                <a href="/bank-ui/pages/sotietkiem.html" class="flex items-center gap-3.5 p-4 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl shadow-sm hover:shadow-md hover:border-brand-200 transition-all group">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-800 to-brand-900 flex items-center justify-center text-white shadow-md shadow-brand-800/10 flex-shrink-0">
+                        <svg viewBox="0 0 24 24" class="w-5.5 h-5.5 fill-current"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.9 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                    </div>
+                    <div class="min-w-0">
+                        <div class="font-bold text-slate-800 dark:text-white text-xs md:text-sm truncate">Gửi tiết kiệm</div>
+                        <div class="text-[10px] text-slate-400 mt-0.5 truncate font-medium">Lãi suất đến 6.2%</div>
+                    </div>
+                </a>
+                <!-- Xem lịch sử -->
+                <a href="/bank-ui/pages/giaodich.html" class="flex items-center gap-3.5 p-4 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl shadow-sm hover:shadow-md hover:border-brand-200 transition-all group">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-800 to-brand-900 flex items-center justify-center text-white shadow-md shadow-brand-800/10 flex-shrink-0">
+                        <svg viewBox="0 0 24 24" class="w-5.5 h-5.5 fill-current"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <div class="min-w-0">
+                        <div class="font-bold text-slate-800 dark:text-white text-xs md:text-sm truncate">Lịch sử GD</div>
+                        <div class="text-[10px] text-slate-400 mt-0.5 truncate font-medium">Chi tiết dòng tiền</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════════════════════
+             DASHBOARD THỐNG KÊ (4 CARDS)
+             ════════════════════════════════════════════════════════ -->
+        <section class="mb-8">
+            <div class="flex items-center justify-between flex-wrap gap-4 mb-4">
+                <div>
+                    <h3 class="text-xs font-black uppercase text-brand-800 dark:text-secondary-400 tracking-wider font-montserrat" id="dashboardTitle">Tổng quan hệ thống</h3>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span id="lastUpdate" class="text-[11px] font-bold text-slate-400 dark:text-slate-500">Chưa cập nhật</span>
+                    <button onclick="if(typeof loadDashboardData==='function')loadDashboardData();"
+                        class="inline-flex items-center justify-center w-7 h-7 bg-slate-100 hover:bg-slate-200 text-brand-800 rounded-lg transition-all shadow-sm">
+                        <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current"><path d="M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 4 Cards Stat -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <!-- Card 1 -->
+                <div class="stat-card-shadow relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 border-l-[4px] border-l-brand-800 rounded-2xl p-5" id="statCard1">
+                    <div class="flex justify-between items-start mb-3">
+                        <h4 class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider leading-tight" id="statLabel1">Đang tải...</h4>
+                        <div class="w-8 h-8 rounded-lg bg-brand-50 text-brand-800 flex items-center justify-center flex-shrink-0" id="statIcon1">
+                            <svg viewBox="0 0 24 24" class="w-4.5 h-4.5 fill-current"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        </div>
+                    </div>
+                    <p class="text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-none mb-1.5" id="statValue1">—</p>
+                    <div class="text-[10px] text-slate-400 font-bold" id="statSub1">Đồng bộ API...</div>
+                </div>
+                <!-- Card 2 -->
+                <div class="stat-card-shadow relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 border-l-[4px] border-l-secondary-500 rounded-2xl p-5" id="statCard2">
+                    <div class="flex justify-between items-start mb-3">
+                        <h4 class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider leading-tight" id="statLabel2">Đang tải...</h4>
+                        <div class="w-8 h-8 rounded-lg bg-secondary-50 text-secondary-700 flex items-center justify-center flex-shrink-0" id="statIcon2">
+                            <svg viewBox="0 0 24 24" class="w-4.5 h-4.5 fill-current"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.9 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                        </div>
+                    </div>
+                    <p class="text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-none mb-1.5" id="statValue2">—</p>
+                    <div class="text-[10px] text-slate-400 font-bold" id="statSub2">Đồng bộ API...</div>
+                </div>
+                <!-- Card 3 -->
+                <div class="stat-card-shadow relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 border-l-[4px] border-l-blue-650 rounded-2xl p-5" id="statCard3">
+                    <div class="flex justify-between items-start mb-3">
+                        <h4 class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider leading-tight" id="statLabel3">Đang tải...</h4>
+                        <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0" id="statIcon3">
+                            <svg viewBox="0 0 24 24" class="w-4.5 h-4.5 fill-current"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                        </div>
+                    </div>
+                    <p class="text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-none mb-1.5" id="statValue3">—</p>
+                    <div class="text-[10px] text-slate-400 font-bold" id="statSub3">Đồng bộ API...</div>
+                </div>
+                <!-- Card 4 -->
+                <div class="stat-card-shadow relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 border-l-[4px] border-l-brand-900 rounded-2xl p-5">
+                    <div class="flex justify-between items-start mb-3">
+                        <h4 class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider leading-tight">Trạng thái hệ thống</h4>
+                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center flex-shrink-0">
+                            <svg viewBox="0 0 24 24" class="w-4.5 h-4.5 fill-current"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        </div>
+                    </div>
+                    <p class="text-2xl font-black text-emerald-600 dark:text-emerald-400 tracking-tight leading-none mb-1.5 animate-pulse" id="systemStatus">Online</p>
+                    <div class="text-[10px] text-slate-400 font-bold truncate" id="systemMessage">Kết nối ổn định</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════════════════════
+             CHARTS & RECENT TRANSACTIONS (2 COLUMNS)
+             ════════════════════════════════════════════════════════ -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Chart Widget -->
+            <div class="lg:col-span-2 bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 rounded-3xl p-5 md:p-6 shadow-sm">
+                <h3 class="font-extrabold text-slate-800 dark:text-white text-sm mb-5 flex items-center gap-2" id="chartTitle">
+                    <span class="w-1 h-5 bg-brand-850 rounded-full inline-block"></span>
+                    Biểu đồ thống kê giao dịch
+                </h3>
+                <div class="relative h-64 md:h-72">
+                    <canvas id="dashboardChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Transactions Table Widget -->
+            <div class="bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 rounded-3xl p-5 md:p-6 shadow-sm flex flex-col justify-between">
+                <div>
+                    <h3 class="font-extrabold text-slate-800 dark:text-white text-sm mb-4 flex items-center gap-2" id="recentTxHeaderTitle">
+                        <span class="w-1 h-5 bg-brand-850 rounded-full inline-block"></span>
+                        Giao dịch gần đây
+                    </h3>
+                    <div class="tx-scroll space-y-2" id="recentTransactionsList">
+                        <div class="text-center py-12 text-slate-400 text-xs font-bold font-montserrat">
+                            LOADING TRANSACTIONS...
+                        </div>
+                    </div>
+                </div>
+                <a href="/bank-ui/pages/giaodich.html" class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-center text-xs font-black text-brand-800 dark:text-secondary-400 hover:underline block">
+                    Xem tất cả lịch sử giao dịch →
+                </a>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════════════════════
+             FOOTER (DASHBOARD)
+             ════════════════════════════════════════════════════════ -->
+        <footer class="bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 rounded-3xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+            <p class="text-[11px] text-slate-400 font-bold font-montserrat">© 2026 GT SMARTBANK. SSL 256-BIT ENCRYPTED SYSTEM.</p>
+            <div class="flex items-center gap-4 text-xs font-bold">
+                <a href="/bank-ui/pages/khachhang.html" id="footerAdminLink" class="text-brand-800 hover:text-brand-900 transition-colors" style="display:none">QUẢN TRỊ KHÁCH HÀNG</a>
+                <span class="text-slate-200">|</span>
+                <span class="text-slate-400">GT SmartBank v3.0</span>
+            </div>
+        </footer>
+
+    </main>
+</div>
+
+<!-- Scripts -->
+<script>
+    // Hàm ẩn/hiện mobile menu drawer
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        const icon = document.getElementById('hamburgerIcon');
+        const isOpen = menu.classList.toggle('open');
+        icon.innerHTML = isOpen
+            ? '<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>'
+            : '<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>';
+    }
+
+    // Hàm ẩn/hiện accordion menu mobile
+    function toggleMobileAccordion(id) {
+        const acc = document.getElementById(id);
+        const chevron = document.getElementById('chevron-' + id);
+        if (acc) {
+            const isHidden = acc.classList.toggle('hidden');
+            if (chevron) {
+                chevron.classList.toggle('rotate-180', !isHidden);
+            }
+        }
+    }
+
+    // Sync mobile user info từ getCurrentUser()
+    document.addEventListener('DOMContentLoaded', function () {
+        const fn = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
+        if (fn) {
+            const name = fn.hoTen || 'Người dùng';
+            const role = fn.role === 'Admin' ? 'Quản trị viên' : 'Khách hàng';
+            const mName = document.getElementById('mobileUserName');
+            const mRole = document.getElementById('mobileUserRole');
+            if (mName) mName.textContent = name;
+            if (mRole) mRole.textContent = role;
+            
+            // Show admin-only links
+            if (fn.role === 'Admin') {
+                const fa = document.getElementById('footerAdminLink');
+                if (fa) fa.style.display = '';
+            } else {
+                // Hide khachhang link for non-admin
+                const custLink = document.getElementById('mobileNavCustomers');
+                if (custLink) custLink.style.display = 'none';
+            }
+        }
+    });
+</script>
+
+<script src="/bank-ui/js/api.js"></script>
+<script src="/bank-ui/js/theme.js"></script>
+<script src="/bank-ui/js/dashboard.js"></script>
+</body>
+</html>

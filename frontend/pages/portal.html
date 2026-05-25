@@ -1,0 +1,1292 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Dá»‹ch vá»¥ â€” GT SmartBank</title>
+    <meta name="description" content="KhÃ¡m phÃ¡ cÃ¡c sáº£n pháº©m vÃ  dá»‹ch vá»¥ tÃ i chÃ­nh cÃ¡ nhÃ¢n vÃ  doanh nghiá»‡p táº¡i GT SmartBank. TÃ i khoáº£n, tháº», tiáº¿t kiá»‡m, vay vá»‘n, chuyá»ƒn tiá»n vÃ  hÆ¡n tháº¿ ná»¯a.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'Inter', 'sans-serif'],
+                        montserrat: ['Montserrat', 'sans-serif']
+                    },
+                    colors: {
+                        brand: {
+                            50:  '#fff5f5', 100: '#ffe3e3', 200: '#ffc9c9', 300: '#ffa3a3',
+                            400: '#ff7373', 500: '#f03e3e', 600: '#e03131', 700: '#c92a2a',
+                            800: '#b60000', 900: '#9c0000', 950: '#5c0000'
+                        },
+                        secondary: {
+                            50: '#fffbeb', 100: '#fef3c7', 200: '#fde68a', 300: '#fcd34d',
+                            400: '#fbbf24', 500: '#f59e0b', 600: '#d97706', 700: '#f7b500',
+                            800: '#92400e', 900: '#78350f'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        body { font-family: 'Poppins', 'Inter', sans-serif; background-color: #f5f6fa; }
+
+        /* Header styles */
+        .util-link { transition: color 0.2s ease; }
+        .util-link:hover { color: #f7b500; }
+        .nav-item > a { position: relative; padding-bottom: 4px; }
+        .nav-item > a::after {
+            content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+            height: 2.5px; background: #b60000; border-radius: 9999px;
+            transform: scaleX(0); transition: transform 0.25s ease;
+        }
+        .nav-item > a:hover::after { transform: scaleX(1); }
+
+        /* Mega menu */
+        .mega-menu {
+            opacity: 0; visibility: hidden; transform: translateY(10px);
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+        }
+        .group:hover .mega-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+
+        /* Hero banner */
+        .hero-bg {
+            background: linear-gradient(135deg, #7c0000 0%, #a80000 35%, #b60000 70%, #d48f00 100%);
+        }
+        .hero-glow-1 { background: radial-gradient(circle at 10% 50%, rgba(247,181,0,0.18) 0%, transparent 60%); }
+        .hero-glow-2 { background: radial-gradient(circle at 85% 30%, rgba(255,255,255,0.12) 0%, transparent 50%); }
+
+        /* Sidebar */
+        .sidebar-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 14px; border-radius: 12px;
+            font-size: 13.5px; font-weight: 600; color: #475569;
+            transition: all 0.2s ease; cursor: pointer;
+        }
+        .sidebar-item:hover { background: #fff1f1; color: #b60000; }
+        .sidebar-item.active { background: linear-gradient(135deg,#b60000,#9c0000); color: #fff; box-shadow: 0 4px 15px rgba(182,0,0,0.25); }
+        .sidebar-item.active .sidebar-icon { filter: brightness(0) invert(1); }
+
+        /* Service cards */
+        .service-card {
+            background: #fff; border-radius: 20px;
+            border: 1px solid rgba(0,0,0,0.07);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            transition: transform 0.3s cubic-bezier(0.25,1,0.5,1), box-shadow 0.3s ease, border-color 0.3s ease;
+            overflow: hidden; position: relative;
+        }
+        .service-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(182,0,0,0.12); border-color: rgba(182,0,0,0.2); }
+
+        .service-card-badge {
+            position: absolute; top: 14px; right: 14px;
+            font-size: 10px; font-weight: 800; padding: 3px 8px;
+            border-radius: 20px; letter-spacing: 0.08em; text-transform: uppercase;
+        }
+
+        .rate-number { font-size: 32px; font-weight: 800; color: #b60000; line-height: 1.1; }
+
+        .feature-item {
+            display: flex; align-items: flex-start; gap: 8px;
+            font-size: 12.5px; color: #475569; padding: 3px 0; font-weight: 500;
+        }
+        .feature-item::before {
+            content: 'âœ“'; flex-shrink: 0; width: 18px; height: 18px;
+            background: #dcfce7; color: #16a34a; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 10px; font-weight: 900; margin-top: 1px;
+            line-height: 18px; text-align: center;
+        }
+
+        /* Related products */
+        .related-card {
+            background: #fff; border-radius: 16px;
+            border: 1px solid rgba(0,0,0,0.07);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            overflow: hidden;
+        }
+        .related-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+
+        /* Modal */
+        #registerModal {
+            display: none; position: fixed; inset: 0; z-index: 9999;
+            background: rgba(0,0,0,0.55); backdrop-filter: blur(4px);
+            align-items: center; justify-content: center;
+        }
+        #registerModal.open { display: flex; }
+        .modal-box {
+            background: #fff; border-radius: 24px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+            width: 100%; max-width: 540px; max-height: 90vh; overflow-y: auto;
+            padding: 36px;
+            animation: modalIn 0.35s cubic-bezier(0.25,1,0.5,1);
+        }
+        @keyframes modalIn { from { opacity:0; transform: scale(0.92) translateY(20px); } to { opacity:1; transform: none; } }
+
+        .form-input {
+            width: 100%; padding: 11px 14px; border-radius: 10px;
+            border: 1.5px solid #e2e8f0; font-size: 13.5px;
+            font-family: 'Poppins', sans-serif; transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none; color: #1e293b;
+        }
+        .form-input:focus { border-color: #b60000; box-shadow: 0 0 0 3px rgba(182,0,0,0.08); }
+
+        /* Toast */
+        #toast {
+            position: fixed; bottom: 28px; right: 28px; z-index: 99999;
+            background: #fff; border-radius: 14px; box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            padding: 14px 20px; display: flex; align-items: center; gap: 12px;
+            min-width: 300px; border-left: 4px solid #16a34a;
+            transform: translateY(100px) scale(0.9); opacity: 0;
+            transition: all 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        #toast.show { transform: translateY(0) scale(1); opacity: 1; }
+
+        /* Breadcrumb */
+        .breadcrumb-item { font-size: 12.5px; color: rgba(255,255,255,0.7); font-weight: 500; }
+        .breadcrumb-item.active { color: #fcd34d; font-weight: 700; }
+        .breadcrumb-sep { color: rgba(255,255,255,0.4); font-size: 11px; margin: 0 4px; }
+
+        /* Footer */
+        .footer-link { font-size: 12.5px; color: #94a3b8; transition: color 0.2s ease; }
+        .footer-link:hover { color: #f7b500; }
+
+        /* Mobile menu */
+        #mobileMenu { max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1); }
+        #mobileMenu.open { max-height: 90vh; overflow-y: auto; }
+
+        /* Skeleton loading */
+        @keyframes skeletonPulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+        .skeleton { background: #e9ecef; border-radius: 8px; animation: skeletonPulse 1.5s infinite; }
+
+        /* Scroll to top */
+        #scrollTop {
+            position: fixed; bottom: 28px; left: 28px; z-index: 999;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: linear-gradient(135deg,#b60000,#9c0000);
+            color: #fff; border: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(182,0,0,0.35);
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        #scrollTop.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="font-sans text-slate-800 antialiased bg-[#f5f6fa]">
+
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• TOP UTILITY BAR â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<div class="hidden md:block bg-brand-900 border-b border-brand-800 text-white/80 text-xs">
+    <div class="max-w-screen-xl mx-auto px-4 md:px-8 h-9 flex items-center justify-between">
+        <div class="flex items-center gap-5">
+            <span class="flex items-center gap-1.5 text-white/95 font-medium">
+                <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-secondary-400 flex-shrink-0"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+                Hotline: <strong class="text-secondary-300 font-bold ml-0.5">1800 9999</strong>
+            </span>
+            <span class="text-white/20">|</span>
+            <a href="/pages/login.html" class="util-link">Trang chá»§</a>
+            <a href="#" class="util-link">LÃ£i suáº¥t</a>
+            <a href="#" class="util-link">Tá»· giÃ¡</a>
+            <a href="/pages/chinhanh.html" class="util-link">Máº¡ng lÆ°á»›i ATM/Chi nhÃ¡nh</a>
+            <a href="#" class="util-link">Há»— trá»£ 24/7</a>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-1">
+                <span class="font-semibold text-secondary-300">VN</span>
+                <span class="text-white/20">|</span>
+                <a href="#" class="hover:text-secondary-300 transition-colors">EN</a>
+            </div>
+            <span class="text-white/20">|</span>
+            <span class="text-secondary-300 font-bold tracking-wide">GT SmartBank â€” Smart Digital Banking</span>
+        </div>
+    </div>
+</div>
+
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• MAIN HEADER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-md border-b border-slate-100">
+    <div class="relative max-w-screen-xl mx-auto px-4 md:px-8">
+        <div class="flex items-center justify-between h-16 md:h-[72px] gap-4">
+
+            <!-- Logo -->
+            <a href="/pages/login.html" class="flex items-center gap-3 flex-shrink-0 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-800 to-brand-900 flex items-center justify-center shadow-lg shadow-brand-800/25 border border-brand-700/50">
+                    <svg viewBox="0 0 100 100" class="w-7 h-7">
+                        <path d="M50 12 L82 22 V48 C82 66 69 82 50 88 C31 82 18 66 18 48 V22 Z" fill="#b60000" />
+                        <path d="M50 20 L74 27 V48 C74 61 64 73 50 78 C36 73 26 61 26 48 V27 Z" fill="#f7b500" opacity="0.85" />
+                        <path d="M43 38 H57 C60 38 62 40 62 43 V46 H52 V43 H44 V55 H57 V52 H62 V55 C62 58 60 60 57 60 H43 C40 60 38 58 38 55 V43 C38 40 40 38 43 38 Z" fill="#ffffff" />
+                        <path d="M47 43 H53 V46 H50.5 V55 H49.5 V46 H47 Z" fill="#b60000" />
+                    </svg>
+                </div>
+                <div>
+                    <div class="text-[17px] font-black text-brand-800 leading-none tracking-tight group-hover:text-brand-900 transition-colors">GT SmartBank</div>
+                    <div class="text-[9px] font-bold text-secondary-700 uppercase tracking-[0.16em] leading-none mt-1 font-montserrat">Smart Digital Banking</div>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex items-center flex-1 px-4">
+                <ul class="flex items-center gap-1.5">
+                    <!-- CÃ¡ nhÃ¢n -->
+                    <li class="nav-item group" style="position: static !important;">
+                        <a href="#" class="px-3 py-2 text-[13.5px] font-bold text-slate-700 hover:text-brand-800 flex items-center gap-1">
+                            CÃ¡ nhÃ¢n
+                            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-current transition-transform duration-250 group-hover:rotate-180"><path d="M7 10l5 5 5-5z"/></svg>
+                        </a>
+                        <div class="mega-menu absolute left-0 right-0 top-full w-full bg-white border-b border-l border-r border-slate-200 shadow-2xl rounded-b-3xl p-8 grid grid-cols-4 gap-8 z-[100] max-w-screen-xl mx-auto">
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black uppercase tracking-wider text-brand-800 border-b border-slate-100 pb-2 flex items-center gap-1.5">ðŸ’³ TÃ i khoáº£n & Tháº»</h4>
+                                <ul class="space-y-3">
+                                    <li><a href="portal.html?view=tai-khoan" class="text-[13px] font-semibold text-slate-600 hover:text-brand-800 block transition-colors">TÃ i khoáº£n thanh toÃ¡n</a></li>
+                                    <li><a href="portal.html?view=tai-khoan" class="text-[13px] font-semibold text-slate-600 hover:text-brand-800 block transition-colors">Chá»n sá»‘ tÃ i khoáº£n Ä‘áº¹p</a></li>
+                                    <li><a href="portal.html?view=the-tin-dung" class="text-[13px] font-semibold text-slate-600 hover:text-brand-800 block transition-colors">Tháº» tÃ­n dá»¥ng quá»‘c táº¿</a></li>
+                                    <li><a href="portal.html?view=the-tin-dung" class="text-[13px] font-semibold text-slate-600 hover:text-brand-800 block transition-colors">Tháº» ghi ná»£ cao cáº¥p</a></li>
+                                </ul>
+                            </div>
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black uppercase tracking-wider text-brand-800 border-b border-slate-100 pb-2 flex items-center gap-1.5">ðŸ’° Tiáº¿t kiá»‡m & Vay</h4>
+                                <ul class="space-y-3">
+                                    <li><a href="portal.html?view=tiet-kiem" class="text-[13px] font-semibold text-slate-600 hover:text-brand-800 block transition-colors">Tiáº¿t kiá»‡m online (E-Savings)</a></li>
+                                    <li><a href="portal.html?view=tiet-kiem" class="text-[13px] font-semibold text-slate-600 hover:text-brand-800 block transition-colors">Tiáº¿t kiá»‡m tÃ­ch lÅ©y thÃ´ng minh</a></li>
+                                    <li><a href="portal.html?view=vay-tieu-dung" class="text-[13px] font-semibold text-slate-600 hover:text-brand-800 block transition-colors">Vay mua nhÃ , mua xe</a></li>
+                                    <li><a href="portal.html?view=vay-tieu-dung" class="text-[13px] font-semibold text-slate-600 hover:text-brand-800 block transition-colors">Vay tiÃªu dÃ¹ng nhanh</a></li>
+                                </ul>
+                            </div>
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black uppercase tracking-wider text-brand-800 border-b border-slate-100 pb-2 flex items-center gap-1.5">ðŸ“± NgÃ¢n hÃ ng sá»‘</h4>
+                                <ul class="space-y-3">
+                                    <li><a href="portal.html?view=qr-pay" class="text-[13px] font-semibold text-slate-600 hover:text-brand-800 block transition-colors">Mobile Banking App (GT Pay)</a></li>
+                                    <li><a href="portal.html?view=qr-pay" class="text-[13px] font-semibold text-slate-600 hover:text-brand-800 block transition-colors">Internet Banking Portal</a></li>
+                                    <li><a href="portal.html?view=chuyen-tien" class="text-[13px] font-semibold text-slate-600 hover:text-brand-800 block transition-colors">Chuyá»ƒn tiá»n 24/7 (Napas)</a></li>
+                                    <li><a href="portal.html?view=qr-pay" class="text-[13px] font-semibold text-slate-600 hover:text-brand-800 block transition-colors">QR Pay - QuÃ©t mÃ£ tiá»‡n lá»£i</a></li>
+                                </ul>
+                            </div>
+                            <div class="bg-gradient-to-br from-brand-800 to-brand-950 rounded-2xl p-5 text-white flex flex-col justify-between shadow-xl relative overflow-hidden">
+                                <div class="absolute -right-8 -bottom-8 w-28 h-28 rounded-full bg-secondary-700/10 blur-xl"></div>
+                                <div class="relative z-10">
+                                    <span class="bg-secondary-700 text-brand-950 text-[9px] uppercase font-black px-2 py-0.5 rounded tracking-widest">Äáº·c Quyá»n E-SAVINGS</span>
+                                    <h5 class="font-extrabold text-sm mt-3 text-secondary-300">Gá»­i tiá»n online sinh lá»i cá»±c lá»›n</h5>
+                                    <p class="text-[10px] text-slate-200 mt-2 leading-relaxed font-medium">Nháº­n ngay lÃ£i suáº¥t Æ°u Ä‘Ã£i lÃªn tá»›i <span class="text-secondary-300 font-bold text-xs">6.2%/nÄƒm</span> vÃ  miá»…n toÃ n bá»™ phÃ­ quáº£n lÃ½ tÃ i khoáº£n.</p>
+                                </div>
+                                <a href="portal.html?view=tiet-kiem" class="relative z-10 w-full bg-secondary-700 hover:bg-secondary-600 text-brand-950 text-center font-bold text-[11px] py-2.5 rounded-xl transition-all shadow-md mt-4">Tráº£i nghiá»‡m ngay</a>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- Doanh nghiá»‡p -->
+                    <li class="nav-item group" style="position: static !important;">
+                        <a href="#" class="px-3 py-2 text-[13.5px] font-bold text-slate-700 hover:text-brand-800 flex items-center gap-1">
+                            Doanh nghiá»‡p
+                            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-current transition-transform duration-250 group-hover:rotate-180"><path d="M7 10l5 5 5-5z"/></svg>
+                        </a>
+                        <div class="mega-menu absolute left-0 right-0 top-full w-full bg-white border-b border-l border-r border-slate-200 shadow-2xl rounded-b-3xl p-8 grid grid-cols-4 gap-8 z-[100] max-w-screen-xl mx-auto">
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black uppercase tracking-wider text-brand-800 border-b border-slate-100 pb-2 flex items-center gap-1.5">ðŸ¢ Dá»‹ch vá»¥ TÃ i khoáº£n</h4>
+                                <ul class="space-y-3">
+                                    <li><a href="portal.html?view=tai-khoan-dn" class="text-[13px] font-semibold text-slate-600 hover:text-brand-800 block transition-colors">TÃ i khoáº£n doanh nghiá»‡p</a></li>
+                                    <li><a href="portal.html?view=chi-luong" class="text-[13px] font-semibold text-slate-600 hover:text-brand-800 block transition-colors">Chi lÆ°Æ¡ng tá»± Ä‘á»™ng (Payroll)</a></li>
+                                </ul>
+                            </div>
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black uppercase tracking-wider text-brand-800 border-b border-slate-100 pb-2 flex items-center gap-1.5">ðŸ“ˆ DÃ²ng tiá»n & Ngoáº¡i há»‘i</h4>
+                                <ul class="space-y-3">
+                                    <li><a href="portal.html?view=dong-tien" class="text-[13px] font-semibold text-slate-600 hover:text-brand-800 block transition-colors">Quáº£n lÃ½ dÃ²ng tiá»n Ä‘a kÃªnh</a></li>
+                                    <li><a href="portal.html?view=ngoai-hoi" class="text-[13px] font-semibold text-slate-600 hover:text-brand-800 block transition-colors">Mua bÃ¡n ngoáº¡i tá»‡ trá»±c tuyáº¿n</a></li>
+                                </ul>
+                            </div>
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black uppercase tracking-wider text-brand-800 border-b border-slate-100 pb-2 flex items-center gap-1.5">ðŸ¤ TÃ­n dá»¥ng & Báº£o lÃ£nh</h4>
+                                <ul class="space-y-3">
+                                    <li><a href="portal.html?view=tin-dung-dn" class="text-[13px] font-semibold text-slate-600 hover:text-brand-800 block transition-colors">TÃ i trá»£ vá»‘n lÆ°u Ä‘á»™ng eCredit</a></li>
+                                    <li><a href="portal.html?view=bao-lanh" class="text-[13px] font-semibold text-slate-600 hover:text-brand-800 block transition-colors">Báº£o lÃ£nh dá»± tháº§u Ä‘iá»‡n tá»­</a></li>
+                                </ul>
+                            </div>
+                            <div class="bg-gradient-to-br from-secondary-700 to-amber-600 rounded-2xl p-5 text-white flex flex-col justify-between shadow-xl relative overflow-hidden">
+                                <div class="absolute -right-8 -bottom-8 w-28 h-28 rounded-full bg-brand-900/10 blur-xl"></div>
+                                <div class="relative z-10">
+                                    <span class="bg-brand-800 text-white text-[9px] uppercase font-black px-2 py-0.5 rounded tracking-widest">GT-iBusiness</span>
+                                    <h5 class="font-extrabold text-sm mt-3 text-brand-950">Giáº£i phÃ¡p TÃ i chÃ­nh Sá»‘ DN</h5>
+                                    <p class="text-[10px] text-slate-900 mt-2 leading-relaxed font-bold">Ná»n táº£ng quáº£n lÃ½ tÃ i chÃ­nh doanh nghiá»‡p tháº¿ há»‡ má»›i. GÃ³i Æ°u Ä‘Ã£i 0Ä‘ cho DN má»›i.</p>
+                                </div>
+                                <button onclick="openModal('GÃ³i GT-iBusiness cho Doanh nghiá»‡p')" class="relative z-10 w-full bg-brand-800 hover:bg-brand-900 text-white text-center font-bold text-[11px] py-2.5 rounded-xl transition-all shadow-md mt-4">LiÃªn há»‡ nháº­n tÆ° váº¥n</button>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="nav-item"><a href="/pages/login.html" class="px-3 py-2 text-[13.5px] font-bold text-slate-700 hover:text-brand-800 transition-colors">Trang chá»§</a></li>
+                    <li class="nav-item"><a href="/pages/chinhanh.html" class="px-3 py-2 text-[13.5px] font-bold text-slate-700 hover:text-brand-800 transition-colors">Chi nhÃ¡nh</a></li>
+                    <li class="nav-item"><a href="#" class="px-3 py-2 text-[13.5px] font-bold text-slate-700 hover:text-brand-800 transition-colors">Tá»· giÃ¡</a></li>
+                    <li class="nav-item"><a href="#" class="px-3 py-2 text-[13.5px] font-bold text-slate-700 hover:text-brand-800 transition-colors">LÃ£i suáº¥t</a></li>
+                </ul>
+            </nav>
+
+            <!-- Right actions -->
+            <div class="flex items-center gap-2 flex-shrink-0">
+                <a href="/pages/login.html#login-form" class="hidden md:flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-brand-800 text-brand-800 font-bold text-[13px] hover:bg-brand-50 transition-all">
+                    <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current"><path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"/></svg>
+                    ÄÄƒng nháº­p
+                </a>
+                <button onclick="openModal('Má»Ÿ tÃ i khoáº£n GT SmartBank')" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-800 to-brand-700 text-white font-bold text-[13px] shadow-lg shadow-brand-800/20 hover:shadow-brand-800/40 transition-all hover:scale-105">
+                    Má»Ÿ tÃ i khoáº£n
+                </button>
+                <!-- Mobile toggle -->
+                <button id="mobileToggle" class="lg:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100" aria-label="Menu">
+                    <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="lg:hidden border-t border-slate-100 bg-white">
+        <div class="max-w-screen-xl mx-auto px-4 py-4 space-y-1">
+            <a href="/pages/login.html" class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">ðŸ  Trang chá»§</a>
+            <a href="portal.html?view=tai-khoan" class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">ðŸ’³ TÃ i khoáº£n cÃ¡ nhÃ¢n</a>
+            <a href="portal.html?view=tiet-kiem" class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">ðŸ’° Tiáº¿t kiá»‡m online</a>
+            <a href="portal.html?view=chuyen-tien" class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">ðŸ“¤ Chuyá»ƒn tiá»n</a>
+            <a href="portal.html?view=the-tin-dung" class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">ðŸ’³ Tháº» tÃ­n dá»¥ng</a>
+            <a href="portal.html?view=vay-tieu-dung" class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">ðŸ¦ Vay vá»‘n</a>
+            <a href="portal.html?view=tai-khoan-dn" class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">ðŸ¢ Doanh nghiá»‡p</a>
+            <a href="/pages/chinhanh.html" class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">ðŸ“ Chi nhÃ¡nh & ATM</a>
+        </div>
+    </div>
+</header>
+
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• HERO BANNER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<section class="hero-bg relative overflow-hidden">
+    <div class="hero-glow-1 absolute inset-0 pointer-events-none"></div>
+    <div class="hero-glow-2 absolute inset-0 pointer-events-none"></div>
+    <div class="max-w-screen-xl mx-auto px-4 md:px-8 py-10 md:py-14 relative z-10">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-1 mb-5" aria-label="Breadcrumb">
+            <a href="/pages/login.html" class="breadcrumb-item hover:text-secondary-300 transition-colors">Trang chá»§</a>
+            <span class="breadcrumb-sep">â€º</span>
+            <span id="breadcrumb-cat" class="breadcrumb-item">CÃ¡ nhÃ¢n</span>
+            <span class="breadcrumb-sep">â€º</span>
+            <span id="breadcrumb-current" class="breadcrumb-item active">Dá»‹ch vá»¥</span>
+        </nav>
+        <div class="flex items-end justify-between gap-8 flex-wrap">
+            <div class="flex-1 min-w-[280px]">
+                <div id="hero-badge" class="inline-flex items-center gap-2 bg-white/15 backdrop-blur text-white text-xs font-bold px-4 py-1.5 rounded-full border border-white/20 mb-4">
+                    <span class="w-2 h-2 rounded-full bg-secondary-400 animate-pulse"></span>
+                    <span>Dá»‹ch vá»¥ cÃ¡ nhÃ¢n</span>
+                </div>
+                <h1 id="hero-title" class="text-3xl md:text-4xl font-black text-white leading-tight mb-3">
+                    TÃ i khoáº£n Thanh toÃ¡n<br><span class="text-secondary-300">GT SmartBank</span>
+                </h1>
+                <p id="hero-desc" class="text-white/80 text-base font-medium max-w-xl leading-relaxed">
+                    TÃ i khoáº£n ngÃ¢n hÃ ng sá»‘ thÃ´ng minh â€” Quáº£n lÃ½ tiá»n, chuyá»ƒn khoáº£n, thanh toÃ¡n 24/7 hoÃ n toÃ n miá»…n phÃ­.
+                </p>
+                <div class="flex items-center gap-3 mt-6">
+                    <button onclick="openModal(document.getElementById('hero-title').textContent)" class="px-6 py-3 bg-white text-brand-800 font-bold text-sm rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+                        ÄÄƒng kÃ½ ngay
+                    </button>
+                    <a href="#service-content" class="px-6 py-3 bg-white/15 backdrop-blur text-white font-bold text-sm rounded-xl border border-white/25 hover:bg-white/25 transition-all">
+                        Xem chi tiáº¿t â†“
+                    </a>
+                </div>
+            </div>
+            <!-- Hero stats -->
+            <div class="hidden md:grid grid-cols-3 gap-4 text-white">
+                <div class="bg-white/10 backdrop-blur rounded-2xl p-5 border border-white/15 text-center min-w-[110px]">
+                    <div class="text-2xl font-black text-secondary-300" id="stat1-val">6.2%</div>
+                    <div class="text-xs text-white/70 font-semibold mt-1" id="stat1-label">LÃ£i suáº¥t/nÄƒm</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-2xl p-5 border border-white/15 text-center min-w-[110px]">
+                    <div class="text-2xl font-black text-secondary-300" id="stat2-val">0Ä‘</div>
+                    <div class="text-xs text-white/70 font-semibold mt-1" id="stat2-label">PhÃ­ má»Ÿ TK</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-2xl p-5 border border-white/15 text-center min-w-[110px]">
+                    <div class="text-2xl font-black text-secondary-300" id="stat3-val">24/7</div>
+                    <div class="text-xs text-white/70 font-semibold mt-1" id="stat3-label">Há»— trá»£ online</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• MAIN CONTENT â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<main id="service-content" class="max-w-screen-xl mx-auto px-4 md:px-8 py-10 flex gap-8">
+
+    <!-- â”€â”€ SIDEBAR DANH Má»¤C â”€â”€ -->
+    <aside class="hidden lg:block w-[260px] flex-shrink-0">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 sticky top-24">
+            <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 px-2">Danh má»¥c dá»‹ch vá»¥</h3>
+
+            <div class="mb-3">
+                <p class="text-[10px] font-black uppercase tracking-wider text-brand-800 px-3 py-1.5 mb-1">ðŸ‘¤ CÃ¡ nhÃ¢n</p>
+                <div class="space-y-0.5">
+                    <div class="sidebar-item" data-view="tai-khoan" onclick="navigate('tai-khoan')">
+                        <span class="sidebar-icon text-base">ðŸ’³</span> TÃ i khoáº£n thanh toÃ¡n
+                    </div>
+                    <div class="sidebar-item" data-view="tiet-kiem" onclick="navigate('tiet-kiem')">
+                        <span class="sidebar-icon text-base">ðŸ’°</span> Tiáº¿t kiá»‡m online
+                    </div>
+                    <div class="sidebar-item" data-view="the-tin-dung" onclick="navigate('the-tin-dung')">
+                        <span class="sidebar-icon text-base">ðŸŽ«</span> Tháº» tÃ­n dá»¥ng & ghi ná»£
+                    </div>
+                    <div class="sidebar-item" data-view="chuyen-tien" onclick="navigate('chuyen-tien')">
+                        <span class="sidebar-icon text-base">ðŸ“¤</span> Chuyá»ƒn tiá»n & QR
+                    </div>
+                    <div class="sidebar-item" data-view="qr-pay" onclick="navigate('qr-pay')">
+                        <span class="sidebar-icon text-base">ðŸ“±</span> GT Pay â€“ NgÃ¢n hÃ ng sá»‘
+                    </div>
+                    <div class="sidebar-item" data-view="vay-tieu-dung" onclick="navigate('vay-tieu-dung')">
+                        <span class="sidebar-icon text-base">ðŸ¦</span> Vay tiÃªu dÃ¹ng & BÄS
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-100 my-3"></div>
+
+            <div>
+                <p class="text-[10px] font-black uppercase tracking-wider text-amber-600 px-3 py-1.5 mb-1">ðŸ¢ Doanh nghiá»‡p</p>
+                <div class="space-y-0.5">
+                    <div class="sidebar-item" data-view="tai-khoan-dn" onclick="navigate('tai-khoan-dn')">
+                        <span class="sidebar-icon text-base">ðŸ¦</span> TÃ i khoáº£n DN
+                    </div>
+                    <div class="sidebar-item" data-view="chi-luong" onclick="navigate('chi-luong')">
+                        <span class="sidebar-icon text-base">ðŸ’¼</span> Payroll â€“ Chi lÆ°Æ¡ng
+                    </div>
+                    <div class="sidebar-item" data-view="dong-tien" onclick="navigate('dong-tien')">
+                        <span class="sidebar-icon text-base">ðŸ“Š</span> Quáº£n lÃ½ dÃ²ng tiá»n
+                    </div>
+                    <div class="sidebar-item" data-view="ngoai-hoi" onclick="navigate('ngoai-hoi')">
+                        <span class="sidebar-icon text-base">ðŸ’±</span> Ngoáº¡i há»‘i & Thanh toÃ¡n
+                    </div>
+                    <div class="sidebar-item" data-view="tin-dung-dn" onclick="navigate('tin-dung-dn')">
+                        <span class="sidebar-icon text-base">ðŸ“</span> TÃ­n dá»¥ng doanh nghiá»‡p
+                    </div>
+                    <div class="sidebar-item" data-view="bao-lanh" onclick="navigate('bao-lanh')">
+                        <span class="sidebar-icon text-base">ðŸ¤</span> Báº£o lÃ£nh Ä‘iá»‡n tá»­
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hotline card -->
+            <div class="mt-4 bg-gradient-to-br from-brand-800 to-brand-900 rounded-xl p-4 text-white">
+                <p class="text-[10px] font-black uppercase tracking-wider text-secondary-300 mb-1">Há»— trá»£ 24/7</p>
+                <p class="text-xl font-black text-secondary-400">1800 9999</p>
+                <p class="text-[10px] text-white/70 mt-1">Miá»…n phÃ­ cuá»™c gá»i</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- â”€â”€ SERVICE CARDS GRID â”€â”€ -->
+    <div class="flex-1 min-w-0">
+        <!-- Section header -->
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h2 id="section-title" class="text-xl font-black text-slate-800">TÃ i khoáº£n thanh toÃ¡n</h2>
+                <p id="section-sub" class="text-sm text-slate-500 mt-0.5">Chá»n sáº£n pháº©m phÃ¹ há»£p vá»›i nhu cáº§u cá»§a báº¡n</p>
+            </div>
+            <span id="section-count" class="text-xs bg-brand-50 text-brand-800 font-bold px-3 py-1.5 rounded-full border border-brand-200">3 sáº£n pháº©m</span>
+        </div>
+
+        <!-- Cards grid -->
+        <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <!-- Dynamically injected -->
+        </div>
+
+        <!-- â”€â”€ RELATED PRODUCTS â”€â”€ -->
+        <div class="mt-12 pt-8 border-t border-slate-200">
+            <h3 class="text-lg font-black text-slate-800 mb-2">Sáº£n pháº©m liÃªn quan</h3>
+            <p class="text-sm text-slate-500 mb-6">KhÃ¡m phÃ¡ thÃªm cÃ¡c dá»‹ch vá»¥ khÃ¡c cá»§a GT SmartBank</p>
+            <div id="relatedGrid" class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <!-- Dynamically injected -->
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• FOOTER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<footer class="bg-slate-900 text-white mt-16">
+    <div class="max-w-screen-xl mx-auto px-4 md:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-10">
+            <!-- Brand -->
+            <div class="lg:col-span-2">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-800 to-brand-900 flex items-center justify-center">
+                        <svg viewBox="0 0 100 100" class="w-7 h-7">
+                            <path d="M50 12 L82 22 V48 C82 66 69 82 50 88 C31 82 18 66 18 48 V22 Z" fill="#b60000" />
+                            <path d="M50 20 L74 27 V48 C74 61 64 73 50 78 C36 73 26 61 26 48 V27 Z" fill="#f7b500" opacity="0.85" />
+                            <path d="M43 38 H57 C60 38 62 40 62 43 V46 H52 V43 H44 V55 H57 V52 H62 V55 C62 58 60 60 57 60 H43 C40 60 38 58 38 55 V43 C38 40 40 38 43 38 Z" fill="#ffffff" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="font-black text-base text-white">GT SmartBank</div>
+                        <div class="text-[9px] text-secondary-400 font-bold uppercase tracking-widest">Smart Digital Banking</div>
+                    </div>
+                </div>
+                <p class="text-[13px] text-slate-400 leading-relaxed mb-4">NgÃ¢n hÃ ng TMCP GT SmartBank â€” NgÃ¢n hÃ ng sá»‘ thÃ´ng minh tháº¿ há»‡ má»›i, phá»¥c vá»¥ hÃ ng triá»‡u khÃ¡ch hÃ ng cÃ¡ nhÃ¢n vÃ  doanh nghiá»‡p.</p>
+                <p class="text-xs text-slate-500">Giáº¥y phÃ©p NHNN: sá»‘ 12/GP-NHNN â€¢ MST: 0123456789<br>Äá»‹a chá»‰: 123 Äáº¡i lá»™ ÄÃ´ng TÃ¢y, P. BÃ¬nh NghÄ©a, Q.1, TP.HCM</p>
+            </div>
+            <!-- Products -->
+            <div>
+                <h5 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4">CÃ¡ nhÃ¢n</h5>
+                <ul class="space-y-2.5">
+                    <li><a href="portal.html?view=tai-khoan" class="footer-link">TÃ i khoáº£n thanh toÃ¡n</a></li>
+                    <li><a href="portal.html?view=tiet-kiem" class="footer-link">Tiáº¿t kiá»‡m online</a></li>
+                    <li><a href="portal.html?view=the-tin-dung" class="footer-link">Tháº» tÃ­n dá»¥ng</a></li>
+                    <li><a href="portal.html?view=chuyen-tien" class="footer-link">Chuyá»ƒn tiá»n 24/7</a></li>
+                    <li><a href="portal.html?view=vay-tieu-dung" class="footer-link">Vay tiÃªu dÃ¹ng</a></li>
+                </ul>
+            </div>
+            <!-- Business -->
+            <div>
+                <h5 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4">Doanh nghiá»‡p</h5>
+                <ul class="space-y-2.5">
+                    <li><a href="portal.html?view=tai-khoan-dn" class="footer-link">TÃ i khoáº£n DN</a></li>
+                    <li><a href="portal.html?view=chi-luong" class="footer-link">Chi lÆ°Æ¡ng tá»± Ä‘á»™ng</a></li>
+                    <li><a href="portal.html?view=dong-tien" class="footer-link">Quáº£n lÃ½ dÃ²ng tiá»n</a></li>
+                    <li><a href="portal.html?view=tin-dung-dn" class="footer-link">TÃ­n dá»¥ng DN</a></li>
+                    <li><a href="portal.html?view=bao-lanh" class="footer-link">Báº£o lÃ£nh Ä‘iá»‡n tá»­</a></li>
+                </ul>
+            </div>
+            <!-- Support -->
+            <div>
+                <h5 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4">Há»— trá»£</h5>
+                <ul class="space-y-2.5">
+                    <li><a href="/pages/chinhanh.html" class="footer-link">Chi nhÃ¡nh & ATM</a></li>
+                    <li><a href="#" class="footer-link">CÃ¢u há»i thÆ°á»ng gáº·p</a></li>
+                    <li><a href="#" class="footer-link">Báº£o máº­t tÃ i khoáº£n</a></li>
+                    <li><a href="#" class="footer-link">LiÃªn há»‡: 1800 9999</a></li>
+                    <li><a href="#" class="footer-link">ChÃ­nh sÃ¡ch báº£o máº­t</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-slate-800 pt-6 flex items-center justify-between flex-wrap gap-3">
+            <p class="text-xs text-slate-500">Â© 2025 GT SmartBank. Äá»“ Ã¡n mÃ´n CÃ´ng nghá»‡ pháº§n má»m ngÃ¢n hÃ ng.</p>
+            <div class="flex items-center gap-4">
+                <span class="text-xs text-slate-600">ðŸ”’ Báº£o máº­t SSL 256-bit</span>
+                <span class="text-xs text-slate-600">ðŸ›ï¸ ThÃ nh viÃªn VNBA</span>
+                <span class="text-xs text-slate-600">âœ… TuÃ¢n thá»§ Basel III</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• REGISTER MODAL â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<div id="registerModal">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h2 id="modal-title" class="text-xl font-black text-slate-800">ÄÄƒng kÃ½ dá»‹ch vá»¥</h2>
+                <p id="modal-service-name" class="text-sm text-brand-800 font-semibold mt-0.5">TÃ i khoáº£n GT SmartBank</p>
+            </div>
+            <button onclick="closeModal()" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors text-slate-600 font-bold">âœ•</button>
+        </div>
+
+        <!-- Progress steps -->
+        <div class="flex items-center gap-2 mb-7">
+            <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-full bg-brand-800 text-white text-xs font-black flex items-center justify-center">1</div>
+                <span class="text-xs font-semibold text-brand-800">ThÃ´ng tin</span>
+            </div>
+            <div class="flex-1 h-0.5 bg-slate-200 rounded"></div>
+            <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-full bg-slate-200 text-slate-500 text-xs font-black flex items-center justify-center">2</div>
+                <span class="text-xs font-semibold text-slate-400">XÃ¡c nháº­n</span>
+            </div>
+            <div class="flex-1 h-0.5 bg-slate-200 rounded"></div>
+            <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-full bg-slate-200 text-slate-500 text-xs font-black flex items-center justify-center">3</div>
+                <span class="text-xs font-semibold text-slate-400">HoÃ n táº¥t</span>
+            </div>
+        </div>
+
+        <form id="registerForm" onsubmit="submitRegister(event)" novalidate>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1.5">Há» vÃ  tÃªn <span class="text-red-500">*</span></label>
+                    <input type="text" id="reg-name" class="form-input" placeholder="Nguyá»…n VÄƒn An" required>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1.5">Sá»‘ Ä‘iá»‡n thoáº¡i <span class="text-red-500">*</span></label>
+                    <input type="tel" id="reg-phone" class="form-input" placeholder="0901 234 567" required>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label class="block text-xs font-bold text-slate-600 mb-1.5">Email</label>
+                <input type="email" id="reg-email" class="form-input" placeholder="email@example.com">
+            </div>
+            <div class="mb-4">
+                <label class="block text-xs font-bold text-slate-600 mb-1.5">Dá»‹ch vá»¥ quan tÃ¢m</label>
+                <select id="reg-service" class="form-input">
+                    <option>TÃ i khoáº£n thanh toÃ¡n</option>
+                    <option>Tiáº¿t kiá»‡m online</option>
+                    <option>Tháº» tÃ­n dá»¥ng</option>
+                    <option>Vay tiÃªu dÃ¹ng</option>
+                    <option>Chuyá»ƒn tiá»n & QR Pay</option>
+                    <option>TÃ i khoáº£n doanh nghiá»‡p</option>
+                    <option>TÃ­n dá»¥ng doanh nghiá»‡p</option>
+                </select>
+            </div>
+            <div class="mb-6">
+                <label class="block text-xs font-bold text-slate-600 mb-1.5">Chi nhÃ¡nh tÆ° váº¥n</label>
+                <select id="reg-branch" class="form-input">
+                    <option>Há»™i sá»Ÿ â€” TP.HCM</option>
+                    <option>Chi nhÃ¡nh HÃ  Ná»™i</option>
+                    <option>Chi nhÃ¡nh ÄÃ  Náºµng</option>
+                    <option>Chi nhÃ¡nh Cáº§n ThÆ¡</option>
+                    <option>Chi nhÃ¡nh BÃ¬nh DÆ°Æ¡ng</option>
+                    <option>TÆ° váº¥n trá»±c tuyáº¿n (Online)</option>
+                </select>
+            </div>
+            <div class="mb-6 flex items-start gap-2">
+                <input type="checkbox" id="reg-agree" class="mt-0.5 accent-brand-800 w-4 h-4" required>
+                <label for="reg-agree" class="text-xs text-slate-600 font-medium leading-relaxed">
+                    TÃ´i Ä‘á»“ng Ã½ vá»›i <a href="#" class="text-brand-800 font-bold underline">Äiá»u khoáº£n sá»­ dá»¥ng</a> vÃ  <a href="#" class="text-brand-800 font-bold underline">ChÃ­nh sÃ¡ch báº£o máº­t</a> cá»§a GT SmartBank.
+                </label>
+            </div>
+            <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-brand-800 to-brand-700 text-white font-black text-sm rounded-xl shadow-lg hover:shadow-brand-800/30 hover:scale-[1.02] transition-all">
+                Gá»­i Ä‘Äƒng kÃ½ â†’
+            </button>
+        </form>
+
+        <p class="text-[11px] text-slate-400 text-center mt-4">ChuyÃªn viÃªn sáº½ liÃªn há»‡ trong vÃ²ng <strong>24 giá» lÃ m viá»‡c</strong>. Hotline: <strong class="text-brand-800">1800 9999</strong></p>
+    </div>
+</div>
+
+<!-- Toast notification -->
+<div id="toast">
+    <div class="w-9 h-9 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+        <svg viewBox="0 0 24 24" class="w-5 h-5 text-green-600 fill-current"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+    </div>
+    <div>
+        <p class="text-sm font-black text-slate-800">ÄÄƒng kÃ½ thÃ nh cÃ´ng!</p>
+        <p class="text-xs text-slate-500 mt-0.5">ChuyÃªn viÃªn sáº½ liÃªn há»‡ trong 24h lÃ m viá»‡c.</p>
+    </div>
+    <button onclick="document.getElementById('toast').classList.remove('show')" class="ml-auto text-slate-400 hover:text-slate-600">âœ•</button>
+</div>
+
+<!-- Scroll to top -->
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Vá» Ä‘áº§u trang">
+    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+</button>
+
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• DYNAMIC DATA & ROUTING â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<script>
+// â”€â”€ Data store â”€â”€
+const PAGES = {
+    'tai-khoan': {
+        heroTitle: 'TÃ i khoáº£n Thanh toÃ¡n<br><span class="text-secondary-300">GT SmartBank</span>',
+        heroDesc: 'TÃ i khoáº£n ngÃ¢n hÃ ng sá»‘ thÃ´ng minh â€” Quáº£n lÃ½ tiá»n, chuyá»ƒn khoáº£n, thanh toÃ¡n 24/7 hoÃ n toÃ n miá»…n phÃ­.',
+        heroBadge: 'ðŸ‘¤ Dá»‹ch vá»¥ cÃ¡ nhÃ¢n',
+        heroStats: [{val:'0Ä‘',label:'PhÃ­ má»Ÿ TK'},{val:'0Ä‘',label:'PhÃ­ duy trÃ¬'},{val:'24/7',label:'Giao dá»‹ch'}],
+        breadcrumbCat: 'CÃ¡ nhÃ¢n',
+        sectionTitle: 'TÃ i khoáº£n Thanh toÃ¡n',
+        sectionSub: 'Chá»n loáº¡i tÃ i khoáº£n phÃ¹ há»£p vá»›i nhu cáº§u cá»§a báº¡n',
+        cards: [
+            {
+                emoji: 'ðŸ’Ž', title: 'GT Smart Standard',
+                badge: 'Phá»• biáº¿n nháº¥t', badgeColor: 'bg-blue-100 text-blue-700',
+                rateLabel: 'PhÃ­ duy trÃ¬', rate: '0Ä‘', rateSuffix: '/thÃ¡ng',
+                desc: 'TÃ i khoáº£n thanh toÃ¡n cÆ¡ báº£n dÃ nh cho cÃ¡ nhÃ¢n, má»Ÿ online trong 5 phÃºt.',
+                features: ['Má»Ÿ tÃ i khoáº£n 100% online','PhÃ­ duy trÃ¬ 0Ä‘','Chuyá»ƒn tiá»n ná»™i máº¡ng miá»…n phÃ­','Tháº» ghi ná»£ miá»…n phÃ­ Ä‘áº§u tiÃªn','Nháº­n lÆ°Æ¡ng, thanh toÃ¡n hoÃ¡ Ä‘Æ¡n']
+            },
+            {
+                emoji: 'ðŸ‘‘', title: 'GT Smart Premium',
+                badge: 'Æ¯u Ä‘Ã£i cao', badgeColor: 'bg-secondary-100 text-amber-700',
+                rateLabel: 'LÃ£i khÃ´ng ká»³ háº¡n', rate: '0.5%', rateSuffix: '/nÄƒm',
+                desc: 'TÃ i khoáº£n cao cáº¥p vá»›i Æ°u Ä‘Ã£i hoÃ n tiá»n, lÃ£i suáº¥t khÃ´ng ká»³ háº¡n vÃ  tháº» Visa vÃ ng.',
+                features: ['HoÃ n tiá»n 0.5% má»i giao dá»‹ch','Tháº» VISA VÃ ng miá»…n phÃ­','Chuyá»ƒn tiá»n ngoáº¡i máº¡ng Æ°u Ä‘Ã£i','Báº£o hiá»ƒm tÃ i khoáº£n 100 triá»‡u','Dá»‹ch vá»¥ concierge 24/7']
+            },
+            {
+                emoji: 'ðŸŒŸ', title: 'GT Smart Business+',
+                badge: 'DÃ nh cho DN', badgeColor: 'bg-green-100 text-green-700',
+                rateLabel: 'Háº¡n má»©c giao dá»‹ch', rate: 'âˆž', rateSuffix: '',
+                desc: 'TÃ i khoáº£n káº¿t há»£p cÃ¡ nhÃ¢n vÃ  doanh nghiá»‡p nhá», quáº£n lÃ½ tÃ i chÃ­nh Ä‘a chiá»u.',
+                features: ['KhÃ´ng giá»›i háº¡n giao dá»‹ch','Xuáº¥t sao kÃª tá»± Ä‘á»™ng','KÃ½ sá»‘ Ä‘iá»‡n tá»­ tÃ­ch há»£p','Há»— trá»£ Ä‘a ngoáº¡i tá»‡','API káº¿t ná»‘i há»‡ thá»‘ng káº¿ toÃ¡n']
+            }
+        ],
+        related: ['tiet-kiem','the-tin-dung','chuyen-tien']
+    },
+
+    'tiet-kiem': {
+        heroTitle: 'Tiáº¿t kiá»‡m Online<br><span class="text-secondary-300">LÃ£i suáº¥t cao nháº¥t</span>',
+        heroDesc: 'Gá»­i tiáº¿t kiá»‡m online lÃ£i suáº¥t lÃªn Ä‘áº¿n 6.2%/nÄƒm â€” Táº¥t toÃ¡n sá»›m linh hoáº¡t, khÃ´ng máº¥t lÃ£i.',
+        heroBadge: 'ðŸ’° E-Savings',
+        heroStats: [{val:'6.2%',label:'LÃ£i suáº¥t/nÄƒm'},{val:'1Tr',label:'Sá»‘ tiá»n tá»‘i thiá»ƒu'},{val:'12',label:'Ká»³ háº¡n linh hoáº¡t'}],
+        breadcrumbCat: 'CÃ¡ nhÃ¢n',
+        sectionTitle: 'Sáº£n pháº©m Tiáº¿t kiá»‡m',
+        sectionSub: 'Lá»±a chá»n ká»³ háº¡n vÃ  má»©c lÃ£i suáº¥t phÃ¹ há»£p',
+        cards: [
+            {
+                emoji: 'ðŸ’µ', title: 'Tiáº¿t kiá»‡m Ngáº¯n háº¡n',
+                badge: 'Linh hoáº¡t', badgeColor: 'bg-blue-100 text-blue-700',
+                rateLabel: 'LÃ£i suáº¥t', rate: '4.8%', rateSuffix: '/nÄƒm (1-6 thÃ¡ng)',
+                desc: 'Gá»­i tiáº¿t kiá»‡m ká»³ ngáº¯n, linh hoáº¡t táº¥t toÃ¡n trÆ°á»›c háº¡n vá»›i lÃ£i suáº¥t khÃ´ng ká»³ háº¡n.',
+                features: ['Ká»³ háº¡n 1, 2, 3, 6 thÃ¡ng','Táº¥t toÃ¡n linh hoáº¡t báº¥t cá»© lÃºc nÃ o','LÃ£nh lÃ£i cuá»‘i ká»³ hoáº·c hÃ ng thÃ¡ng','Gá»­i thÃªm khÃ´ng giá»›i háº¡n','Má»Ÿ online 24/7']
+            },
+            {
+                emoji: 'ðŸ“ˆ', title: 'E-Savings Pro',
+                badge: 'LÃ£i cao nháº¥t', badgeColor: 'bg-red-100 text-red-700',
+                rateLabel: 'LÃ£i suáº¥t', rate: '6.2%', rateSuffix: '/nÄƒm (12-36 thÃ¡ng)',
+                desc: 'Tiáº¿t kiá»‡m ká»³ dÃ i, lÃ£i suáº¥t Æ°u Ä‘Ã£i vÆ°á»£t trá»™i, tÃ­ch lÅ©y tÃ i sáº£n bá»n vá»¯ng.',
+                features: ['LÃ£i suáº¥t cao nháº¥t thá»‹ trÆ°á»ng','Ká»³ háº¡n 12, 18, 24, 36 thÃ¡ng','Gia háº¡n tá»± Ä‘á»™ng hoáº·c táº¥t toÃ¡n','Nháº­n lÃ£i hÃ ng thÃ¡ng/hÃ ng quÃ½','Háº¡n má»©c báº£o hiá»ƒm 125 triá»‡u VND']
+            },
+            {
+                emoji: 'ðŸŽ¯', title: 'TÃ­ch LÅ©y ThÃ´ng Minh',
+                badge: 'Tá»± Ä‘á»™ng hÃ³a', badgeColor: 'bg-purple-100 text-purple-700',
+                rateLabel: 'LÃ£i cá»™ng thÆ°á»Ÿng', rate: '5.5%', rateSuffix: '/nÄƒm',
+                desc: 'Tá»± Ä‘á»™ng trÃ­ch tiá»n lÆ°Æ¡ng gá»­i tiáº¿t kiá»‡m má»—i thÃ¡ng, tÃ­ch lÅ©y má»¥c tiÃªu du há»c, mua nhÃ .',
+                features: ['Tá»± Ä‘á»™ng trÃ­ch tiá»n theo lá»‹ch','Äáº·t má»¥c tiÃªu sá»‘ tiá»n cáº§n Ä‘áº¡t','BÃ¡o cÃ¡o tiáº¿n Ä‘á»™ tÃ­ch lÅ©y','ThÆ°á»Ÿng thÃªm 0.3%/nÄƒm khi Ä‘á»§ ká»³','Káº¿t há»£p báº£o hiá»ƒm nhÃ¢n thá»']
+            }
+        ],
+        related: ['tai-khoan','the-tin-dung','vay-tieu-dung']
+    },
+
+    'the-tin-dung': {
+        heroTitle: 'Tháº» TÃ­n dá»¥ng & Ghi ná»£<br><span class="text-secondary-300">Æ¯u Ä‘Ã£i má»—i ngÃ y</span>',
+        heroDesc: 'Tháº» tÃ­n dá»¥ng GT SmartBank â€” HoÃ n tiá»n lÃªn Ä‘áº¿n 5%, miá»…n lÃ£i 55 ngÃ y, vÃ´ vÃ n Æ°u Ä‘Ã£i.',
+        heroBadge: 'ðŸ’³ Tháº» GT SmartBank',
+        heroStats: [{val:'5%',label:'HoÃ n tiá»n'},{val:'55',label:'NgÃ y miá»…n lÃ£i'},{val:'0Ä‘',label:'PhÃ­ thÆ°á»ng niÃªn nÄƒm 1'}],
+        breadcrumbCat: 'CÃ¡ nhÃ¢n',
+        sectionTitle: 'Danh má»¥c Tháº»',
+        sectionSub: 'Tháº» tÃ­n dá»¥ng vÃ  ghi ná»£ phÃ¹ há»£p vá»›i lá»‘i sá»‘ng cá»§a báº¡n',
+        cards: [
+            {
+                emoji: 'âœ¨', title: 'Visa Platinum',
+                badge: 'Bestseller', badgeColor: 'bg-secondary-100 text-amber-700',
+                rateLabel: 'HoÃ n tiá»n', rate: '3%', rateSuffix: 'táº¥t cáº£ giao dá»‹ch',
+                desc: 'Tháº» tÃ­n dá»¥ng háº¡ng Platinum â€” Æ¯u Ä‘Ã£i sÃ¢n bay, du lá»‹ch, nhÃ  hÃ ng vÃ  mua sáº¯m trá»±c tuyáº¿n.',
+                features: ['HoÃ n tiá»n 3% táº¥t cáº£ giao dá»‹ch','Miá»…n lÃ£i 55 ngÃ y','Miá»…n phÃ­ phÃ²ng chá» sÃ¢n bay VIP','Báº£o hiá»ƒm du lá»‹ch toÃ n cáº§u','Háº¡n má»©c Ä‘áº¿n 500 triá»‡u VND']
+            },
+            {
+                emoji: 'ðŸ›’', title: 'GT Cashback Card',
+                badge: 'TiÃªu dÃ¹ng', badgeColor: 'bg-green-100 text-green-700',
+                rateLabel: 'Cashback Ä‘áº·c biá»‡t', rate: '5%', rateSuffix: 'siÃªu thá»‹ & Äƒn uá»‘ng',
+                desc: 'Tháº» tá»‘i Æ°u cho mua sáº¯m vÃ  áº©m thá»±c â€” HoÃ n tiá»n cao nháº¥t táº¡i siÃªu thá»‹, nhÃ  hÃ ng, Grab.',
+                features: ['5% táº¡i siÃªu thá»‹ & áº©m thá»±c','2% táº¡i cá»­a hÃ ng xÄƒng dáº§u','1% táº¥t cáº£ giao dá»‹ch khÃ¡c','Miá»…n phÃ­ 5 láº§n rÃºt ATM/thÃ¡ng','Thanh toÃ¡n khÃ´ng cháº¡m NFC']
+            },
+            {
+                emoji: 'ðŸ”‘', title: 'GT Debit Premium',
+                badge: 'Ghi ná»£', badgeColor: 'bg-blue-100 text-blue-700',
+                rateLabel: 'PhÃ­ thÆ°á»ng niÃªn', rate: '0Ä‘', rateSuffix: 'miá»…n phÃ­',
+                desc: 'Tháº» ghi ná»£ ná»™i Ä‘á»‹a cao cáº¥p â€” Thanh toÃ¡n khÃ´ng tiáº¿p xÃºc, rÃºt ATM miá»…n phÃ­ toÃ n quá»‘c.',
+                features: ['PhÃ­ thÆ°á»ng niÃªn 0Ä‘','RÃºt ATM miá»…n phÃ­ táº¥t cáº£ ngÃ¢n hÃ ng','Thanh toÃ¡n NFC & QR','Kiá»ƒm soÃ¡t háº¡n má»©c theo thá»i gian thá»±c','KhÃ³a/má»Ÿ tháº» ngay trÃªn app']
+            }
+        ],
+        related: ['tai-khoan','chuyen-tien','qr-pay']
+    },
+
+    'chuyen-tien': {
+        heroTitle: 'Chuyá»ƒn tiá»n 24/7<br><span class="text-secondary-300">Nhanh â€” An toÃ n â€” Miá»…n phÃ­</span>',
+        heroDesc: 'Chuyá»ƒn tiá»n liÃªn ngÃ¢n hÃ ng tá»©c thÃ¬ qua Napas 247, Swift quá»‘c táº¿, khÃ´ng giá»›i háº¡n thá»i gian.',
+        heroBadge: 'ðŸ“¤ Chuyá»ƒn & Nháº­n tiá»n',
+        heroStats: [{val:'0Ä‘',label:'PhÃ­ ná»™i máº¡ng'},{val:'â‰¤5s',label:'Thá»i gian khá»›p lá»‡nh'},{val:'247',label:'Há»‡ thá»‘ng Napas'}],
+        breadcrumbCat: 'CÃ¡ nhÃ¢n',
+        sectionTitle: 'Dá»‹ch vá»¥ Chuyá»ƒn tiá»n',
+        sectionSub: 'Nhanh chÃ³ng, an toÃ n vÃ  tiáº¿t kiá»‡m chi phÃ­ nháº¥t',
+        cards: [
+            {
+                emoji: 'âš¡', title: 'GT Transfer Napas 247',
+                badge: 'Tá»©c thÃ¬', badgeColor: 'bg-blue-100 text-blue-700',
+                rateLabel: 'PhÃ­ má»—i giao dá»‹ch', rate: '0Ä‘', rateSuffix: 'ná»™i máº¡ng',
+                desc: 'Chuyá»ƒn tiá»n liÃªn ngÃ¢n hÃ ng qua Napas 247 â€” Nháº­n tiá»n trong vÃ²ng 5 giÃ¢y báº¥t ká»ƒ giá» nÃ o.',
+                features: ['Nháº­n tiá»n tá»©c thÃ¬ qua Napas 247','PhÃ­ 0Ä‘ ná»™i máº¡ng GT SmartBank','PhÃ­ 3.300Ä‘ liÃªn ngÃ¢n hÃ ng','Háº¡n má»©c 500 triá»‡u/giao dá»‹ch','XÃ¡c thá»±c OTP hoáº·c sinh tráº¯c há»c']
+            },
+            {
+                emoji: 'ðŸŒ', title: 'GT International Wire',
+                badge: 'Quá»‘c táº¿', badgeColor: 'bg-purple-100 text-purple-700',
+                rateLabel: 'Tá»· giÃ¡ cáº¡nh tranh', rate: 'SWIFT', rateSuffix: 'toÃ n cáº§u',
+                desc: 'Chuyá»ƒn tiá»n quá»‘c táº¿ qua SWIFT â€” Nháº­n tiá»n táº¡i 200+ quá»‘c gia vá»›i tá»· giÃ¡ minh báº¡ch, tá»‘i Æ°u.',
+                features: ['200+ quá»‘c gia vÃ  vÃ¹ng lÃ£nh thá»•','Xá»­ lÃ½ trong 1-3 ngÃ y lÃ m viá»‡c','Tá»· giÃ¡ ngoáº¡i tá»‡ cáº¡nh tranh','Theo dÃµi tráº¡ng thÃ¡i realtime','Nháº­n chá»©ng tá»« Ä‘iá»‡n tá»­ ngay']
+            },
+            {
+                emoji: 'ðŸ“²', title: 'QR Pay & GT Pay',
+                badge: 'á»¨ng dá»¥ng', badgeColor: 'bg-secondary-100 text-amber-700',
+                rateLabel: 'PhÃ­ giao dá»‹ch', rate: '0Ä‘', rateSuffix: 'qua app',
+                desc: 'QuÃ©t mÃ£ QR thanh toÃ¡n ngay láº­p tá»©c â€” TÃ­ch há»£p GT Pay app, VietQR vÃ  QR Code chuáº©n.',
+                features: ['QuÃ©t QR thanh toÃ¡n khÃ´ng tiáº¿p xÃºc','TÆ°Æ¡ng thÃ­ch VietQR & Napas QR','Chia tiá»n nhÃ³m thÃ´ng minh','Lá»‹ch sá»­ giao dá»‹ch realtime','ThÃ´ng bÃ¡o nháº­n tiá»n tá»©c thÃ¬']
+            }
+        ],
+        related: ['tai-khoan','the-tin-dung','qr-pay']
+    },
+
+    'qr-pay': {
+        heroTitle: 'GT Pay<br><span class="text-secondary-300">NgÃ¢n hÃ ng sá»‘ tháº¿ há»‡ má»›i</span>',
+        heroDesc: 'á»¨ng dá»¥ng ngÃ¢n hÃ ng sá»‘ GT Pay â€” Quáº£n lÃ½ tÃ i chÃ­nh cÃ¡ nhÃ¢n, Ä‘áº§u tÆ°, báº£o hiá»ƒm táº¡i má»™t nÆ¡i.',
+        heroBadge: 'ðŸ“± Mobile Banking',
+        heroStats: [{val:'4.9â˜…',label:'App Store Rating'},{val:'2M+',label:'NgÆ°á»i dÃ¹ng'},{val:'0Ä‘',label:'PhÃ­ dá»‹ch vá»¥'}],
+        breadcrumbCat: 'NgÃ¢n hÃ ng sá»‘',
+        sectionTitle: 'GT Pay â€“ TÃ­nh nÄƒng ná»•i báº­t',
+        sectionSub: 'Tráº£i nghiá»‡m tÃ i chÃ­nh sá»‘ toÃ n diá»‡n trÃªn Ä‘iá»‡n thoáº¡i',
+        cards: [
+            {
+                emoji: 'ðŸ ', title: 'Quáº£n lÃ½ TÃ i chÃ­nh CÃ¡ nhÃ¢n',
+                badge: 'AI-powered', badgeColor: 'bg-purple-100 text-purple-700',
+                rateLabel: 'PhÃ¢n tÃ­ch chi tiÃªu', rate: 'AI', rateSuffix: 'thÃ´ng minh',
+                desc: 'Dashboard tÃ i chÃ­nh cÃ¡ nhÃ¢n thÃ´ng minh â€” AI phÃ¢n tÃ­ch chi tiÃªu, gá»£i Ã½ tiáº¿t kiá»‡m tá»‘i Æ°u.',
+                features: ['Biá»ƒu Ä‘á»“ chi tiÃªu theo danh má»¥c','Äáº·t ngÃ¢n sÃ¡ch vÃ  nháº¯c nhá»Ÿ','PhÃ¢n tÃ­ch AI xu hÆ°á»›ng chi tiÃªu','Äá»“ng bá»™ Ä‘a tÃ i khoáº£n','BÃ¡o cÃ¡o tÃ i chÃ­nh hÃ ng thÃ¡ng']
+            },
+            {
+                emoji: 'ðŸ’¹', title: 'Äáº§u tÆ° & TÃ­ch lÅ©y',
+                badge: 'Má»›i', badgeColor: 'bg-green-100 text-green-700',
+                rateLabel: 'Lá»£i suáº¥t ká»³ vá»ng', rate: '7-12%', rateSuffix: '/nÄƒm',
+                desc: 'Äáº§u tÆ° vÃ o chá»©ng chá»‰ quá»¹, trÃ¡i phiáº¿u vÃ  danh má»¥c cá»• phiáº¿u ngay trong app GT Pay.',
+                features: ['Mua chá»©ng chá»‰ quá»¹ má»Ÿ tá»« 100K','Äáº§u tÆ° trÃ¡i phiáº¿u doanh nghiá»‡p','Robo-advisor quáº£n lÃ½ danh má»¥c','TÃ¡i Ä‘áº§u tÆ° tá»± Ä‘á»™ng lá»£i nhuáº­n','BÃ¡o cÃ¡o thuáº¿ tá»± Ä‘á»™ng']
+            },
+            {
+                emoji: 'ðŸ›¡ï¸', title: 'Báº£o hiá»ƒm sá»‘',
+                badge: 'TÃ­ch há»£p', badgeColor: 'bg-blue-100 text-blue-700',
+                rateLabel: 'PhÃ­ tá»«', rate: '50K', rateSuffix: '/thÃ¡ng',
+                desc: 'Mua báº£o hiá»ƒm sá»©c khá»e, tai náº¡n vÃ  tÃ i sáº£n hoÃ n toÃ n online trong vÃ²ng 2 phÃºt.',
+                features: ['Báº£o hiá»ƒm sá»©c khá»e tá»« 50K/thÃ¡ng','Báº£o hiá»ƒm tai náº¡n 24/7','YÃªu cáº§u bá»“i thÆ°á»ng qua app','Xá»­ lÃ½ bá»“i thÆ°á»ng trong 3 ngÃ y','Há»£p Ä‘á»“ng Ä‘iá»‡n tá»­ cÃ³ hiá»‡u lá»±c ngay']
+            }
+        ],
+        related: ['tai-khoan','the-tin-dung','chuyen-tien']
+    },
+
+    'vay-tieu-dung': {
+        heroTitle: 'Vay TiÃªu dÃ¹ng & Báº¥t Ä‘á»™ng sáº£n<br><span class="text-secondary-300">LÃ£i suáº¥t Æ°u Ä‘Ã£i nháº¥t</span>',
+        heroDesc: 'Vay nhanh, thá»§ tá»¥c Ä‘Æ¡n giáº£n â€” Giáº£i ngÃ¢n trong 24 giá», lÃ£i suáº¥t cáº¡nh tranh tá»« 6.5%/nÄƒm.',
+        heroBadge: 'ðŸ¦ Cho vay cÃ¡ nhÃ¢n',
+        heroStats: [{val:'6.5%',label:'LÃ£i suáº¥t tá»«'},{val:'24h',label:'Giáº£i ngÃ¢n'},{val:'30 nÄƒm',label:'Ká»³ háº¡n tá»‘i Ä‘a'}],
+        breadcrumbCat: 'CÃ¡ nhÃ¢n',
+        sectionTitle: 'Sáº£n pháº©m Cho vay',
+        sectionSub: 'Giáº£i phÃ¡p tÃ i chÃ­nh linh hoáº¡t cho má»i nhu cáº§u',
+        cards: [
+            {
+                emoji: 'ðŸ ', title: 'Vay Mua NhÃ ',
+                badge: 'Æ¯u Ä‘Ã£i cá»‘ Ä‘á»‹nh 2 nÄƒm', badgeColor: 'bg-green-100 text-green-700',
+                rateLabel: 'LÃ£i suáº¥t Æ°u Ä‘Ã£i', rate: '6.5%', rateSuffix: '/nÄƒm (2 nÄƒm Ä‘áº§u)',
+                desc: 'Vay mua nhÃ  á»Ÿ, cÄƒn há»™ vá»›i lÃ£i suáº¥t cá»‘ Ä‘á»‹nh Æ°u Ä‘Ã£i 2 nÄƒm Ä‘áº§u, ká»³ háº¡n lÃªn Ä‘áº¿n 30 nÄƒm.',
+                features: ['TÃ i trá»£ Ä‘áº¿n 85% giÃ¡ trá»‹ BÄS','LÃ£i suáº¥t Æ°u Ä‘Ã£i cá»‘ Ä‘á»‹nh 2 nÄƒm','Ká»³ háº¡n linh hoáº¡t 5-30 nÄƒm','Giáº£i ngÃ¢n theo tiáº¿n Ä‘á»™ xÃ¢y dá»±ng','Miá»…n phÃ­ Ä‘á»‹nh giÃ¡ tÃ i sáº£n']
+            },
+            {
+                emoji: 'ðŸš—', title: 'Vay Mua Xe',
+                badge: 'Giáº£i ngÃ¢n 24h', badgeColor: 'bg-blue-100 text-blue-700',
+                rateLabel: 'LÃ£i suáº¥t tá»«', rate: '7.5%', rateSuffix: '/nÄƒm',
+                desc: 'Vay mua xe Ã´ tÃ´ má»›i vÃ  xe cÅ© â€” TÃ i trá»£ Ä‘áº¿n 90% giÃ¡ trá»‹ xe, tráº£ gÃ³p linh hoáº¡t.',
+                features: ['TÃ i trá»£ Ä‘áº¿n 90% giÃ¡ trá»‹ xe','Xe má»›i & xe cÅ© dÆ°á»›i 5 nÄƒm','Giáº£i ngÃ¢n trong 24h sau phÃª duyá»‡t','Thá»i gian vay Ä‘áº¿n 8 nÄƒm','KhÃ´ng cáº§n tháº¿ cháº¥p thÃªm']
+            },
+            {
+                emoji: 'ðŸ’°', title: 'Vay TiÃªu dÃ¹ng Nhanh',
+                badge: 'KhÃ´ng cáº§n tháº¿ cháº¥p', badgeColor: 'bg-secondary-100 text-amber-700',
+                rateLabel: 'Háº¡n má»©c vay', rate: '500Tr', rateSuffix: 'khÃ´ng tháº¿ cháº¥p',
+                desc: 'Vay tiÃªu dÃ¹ng tÃ­n cháº¥p nhanh chÃ³ng â€” Há»“ sÆ¡ 100% online, phÃª duyá»‡t trong 2 giá».',
+                features: ['KhÃ´ng cáº§n tháº¿ cháº¥p tÃ i sáº£n','PhÃª duyá»‡t 100% online','Giáº£i ngÃ¢n trong 2 giá»','Háº¡n má»©c Ä‘áº¿n 500 triá»‡u','Tráº£ ná»£ trÆ°á»›c háº¡n khÃ´ng pháº¡t']
+            }
+        ],
+        related: ['tai-khoan','tiet-kiem','qr-pay']
+    },
+
+    // â”€â”€ BUSINESS PAGES â”€â”€
+    'tai-khoan-dn': {
+        heroTitle: 'TÃ i khoáº£n Doanh nghiá»‡p<br><span class="text-secondary-300">GT-iBusiness</span>',
+        heroDesc: 'TÃ i khoáº£n ngÃ¢n hÃ ng doanh nghiá»‡p toÃ n diá»‡n â€” Äa chá»¯ kÃ½, tá»± Ä‘á»™ng hÃ³a thanh toÃ¡n vÃ  chi lÆ°Æ¡ng.',
+        heroBadge: 'ðŸ¢ Dá»‹ch vá»¥ Doanh nghiá»‡p',
+        heroStats: [{val:'0Ä‘',label:'PhÃ­ má»Ÿ TK'},{val:'âˆž',label:'Giao dá»‹ch/ngÃ y'},{val:'API',label:'Káº¿t ná»‘i há»‡ thá»‘ng'}],
+        breadcrumbCat: 'Doanh nghiá»‡p',
+        sectionTitle: 'TÃ i khoáº£n Doanh nghiá»‡p',
+        sectionSub: 'Giáº£i phÃ¡p tÃ i khoáº£n toÃ n diá»‡n cho má»i quy mÃ´ doanh nghiá»‡p',
+        cards: [
+            {
+                emoji: 'ðŸª', title: 'GT Business Basic',
+                badge: 'SME', badgeColor: 'bg-blue-100 text-blue-700',
+                rateLabel: 'PhÃ­ hÃ ng thÃ¡ng', rate: '0Ä‘', rateSuffix: '12 thÃ¡ng Ä‘áº§u',
+                desc: 'TÃ i khoáº£n doanh nghiá»‡p cÆ¡ báº£n dÃ nh cho startup vÃ  doanh nghiá»‡p vá»«a vÃ  nhá».',
+                features: ['Má»Ÿ online trong 1 ngÃ y lÃ m viá»‡c','PhÃ­ duy trÃ¬ 0Ä‘ nÄƒm Ä‘áº§u','Äa chá»¯ kÃ½ (tá»‘i Ä‘a 3 ngÆ°á»i)','Sao kÃª tá»± Ä‘á»™ng cuá»‘i thÃ¡ng','TÃ­ch há»£p pháº§n má»m káº¿ toÃ¡n']
+            },
+            {
+                emoji: 'ðŸ¬', title: 'GT Corporate Pro',
+                badge: 'Doanh nghiá»‡p lá»›n', badgeColor: 'bg-secondary-100 text-amber-700',
+                rateLabel: 'Háº¡n má»©c GD', rate: '100 tá»·', rateSuffix: '/ngÃ y',
+                desc: 'Giáº£i phÃ¡p tÃ i khoáº£n cao cáº¥p cho doanh nghiá»‡p quy mÃ´ lá»›n, phÃª duyá»‡t Ä‘a cáº¥p.',
+                features: ['PhÃª duyá»‡t Ä‘a cáº¥p (Multi-level approval)','Quáº£n lÃ½ Ä‘a tÃ i khoáº£n táº­p trung','API ngÃ¢n hÃ ng má»Ÿ (Open Banking)','BÃ¡o cÃ¡o tÃ i chÃ­nh realtime','ChuyÃªn viÃªn há»— trá»£ riÃªng 24/7']
+            },
+            {
+                emoji: 'ðŸŒ', title: 'GT Forex Business',
+                badge: 'Xuáº¥t nháº­p kháº©u', badgeColor: 'bg-green-100 text-green-700',
+                rateLabel: 'Ngoáº¡i tá»‡ há»— trá»£', rate: '20+', rateSuffix: 'loáº¡i tiá»n tá»‡',
+                desc: 'TÃ i khoáº£n ngoáº¡i tá»‡ Ä‘a tiá»n tá»‡ dÃ nh cho doanh nghiá»‡p xuáº¥t nháº­p kháº©u.',
+                features: ['TÃ i khoáº£n Ä‘a ngoáº¡i tá»‡ (20+ loáº¡i)','Hedging rá»§i ro tá»· giÃ¡','L/C vÃ  thanh toÃ¡n quá»‘c táº¿','SWIFT MT103 Ä‘iá»‡n tá»­','Tá»· giÃ¡ Æ°u Ä‘Ã£i doanh nghiá»‡p']
+            }
+        ],
+        related: ['chi-luong','dong-tien','tin-dung-dn']
+    },
+
+    'chi-luong': {
+        heroTitle: 'Payroll â€“ Chi lÆ°Æ¡ng Tá»± Ä‘á»™ng<br><span class="text-secondary-300">Tiáº¿t kiá»‡m 80% thá»i gian</span>',
+        heroDesc: 'Há»‡ thá»‘ng chi lÆ°Æ¡ng tá»± Ä‘á»™ng GT Payroll â€” TÃ­ch há»£p vá»›i HRM, xuáº¥t sao kÃª vÃ  bÃ¡o cÃ¡o thuáº¿ tá»± Ä‘á»™ng.',
+        heroBadge: 'ðŸ’¼ NhÃ¢n sá»± & TÃ i chÃ­nh',
+        heroStats: [{val:'80%',label:'Giáº£m thá»i gian'},{val:'0Ä‘',label:'PhÃ­ giao dá»‹ch'},{val:'100%',label:'Báº£o máº­t'}],
+        breadcrumbCat: 'Doanh nghiá»‡p',
+        sectionTitle: 'GT Payroll â€“ Chi lÆ°Æ¡ng Tá»± Ä‘á»™ng',
+        sectionSub: 'Giáº£i phÃ¡p tráº£ lÆ°Æ¡ng sá»‘ nhanh nháº¥t, chÃ­nh xÃ¡c nháº¥t',
+        cards: [
+            {
+                emoji: 'ðŸ“Š', title: 'Payroll Basic',
+                badge: 'Äáº¿n 50 NV', badgeColor: 'bg-blue-100 text-blue-700',
+                rateLabel: 'PhÃ­/giao dá»‹ch', rate: '0Ä‘', rateSuffix: 'ná»™i máº¡ng',
+                desc: 'Chi lÆ°Æ¡ng tá»± Ä‘á»™ng theo ká»³ háº¡n cho doanh nghiá»‡p nhá» dÆ°á»›i 50 nhÃ¢n viÃªn.',
+                features: ['LÃªn lá»‹ch chi lÆ°Æ¡ng tá»± Ä‘á»™ng','Káº¿t ná»‘i HRM phá»• biáº¿n','Xuáº¥t file Excel bÃ¡o cÃ¡o','ThÃ´ng bÃ¡o SMS/Email nhÃ¢n viÃªn','Há»— trá»£ trá»±c tuyáº¿n']
+            },
+            {
+                emoji: 'ðŸ¤–', title: 'GT Smart Payroll',
+                badge: 'Doanh nghiá»‡p', badgeColor: 'bg-secondary-100 text-amber-700',
+                rateLabel: 'KhÃ´ng giá»›i háº¡n', rate: 'âˆž', rateSuffix: 'nhÃ¢n viÃªn',
+                desc: 'Chi lÆ°Æ¡ng thÃ´ng minh dÃ nh cho táº­p Ä‘oÃ n, chi lÆ°Æ¡ng Ä‘a chi nhÃ¡nh, Ä‘a ngÃ¢n hÃ ng.',
+                features: ['KhÃ´ng giá»›i háº¡n sá»‘ nhÃ¢n viÃªn','Chi lÆ°Æ¡ng Ä‘a ngÃ¢n hÃ ng cÃ¹ng lÃºc','TÃ­nh thuáº¿ TNCN tá»± Ä‘á»™ng','BÃ¡o cÃ¡o quyáº¿t toÃ¡n cuá»‘i nÄƒm','TÃ­ch há»£p BHXH vÃ  báº£o hiá»ƒm']
+            },
+            {
+                emoji: 'ðŸ“±', title: 'Employee Self-Service',
+                badge: 'App cho NV', badgeColor: 'bg-green-100 text-green-700',
+                rateLabel: 'PhÃ­ á»©ng dá»¥ng', rate: '0Ä‘', rateSuffix: 'cho nhÃ¢n viÃªn',
+                desc: 'App cho nhÃ¢n viÃªn xem báº£ng lÆ°Æ¡ng, lá»‹ch sá»­ chi tráº£ vÃ  yÃªu cáº§u táº¡m á»©ng trá»±c tuyáº¿n.',
+                features: ['NhÃ¢n viÃªn xem lÆ°Æ¡ng qua app','YÃªu cáº§u táº¡m á»©ng lÆ°Æ¡ng online','Lá»‹ch sá»­ nháº­n lÆ°Æ¡ng Ä‘áº§y Ä‘á»§','ThÃ´ng bÃ¡o khi lÆ°Æ¡ng vÃ o TK','Há»— trá»£ Ä‘a ngÃ´n ngá»¯']
+            }
+        ],
+        related: ['tai-khoan-dn','dong-tien','ngoai-hoi']
+    },
+
+    'dong-tien': {
+        heroTitle: 'Quáº£n lÃ½ DÃ²ng tiá»n<br><span class="text-secondary-300">Tá»•ng thá»ƒ & Realtime</span>',
+        heroDesc: 'Náº¯m báº¯t toÃ n bá»™ dÃ²ng tiá»n doanh nghiá»‡p â€” Dá»± bÃ¡o, phÃª duyá»‡t vÃ  tá»‘i Æ°u hÃ³a cash-flow.',
+        heroBadge: 'ðŸ“Š Cash Management',
+        heroStats: [{val:'Realtime',label:'Theo dÃµi TK'},{val:'AI',label:'Dá»± bÃ¡o dÃ²ng tiá»n'},{val:'ERP',label:'Káº¿t ná»‘i há»‡ thá»‘ng'}],
+        breadcrumbCat: 'Doanh nghiá»‡p',
+        sectionTitle: 'Quáº£n lÃ½ DÃ²ng tiá»n Doanh nghiá»‡p',
+        sectionSub: 'Kiá»ƒm soÃ¡t tÃ i chÃ­nh toÃ n diá»‡n cho má»i quy mÃ´',
+        cards: [
+            {
+                emoji: 'ðŸ’¹', title: 'Cash Pooling',
+                badge: 'Táº­p Ä‘oÃ n', badgeColor: 'bg-blue-100 text-blue-700',
+                rateLabel: 'TÃ i khoáº£n táº­p trung', rate: 'âˆž', rateSuffix: 'chi nhÃ¡nh',
+                desc: 'Táº­p trung vá»‘n tá»« cÃ¡c tÃ i khoáº£n con vá» tÃ i khoáº£n tá»•ng â€” Tá»‘i Æ°u chi phÃ­ lÃ£i vay toÃ n táº­p Ä‘oÃ n.',
+                features: ['Zero Balance Sweeping tá»± Ä‘á»™ng','Táº­p trung vá»‘n Ä‘a chi nhÃ¡nh','BÃ¡o cÃ¡o vá»‹ tháº¿ thanh khoáº£n','Tá»‘i Æ°u lÃ£i vay ná»™i bá»™','TuÃ¢n thá»§ Basel III']
+            },
+            {
+                emoji: 'ðŸ”®', title: 'Cash Flow Forecasting',
+                badge: 'AI & ML', badgeColor: 'bg-purple-100 text-purple-700',
+                rateLabel: 'Äá»™ chÃ­nh xÃ¡c', rate: '95%', rateSuffix: 'dá»± bÃ¡o AI',
+                desc: 'MÃ´ hÃ¬nh AI dá»± bÃ¡o dÃ²ng tiá»n 90 ngÃ y tá»›i â€” Cáº£nh bÃ¡o sá»›m rá»§i ro thanh khoáº£n.',
+                features: ['Dá»± bÃ¡o 30/60/90 ngÃ y','Cáº£nh bÃ¡o thiáº¿u há»¥t thanh khoáº£n','TÃ­ch há»£p ERP SAP/Oracle','Dashboard trá»±c quan realtime','Export bÃ¡o cÃ¡o BOD & CFO']
+            },
+            {
+                emoji: 'ðŸ§', title: 'Virtual Account',
+                badge: 'Thanh toÃ¡n', badgeColor: 'bg-green-100 text-green-700',
+                rateLabel: 'TÃ i khoáº£n áº£o', rate: '1000+', rateSuffix: 'khÃ´ng giá»›i háº¡n',
+                desc: 'Táº¡o tÃ i khoáº£n áº£o cho tá»«ng khÃ¡ch hÃ ng, Ä‘Æ¡n hÃ ng Ä‘á»ƒ Ä‘á»‘i soÃ¡t thanh toÃ¡n tá»± Ä‘á»™ng.',
+                features: ['Táº¡o tÃ i khoáº£n áº£o khÃ´ng giá»›i háº¡n','Äá»‘i soÃ¡t thanh toÃ¡n tá»± Ä‘á»™ng','TÃ­ch há»£p cá»•ng thanh toÃ¡n','Webhook real-time notification','API documentation Ä‘áº§y Ä‘á»§']
+            }
+        ],
+        related: ['tai-khoan-dn','chi-luong','tin-dung-dn']
+    },
+
+    'ngoai-hoi': {
+        heroTitle: 'Ngoáº¡i há»‘i & Thanh toÃ¡n Quá»‘c táº¿<br><span class="text-secondary-300">Tá»· giÃ¡ cáº¡nh tranh nháº¥t</span>',
+        heroDesc: 'Mua bÃ¡n ngoáº¡i tá»‡, chuyá»ƒn tiá»n quá»‘c táº¿ vÃ  tÃ i trá»£ xuáº¥t nháº­p kháº©u vá»›i tá»· giÃ¡ tá»‘t nháº¥t thá»‹ trÆ°á»ng.',
+        heroBadge: 'ðŸ’± FX & Trade Finance',
+        heroStats: [{val:'20+',label:'Loáº¡i ngoáº¡i tá»‡'},{val:'200+',label:'Quá»‘c gia'},{val:'T+1',label:'Thanh toÃ¡n L/C'}],
+        breadcrumbCat: 'Doanh nghiá»‡p',
+        sectionTitle: 'Ngoáº¡i há»‘i & TÃ i trá»£ ThÆ°Æ¡ng máº¡i',
+        sectionSub: 'Giáº£i phÃ¡p FX vÃ  Trade Finance toÃ n diá»‡n',
+        cards: [
+            {
+                emoji: 'ðŸ’±', title: 'FX Online Trading',
+                badge: 'Tá»· giÃ¡ tá»‘t nháº¥t', badgeColor: 'bg-green-100 text-green-700',
+                rateLabel: 'Loáº¡i ngoáº¡i tá»‡', rate: '20+', rateSuffix: 'realtime',
+                desc: 'Mua bÃ¡n ngoáº¡i tá»‡ trá»±c tuyáº¿n 24/7 â€” Tá»· giÃ¡ cáº¡nh tranh, xÃ¡c nháº­n giao dá»‹ch tá»©c thÃ¬.',
+                features: ['Giao dá»‹ch Spot vÃ  Forward','Tá»· giÃ¡ cáº­p nháº­t má»—i giÃ¢y','Äáº·t lá»‡nh cÃ³ Ä‘iá»u kiá»‡n','Há»£p Ä‘á»“ng FX ká»³ háº¡n','BÃ¡o cÃ¡o rá»§i ro tá»· giÃ¡']
+            },
+            {
+                emoji: 'ðŸ“„', title: 'Letter of Credit (L/C)',
+                badge: 'Xuáº¥t nháº­p kháº©u', badgeColor: 'bg-blue-100 text-blue-700',
+                rateLabel: 'Xá»­ lÃ½', rate: 'T+1', rateSuffix: 'ngÃ y lÃ m viá»‡c',
+                desc: 'PhÃ¡t hÃ nh vÃ  thanh toÃ¡n L/C Ä‘iá»‡n tá»­ â€” TÃ i trá»£ nháº­p kháº©u vÃ  bao thanh toÃ¡n xuáº¥t kháº©u.',
+                features: ['PhÃ¡t hÃ nh L/C Ä‘iá»‡n tá»­','Thanh toÃ¡n L/C nháº­p kháº©u','Bao thanh toÃ¡n xuáº¥t kháº©u','Káº¿t ná»‘i Swift gLOBAL','ChuyÃªn viÃªn thÆ°Æ¡ng máº¡i quá»‘c táº¿']
+            },
+            {
+                emoji: 'ðŸ”', title: 'FX Hedging',
+                badge: 'Quáº£n lÃ½ rá»§i ro', badgeColor: 'bg-secondary-100 text-amber-700',
+                rateLabel: 'Ká»³ háº¡n hedge', rate: '1-24', rateSuffix: 'thÃ¡ng',
+                desc: 'Báº£o hiá»ƒm rá»§i ro tá»· giÃ¡ qua há»£p Ä‘á»“ng ká»³ háº¡n, quyá»n chá»n vÃ  swap ngoáº¡i tá»‡.',
+                features: ['Forward, Option, Swap ngoáº¡i tá»‡','TÆ° váº¥n chiáº¿n lÆ°á»£c FX riÃªng','Hedging tá»± Ä‘á»™ng theo ngÆ°á»¡ng','BÃ¡o cÃ¡o P&L hedging Ä‘á»‹nh ká»³','TuÃ¢n thá»§ IFRS 9']
+            }
+        ],
+        related: ['tai-khoan-dn','tin-dung-dn','bao-lanh']
+    },
+
+    'tin-dung-dn': {
+        heroTitle: 'TÃ­n dá»¥ng Doanh nghiá»‡p<br><span class="text-secondary-300">eCredit â€“ Vá»‘n trong 48 giá»</span>',
+        heroDesc: 'TÃ i trá»£ vá»‘n lÆ°u Ä‘á»™ng, vay Ä‘áº§u tÆ° vÃ  háº¡n má»©c tÃ­n dá»¥ng linh hoáº¡t cho doanh nghiá»‡p má»i quy mÃ´.',
+        heroBadge: 'ðŸ“ TÃ­n dá»¥ng & Vá»‘n',
+        heroStats: [{val:'48h',label:'PhÃª duyá»‡t'},{val:'6.8%',label:'LÃ£i suáº¥t tá»«'},{val:'50 tá»·',label:'Háº¡n má»©c tá»‘i Ä‘a'}],
+        breadcrumbCat: 'Doanh nghiá»‡p',
+        sectionTitle: 'Sáº£n pháº©m TÃ­n dá»¥ng Doanh nghiá»‡p',
+        sectionSub: 'Giáº£i phÃ¡p vá»‘n linh hoáº¡t cho hoáº¡t Ä‘á»™ng kinh doanh',
+        cards: [
+            {
+                emoji: 'ðŸ”„', title: 'Vá»‘n lÆ°u Ä‘á»™ng',
+                badge: 'Linh hoáº¡t', badgeColor: 'bg-blue-100 text-blue-700',
+                rateLabel: 'LÃ£i suáº¥t tá»«', rate: '6.8%', rateSuffix: '/nÄƒm',
+                desc: 'Háº¡n má»©c tÃ­n dá»¥ng xoay vÃ²ng dÃ nh cho doanh nghiá»‡p â€” RÃºt vá»‘n vÃ  hoÃ n tráº£ linh hoáº¡t má»i lÃºc.',
+                features: ['Háº¡n má»©c xoay vÃ²ng linh hoáº¡t','Giáº£i ngÃ¢n ngay trong ngÃ y','Tráº£ ná»£ theo kháº£ nÄƒng doanh thu','LÃ£i tÃ­nh trÃªn dÆ° ná»£ thá»±c táº¿','Tháº©m Ä‘á»‹nh tÃ­n dá»¥ng online']
+            },
+            {
+                emoji: 'ðŸ­', title: 'Vay Ä‘áº§u tÆ° TSCÄ',
+                badge: 'Trung dÃ i háº¡n', badgeColor: 'bg-green-100 text-green-700',
+                rateLabel: 'Ká»³ háº¡n tá»‘i Ä‘a', rate: '15 nÄƒm', rateSuffix: '',
+                desc: 'TÃ i trá»£ Ä‘áº§u tÆ° mÃ¡y mÃ³c, thiáº¿t bá»‹, nhÃ  xÆ°á»Ÿng â€” Giáº£i ngÃ¢n theo tiáº¿n Ä‘á»™ dá»± Ã¡n.',
+                features: ['TÃ i trá»£ Ä‘áº¿n 80% nhu cáº§u vá»‘n','Giáº£i ngÃ¢n theo tiáº¿n Ä‘á»™','Ã‚n háº¡n ná»£ gá»‘c 12-24 thÃ¡ng','Tháº©m Ä‘á»‹nh dá»± Ã¡n chuyÃªn nghiá»‡p','Báº£o hiá»ƒm tÃ i sáº£n tÃ­ch há»£p']
+            },
+            {
+                emoji: 'âš¡', title: 'GT eCredit Express',
+                badge: '48h phÃª duyá»‡t', badgeColor: 'bg-secondary-100 text-amber-700',
+                rateLabel: 'Háº¡n má»©c', rate: '5 tá»·', rateSuffix: 'khÃ´ng tháº¿ cháº¥p',
+                desc: 'TÃ­n dá»¥ng tÃ­n cháº¥p nhanh cho DN cÃ³ doanh thu tá»‘t â€” Ná»™p há»“ sÆ¡ online, nháº­n tiá»n 48 giá».',
+                features: ['100% online, khÃ´ng tháº¿ cháº¥p','PhÃª duyá»‡t trong 48 giá»','Háº¡n má»©c tÃ­n cháº¥p Ä‘áº¿n 5 tá»·','Dá»±a trÃªn dá»¯ liá»‡u doanh thu','Gia háº¡n tá»± Ä‘á»™ng khi Ä‘á»§ Ä‘iá»u kiá»‡n']
+            }
+        ],
+        related: ['tai-khoan-dn','bao-lanh','dong-tien']
+    },
+
+    'bao-lanh': {
+        heroTitle: 'Báº£o lÃ£nh Äiá»‡n tá»­<br><span class="text-secondary-300">Nhanh nháº¥t â€” TiÃªu chuáº©n quá»‘c táº¿</span>',
+        heroDesc: 'PhÃ¡t hÃ nh báº£o lÃ£nh dá»± tháº§u, thá»±c hiá»‡n há»£p Ä‘á»“ng, thanh toÃ¡n vÃ  táº¡m á»©ng 100% trá»±c tuyáº¿n.',
+        heroBadge: 'ðŸ¤ Báº£o lÃ£nh & TÃ­n dá»¥ng thÆ°',
+        heroStats: [{val:'24h',label:'PhÃ¡t hÃ nh BL'},{val:'100%',label:'Trá»±c tuyáº¿n'},{val:'AAA',label:'Xáº¿p háº¡ng tÃ­n nhiá»‡m'}],
+        breadcrumbCat: 'Doanh nghiá»‡p',
+        sectionTitle: 'Dá»‹ch vá»¥ Báº£o lÃ£nh NgÃ¢n hÃ ng',
+        sectionSub: 'Báº£o lÃ£nh uy tÃ­n â€” PhÃ¡t hÃ nh nhanh â€” Hiá»‡u lá»±c ngay',
+        cards: [
+            {
+                emoji: 'ðŸ†', title: 'Báº£o lÃ£nh Dá»± tháº§u',
+                badge: 'Phá»• biáº¿n nháº¥t', badgeColor: 'bg-secondary-100 text-amber-700',
+                rateLabel: 'PhÃ­ phÃ¡t hÃ nh', rate: '0.3%', rateSuffix: 'giÃ¡ trá»‹ BL/nÄƒm',
+                desc: 'PhÃ¡t hÃ nh báº£o lÃ£nh dá»± tháº§u Ä‘iá»‡n tá»­ nhanh chÃ³ng, Ä‘Ãºng háº¡n cho má»i loáº¡i gÃ³i tháº§u.',
+                features: ['PhÃ¡t hÃ nh trong 24 giá»','Cháº¥p nháº­n táº¡i táº¥t cáº£ chá»§ Ä‘áº§u tÆ°','Báº£o lÃ£nh mua sáº¯m cÃ´ng Ä‘iá»‡n tá»­','Theo dÃµi hiá»‡u lá»±c qua app','Tá»± Ä‘á»™ng nháº¯c gia háº¡n']
+            },
+            {
+                emoji: 'ðŸ“‹', title: 'Báº£o lÃ£nh Thá»±c hiá»‡n HÄ',
+                badge: 'Báº£o lÃ£nh Ä‘a nÄƒng', badgeColor: 'bg-blue-100 text-blue-700',
+                rateLabel: 'Thá»i háº¡n BL', rate: '1-5 nÄƒm', rateSuffix: '',
+                desc: 'Báº£o lÃ£nh thá»±c hiá»‡n há»£p Ä‘á»“ng xÃ¢y dá»±ng, cung cáº¥p hÃ ng hÃ³a vÃ  dá»‹ch vá»¥ theo yÃªu cáº§u.',
+                features: ['Báº£o lÃ£nh theo FIDIC/VN standard','PhÃ¡t hÃ nh Ä‘a ngoáº¡i tá»‡','KÃ½ sá»‘ Ä‘iá»‡n tá»­ cÃ³ giÃ¡ trá»‹ PL','Chá»‰nh sá»­a ná»™i dung online','Xuáº¥t file PDF cÃ³ dáº¥u Ä‘á»']
+            },
+            {
+                emoji: 'ðŸ’³', title: 'Báº£o lÃ£nh Thanh toÃ¡n',
+                badge: 'Quá»‘c táº¿', badgeColor: 'bg-green-100 text-green-700',
+                rateLabel: 'Cháº¥p nháº­n bá»Ÿi', rate: '200+', rateSuffix: 'ngÃ¢n hÃ ng quá»‘c táº¿',
+                desc: 'Báº£o lÃ£nh thanh toÃ¡n vÃ  táº¡m á»©ng cho giao dá»‹ch trong nÆ°á»›c vÃ  quá»‘c táº¿ theo chuáº©n URDG758.',
+                features: ['TuÃ¢n thá»§ URDG758 & ISP98','XÃ¡c nháº­n qua SWIFT','Äá»‘i tÃ¡c 200+ ngÃ¢n hÃ ng toÃ n cáº§u','Báº£o lÃ£nh Ä‘áº¿n 100% giÃ¡ trá»‹ HÄ','ChuyÃªn viÃªn tÆ° váº¥n riÃªng']
+            }
+        ],
+        related: ['tai-khoan-dn','tin-dung-dn','ngoai-hoi']
+    }
+};
+
+// â”€â”€ Related data â”€â”€
+const RELATED_META = {
+    'tai-khoan': { emoji: 'ðŸ’³', title: 'TÃ i khoáº£n Thanh toÃ¡n', sub: 'Má»Ÿ online 5 phÃºt â€” PhÃ­ 0Ä‘', color: 'from-blue-500 to-blue-600' },
+    'tiet-kiem': { emoji: 'ðŸ’°', title: 'Tiáº¿t kiá»‡m Online', sub: 'LÃ£i suáº¥t Ä‘áº¿n 6.2%/nÄƒm', color: 'from-green-500 to-emerald-600' },
+    'the-tin-dung': { emoji: 'ðŸŽ«', title: 'Tháº» TÃ­n dá»¥ng', sub: 'HoÃ n tiá»n Ä‘áº¿n 5% | 55 ngÃ y miá»…n lÃ£i', color: 'from-purple-500 to-violet-600' },
+    'chuyen-tien': { emoji: 'ðŸ“¤', title: 'Chuyá»ƒn tiá»n 24/7', sub: 'Tá»©c thÃ¬ qua Napas 247 | PhÃ­ 0Ä‘', color: 'from-cyan-500 to-sky-600' },
+    'qr-pay': { emoji: 'ðŸ“±', title: 'GT Pay App', sub: 'NgÃ¢n hÃ ng sá»‘ táº¥t cáº£ trong má»™t', color: 'from-indigo-500 to-blue-600' },
+    'vay-tieu-dung': { emoji: 'ðŸ¦', title: 'Vay TiÃªu dÃ¹ng', sub: 'Giáº£i ngÃ¢n 24h | LÃ£i tá»« 6.5%', color: 'from-orange-500 to-red-500' },
+    'tai-khoan-dn': { emoji: 'ðŸ¢', title: 'TÃ i khoáº£n DN', sub: 'Äa chá»¯ kÃ½ | API káº¿t ná»‘i', color: 'from-slate-600 to-slate-700' },
+    'chi-luong': { emoji: 'ðŸ’¼', title: 'Payroll â€“ Chi lÆ°Æ¡ng', sub: 'Tá»± Ä‘á»™ng | Giáº£m 80% thá»i gian', color: 'from-teal-500 to-green-600' },
+    'dong-tien': { emoji: 'ðŸ“Š', title: 'Quáº£n lÃ½ DÃ²ng tiá»n', sub: 'AI dá»± bÃ¡o | Cash Pooling', color: 'from-violet-500 to-purple-600' },
+    'ngoai-hoi': { emoji: 'ðŸ’±', title: 'Ngoáº¡i há»‘i & XNK', sub: 'L/C Ä‘iá»‡n tá»­ | FX tá»· giÃ¡ tá»‘t nháº¥t', color: 'from-amber-500 to-yellow-600' },
+    'tin-dung-dn': { emoji: 'ðŸ“', title: 'TÃ­n dá»¥ng DN', sub: 'eCredit 48h | LÃ£i tá»« 6.8%', color: 'from-rose-500 to-red-600' },
+    'bao-lanh': { emoji: 'ðŸ¤', title: 'Báº£o lÃ£nh Äiá»‡n tá»­', sub: 'PhÃ¡t hÃ nh 24h | Chuáº©n quá»‘c táº¿', color: 'from-sky-500 to-blue-600' }
+};
+
+// â”€â”€ Routing â”€â”€
+function getView() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('view') || 'tai-khoan';
+}
+
+function navigate(view) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('view', view);
+    window.history.pushState({view}, '', url.toString());
+    render(view);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+window.addEventListener('popstate', () => render(getView()));
+
+function render(view) {
+    const data = PAGES[view] || PAGES['tai-khoan'];
+
+    // Hero
+    document.getElementById('hero-title').innerHTML = data.heroTitle;
+    document.getElementById('hero-desc').textContent = data.heroDesc;
+    document.getElementById('hero-badge').querySelector('span:last-child').textContent = data.heroBadge;
+    document.getElementById('breadcrumb-cat').textContent = data.breadcrumbCat;
+    document.getElementById('breadcrumb-current').textContent = data.sectionTitle;
+
+    // Stats
+    if (data.heroStats && data.heroStats.length >= 3) {
+        document.getElementById('stat1-val').textContent = data.heroStats[0].val;
+        document.getElementById('stat1-label').textContent = data.heroStats[0].label;
+        document.getElementById('stat2-val').textContent = data.heroStats[1].val;
+        document.getElementById('stat2-label').textContent = data.heroStats[1].label;
+        document.getElementById('stat3-val').textContent = data.heroStats[2].val;
+        document.getElementById('stat3-label').textContent = data.heroStats[2].label;
+    }
+
+    // Section header
+    document.getElementById('section-title').textContent = data.sectionTitle;
+    document.getElementById('section-sub').textContent = data.sectionSub;
+    document.getElementById('section-count').textContent = `${data.cards.length} sáº£n pháº©m`;
+
+    // Title tag
+    document.title = `${data.sectionTitle} â€” GT SmartBank`;
+
+    // Cards
+    const grid = document.getElementById('cardsGrid');
+    grid.innerHTML = data.cards.map(c => `
+        <div class="service-card flex flex-col">
+            <div class="p-6 flex-1">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-50 to-red-100 border border-brand-100 flex items-center justify-center text-2xl shadow-sm">${c.emoji}</div>
+                    <span class="service-card-badge ${c.badgeColor}">${c.badge}</span>
+                </div>
+                <h3 class="text-base font-black text-slate-800 mb-1">${c.title}</h3>
+                <div class="flex items-baseline gap-1 my-3">
+                    <span class="text-[11px] text-slate-500 font-medium">${c.rateLabel}:</span>
+                    <span class="rate-number">${c.rate}</span>
+                    <span class="text-[11px] text-slate-500 font-medium">${c.rateSuffix}</span>
+                </div>
+                <p class="text-[12.5px] text-slate-500 leading-relaxed mb-4 font-medium">${c.desc}</p>
+                <div class="space-y-1.5">
+                    ${c.features.map(f => `<div class="feature-item">${f}</div>`).join('')}
+                </div>
+            </div>
+            <div class="px-6 pb-6 pt-2 flex gap-3 border-t border-slate-50 mt-4">
+                <button onclick="openModal('${c.title}')" class="flex-1 py-2.5 bg-gradient-to-r from-brand-800 to-brand-700 text-white text-sm font-bold rounded-xl hover:shadow-lg hover:shadow-brand-800/25 hover:scale-[1.02] transition-all">
+                    ÄÄƒng kÃ½
+                </button>
+                <button onclick="showDetail(this, \`${c.title}\`, \`${c.desc}\`)" class="flex-1 py-2.5 border-2 border-brand-800 text-brand-800 text-sm font-bold rounded-xl hover:bg-brand-50 transition-all">
+                    Chi tiáº¿t
+                </button>
+            </div>
+        </div>
+    `).join('');
+
+    // Related products
+    const relatedGrid = document.getElementById('relatedGrid');
+    relatedGrid.innerHTML = (data.related || []).map(key => {
+        const r = RELATED_META[key];
+        return r ? `
+            <div class="related-card cursor-pointer" onclick="navigate('${key}')">
+                <div class="h-2 bg-gradient-to-r ${r.color} rounded-t-2xl"></div>
+                <div class="p-5 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center text-xl flex-shrink-0">${r.emoji}</div>
+                    <div>
+                        <h4 class="text-sm font-black text-slate-800">${r.title}</h4>
+                        <p class="text-xs text-slate-500 mt-0.5 font-medium">${r.sub}</p>
+                    </div>
+                    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-slate-300 ml-auto flex-shrink-0"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                </div>
+            </div>
+        ` : '';
+    }).join('');
+
+    // Sidebar active
+    document.querySelectorAll('.sidebar-item').forEach(el => {
+        el.classList.toggle('active', el.dataset.view === view);
+    });
+}
+
+// â”€â”€ Modal â”€â”€
+function openModal(serviceName) {
+    document.getElementById('modal-service-name').textContent = serviceName || 'Dá»‹ch vá»¥ GT SmartBank';
+    const sel = document.getElementById('reg-service');
+    const match = Array.from(sel.options).find(o => o.text.toLowerCase().includes((serviceName||'').toLowerCase().split(' ')[0]));
+    if (match) sel.value = match.text;
+    document.getElementById('registerModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.getElementById('registerModal').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+document.getElementById('registerModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+});
+
+function submitRegister(e) {
+    e.preventDefault();
+    const name = document.getElementById('reg-name').value.trim();
+    const phone = document.getElementById('reg-phone').value.trim();
+    const agree = document.getElementById('reg-agree').checked;
+
+    if (!name || !phone) {
+        alert('Vui lÃ²ng Ä‘iá»n Ä‘áº§y Ä‘á»§ Há» tÃªn vÃ  Sá»‘ Ä‘iá»‡n thoáº¡i.');
+        return;
+    }
+    if (!agree) {
+        alert('Vui lÃ²ng Ä‘á»“ng Ã½ vá»›i Äiá»u khoáº£n sá»­ dá»¥ng.');
+        return;
+    }
+
+    closeModal();
+    document.getElementById('registerForm').reset();
+
+    // Toast
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4500);
+}
+
+// â”€â”€ Detail popup (inline) â”€â”€
+function showDetail(btn, title, desc) {
+    const existing = document.getElementById('detail-popup');
+    if (existing) existing.remove();
+
+    const popup = document.createElement('div');
+    popup.id = 'detail-popup';
+    popup.style.cssText = 'position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;';
+    popup.innerHTML = `
+        <div style="background:#fff;border-radius:20px;padding:32px;max-width:420px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.2);animation:modalIn 0.3s ease">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+                <h3 style="font-size:18px;font-weight:800;color:#1e293b">${title}</h3>
+                <button onclick="document.getElementById('detail-popup').remove()" style="background:#f1f5f9;border:none;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:14px;font-weight:700;color:#64748b">âœ•</button>
+            </div>
+            <p style="font-size:13.5px;color:#475569;line-height:1.7;margin-bottom:20px">${desc}</p>
+            <p style="font-size:12px;color:#94a3b8;background:#f8fafc;padding:12px;border-radius:10px;border-left:3px solid #b60000">
+                ðŸ“ž Äá»ƒ biáº¿t thÃªm chi tiáº¿t, vui lÃ²ng liÃªn há»‡ hotline <strong style="color:#b60000">1800 9999</strong> hoáº·c Ä‘áº·t lá»‹ch tÆ° váº¥n trá»±c tuyáº¿n.
+            </p>
+            <button onclick="document.getElementById('detail-popup').remove();openModal('${title}')" style="width:100%;margin-top:16px;padding:12px;background:linear-gradient(135deg,#b60000,#9c0000);color:#fff;border:none;border-radius:12px;font-weight:800;font-size:14px;cursor:pointer">
+                ÄÄƒng kÃ½ dá»‹ch vá»¥ nÃ y â†’
+            </button>
+        </div>
+    `;
+    popup.addEventListener('click', function(e) { if (e.target === this) this.remove(); });
+    document.body.appendChild(popup);
+}
+
+// â”€â”€ Sidebar mobile (ensure window.navigate is accessible) â”€â”€
+window.navigate = navigate;
+window.openModal = openModal;
+window.showDetail = showDetail;
+
+// â”€â”€ Mobile menu toggle â”€â”€
+document.getElementById('mobileToggle').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('open');
+});
+
+// â”€â”€ Scroll to top â”€â”€
+window.addEventListener('scroll', () => {
+    document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 300);
+});
+
+// â”€â”€ Init â”€â”€
+render(getView());
+</script>
+</body>
+</html>

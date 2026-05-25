@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Dá»‹ch vá»¥ tÃ i chÃ­nh cÃ¡ nhÃ¢n hiá»‡n Ä‘áº¡i â€” GT SmartBank</title>
+    <meta name="description" content="Tráº£i nghiá»‡m dá»‹ch vá»¥ ngÃ¢n hÃ ng cÃ¡ nhÃ¢n cao cáº¥p tá»« GT SmartBank. Má»Ÿ tÃ i khoáº£n sá»‘ Ä‘áº¹p eKYC, gá»­i tiáº¿t kiá»‡m Online lÃ£i suáº¥t cao, Ä‘Äƒng kÃ½ má»Ÿ tháº» tÃ­n dá»¥ng Æ°u Ä‘Ã£i lá»›n.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/css/public.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { 800: '#b60000', 850: '#a00000', 900: '#9c0000' },
+                        secondary: { 700: '#f7b500' }
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="text-slate-800 bg-slate-50 antialiased">
+
+    <!-- TOP BAR -->
+    <div class="bg-brand-900 text-white text-[11px] font-medium py-2 px-4 md:px-8 flex items-center justify-between">
+        <div class="flex items-center gap-6">
+            <span class="flex items-center gap-1.5"><i data-lucide="phone" class="w-3.5 h-3.5 text-secondary-700"></i>Hotline: <strong class="text-secondary-700 text-xs">1800 9999</strong></span>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header class="bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-slate-100 shadow-sm">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
+            <a href="/index.html" class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-brand-800 rounded-xl flex items-center justify-center text-secondary-700 font-black shadow-lg shadow-red-200">
+                    <svg viewBox="0 0 100 100" class="w-6 h-6">
+                        <path d="M50 12 L82 22 V48 C82 66 69 82 50 88 C31 82 18 66 18 48 V22 Z" fill="#ffffff" />
+                        <path d="M50 20 L74 27 V48 C74 61 64 73 50 78 C36 73 26 61 26 48 V27 Z" fill="#f7b500" opacity="0.9" />
+                        <path d="M43 38 H57 C60 38 62 40 62 43 V46 H52 V43 H44 V55 H57 V52 H62 V55 C62 58 60 60 57 60 H43 C40 60 38 58 38 55 V43 C38 40 40 38 43 38 Z" fill="#ffffff" />
+                        <path d="M47 43 H53 V46 H50.5 V55 H49.5 V46 H47 Z" fill="#b60000" />
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-lg font-black text-brand-800 block">GT <span class="text-slate-800">SmartBank</span></span>
+                    <span class="text-[9px] font-bold text-secondary-700 tracking-widest uppercase block">SMART DIGITAL BANK</span>
+                </div>
+            </a>
+            
+            <nav class="hidden lg:flex items-center gap-1">
+                <a href="/pages/ca-nhan.html" class="px-4 py-2 text-[14px] font-semibold text-brand-800 bg-slate-50 rounded-lg">CÃ¡ nhÃ¢n</a>
+                <a href="/pages/doanh-nghiep.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">Doanh nghiá»‡p</a>
+                <a href="/pages/portal.html?view=vip" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">KhÃ¡ch hÃ ng Æ°u tiÃªn</a>
+                <a href="/pages/khuyen-mai.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">Khuyáº¿n mÃ£i</a>
+                <a href="/pages/ho-tro.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">Há»— trá»£</a>
+            </nav>
+
+            <div id="header-auth-container" class="flex items-center gap-2">
+                <a href="/pages/login.html" class="px-4 py-2 text-xs font-bold text-slate-700 hover:text-brand-850">ÄÄƒng nháº­p</a>
+                <button onclick="openRegisterModal()" class="px-4 py-2 text-xs font-bold text-white bg-brand-800 hover:bg-brand-900 rounded-full transition-all">Má»Ÿ tÃ i khoáº£n</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB & HERO HEADER -->
+    <section class="bg-gradient-to-r from-brand-900 to-brand-850 text-white py-12">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-8">
+            <div class="flex items-center gap-2 text-xs text-white/60 font-semibold mb-4">
+                <a href="/index.html" class="hover:text-white transition-colors">Trang chá»§</a>
+                <i data-lucide="chevron-right" class="w-3 h-3"></i>
+                <span class="text-white">CÃ¡ nhÃ¢n</span>
+            </div>
+            <h1 class="text-2xl md:text-4xl font-black mb-2">TÃ i chÃ­nh cÃ¡ nhÃ¢n GT SmartBank</h1>
+            <p class="text-sm text-white/80 max-w-2xl font-medium">KhÃ¡m phÃ¡ cÃ¡c sáº£n pháº©m tÃ i chÃ­nh Æ°u viá»‡t Ä‘Æ°á»£c thiáº¿t káº¿ riÃªng biá»‡t Ä‘á»ƒ giÃºp báº¡n tá»‘i Æ°u hÃ³a dÃ²ng tiá»n cÃ¡ nhÃ¢n vÃ  Ä‘áº¡t Ä‘Æ°á»£c cÃ¡c káº¿ hoáº¡ch tÆ°Æ¡ng lai.</p>
+        </div>
+    </section>
+
+    <!-- MAIN DIRECTORY GRID -->
+    <main class="max-w-[1280px] mx-auto px-4 md:px-8 py-12 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Sá»• tiáº¿t kiá»‡m -->
+        <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+            <div>
+                <div class="w-12 h-12 bg-amber-50 rounded-2xl text-amber-600 flex items-center justify-center mb-4 border border-amber-100">
+                    <i data-lucide="piggy-bank" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-bold text-slate-800 text-base mb-2">Tiáº¿t kiá»‡m tÃ­ch lÅ©y</h3>
+                <p class="text-xs text-slate-500 leading-relaxed font-medium">Há»— trá»£ cÃ¡c ká»³ háº¡n Ä‘a dáº¡ng vá»›i lÃ£i suáº¥t cao báº­c nháº¥t há»‡ thá»‘ng lÃªn tá»›i 6.2%/nÄƒm. Nháº­n lÃ£i linh hoáº¡t hÃ ng thÃ¡ng hoáº·c cuá»‘i ká»³.</p>
+            </div>
+            <a href="/pages/tiet-kiem-online.html" class="mt-6 w-full py-2.5 bg-slate-50 hover:bg-slate-100 text-brand-800 font-bold text-xs rounded-xl text-center block border border-slate-200 transition-colors">Xem chi tiáº¿t & gá»­i tiá»n</a>
+        </div>
+
+        <!-- Tháº» tÃ­n dá»¥ng -->
+        <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+            <div>
+                <div class="w-12 h-12 bg-blue-50 rounded-2xl text-blue-600 flex items-center justify-center mb-4 border border-blue-100">
+                    <i data-lucide="credit-card" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-bold text-slate-800 text-base mb-2">Tháº» tÃ­n dá»¥ng Quá»‘c táº¿</h3>
+                <p class="text-xs text-slate-500 leading-relaxed font-medium">HoÃ n tiá»n 5%, miá»…n lÃ£i 55 ngÃ y, Ä‘a dáº¡ng háº¡n má»©c phÃ¹ há»£p nhu cáº§u mua sáº¯m tiÃªu dÃ¹ng, du lá»‹ch cao cáº¥p.</p>
+            </div>
+            <a href="/pages/the-tin-dung.html" class="mt-6 w-full py-2.5 bg-slate-50 hover:bg-slate-100 text-brand-800 font-bold text-xs rounded-xl text-center block border border-slate-200 transition-colors">Xem cÃ¡c loáº¡i tháº»</a>
+        </div>
+
+        <!-- Vay tiÃªu dÃ¹ng -->
+        <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+            <div>
+                <div class="w-12 h-12 bg-purple-50 rounded-2xl text-purple-600 flex items-center justify-center mb-4 border border-purple-100">
+                    <i data-lucide="wallet" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-bold text-slate-800 text-base mb-2">Cho vay vá»‘n tiÃªu dÃ¹ng</h3>
+                <p class="text-xs text-slate-500 leading-relaxed font-medium">Giáº£i quyáº¿t cÃ¡c váº¥n Ä‘á» tÃ i chÃ­nh cÃ¡ nhÃ¢n cáº¥p bÃ¡ch nhanh chÃ³ng, giáº£i ngÃ¢n chá»‰ trong vÃ²ng 24 giá» ká»ƒ tá»« khi duyá»‡t há»“ sÆ¡.</p>
+            </div>
+            <a href="/pages/vay-tieu-dung.html" class="mt-6 w-full py-2.5 bg-slate-50 hover:bg-slate-100 text-brand-800 font-bold text-xs rounded-xl text-center block border border-slate-200 transition-colors">TÃ­nh khoáº£n vay & Ä‘Äƒng kÃ½</a>
+        </div>
+
+    </main>
+
+    <footer class="bg-brand-900 text-white pt-16 pb-8 border-t border-white/10 mt-12">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-8 text-center text-xs text-white/50">
+            Â© 2026 GT SMARTBANK CORP. ALL RIGHTS RESERVED.
+        </div>
+    </footer>
+
+    <script src="/js/config.js"></script>
+    <script src="/js/public.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

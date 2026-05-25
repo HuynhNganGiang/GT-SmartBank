@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng nhập — Cổng Ngân hàng số GT SmartBank</title>
+    <meta name="description" content="GT SmartBank — Cổng đăng nhập ngân hàng số Internet Banking an toàn và bảo mật.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            800: '#b60000',
+                            850: '#a00000',
+                            900: '#9c0000',
+                        },
+                        secondary: {
+                            700: '#f7b500',
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        .login-bg {
+            background: linear-gradient(135deg, #b60000 0%, #700000 50%, #4a0000 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .login-bg::after {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(247, 181, 0, 0.1) 0%, rgba(247, 181, 0, 0) 70%);
+            pointer-events: none;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="login-bg min-h-screen flex items-center justify-center p-4">
+
+    <!-- Login Card -->
+    <div class="w-full max-w-md bg-white rounded-3xl p-8 shadow-2xl relative border border-white/10 z-10">
+        
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <a href="/bank-ui/index.html" class="inline-flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-brand-800 rounded-xl flex items-center justify-center text-secondary-700 font-black shadow-lg shadow-red-200">
+                    <svg viewBox="0 0 100 100" class="w-6 h-6">
+                        <path d="M50 12 L82 22 V48 C82 66 69 82 50 88 C31 82 18 66 18 48 V22 Z" fill="#ffffff" />
+                        <path d="M50 20 L74 27 V48 C74 61 64 73 50 78 C36 73 26 61 26 48 V27 Z" fill="#f7b500" opacity="0.9" />
+                        <path d="M43 38 H57 C60 38 62 40 62 43 V46 H52 V43 H44 V55 H57 V52 H62 V55 C62 58 60 60 57 60 H43 C40 60 38 58 38 55 V43 C38 40 40 38 43 38 Z" fill="#ffffff" />
+                        <path d="M47 43 H53 V46 H50.5 V55 H49.5 V46 H47 Z" fill="#b60000" />
+                    </svg>
+                </div>
+                <div class="text-left">
+                    <span class="text-lg font-black text-brand-800 tracking-tight leading-none block">GT <span class="text-slate-800">SmartBank</span></span>
+                    <span class="text-[9px] font-bold text-secondary-700 tracking-widest uppercase block mt-0.5">SMART DIGITAL BANK</span>
+                </div>
+            </a>
+            <h2 class="text-xl font-bold text-slate-800">Cổng Ngân hàng số</h2>
+            <p class="text-xs text-slate-400 mt-1 font-semibold">INTERNET BANKING PORTAL</p>
+        </div>
+
+        <!-- Error Msg Container -->
+        <div id="errorMsg" class="hidden bg-rose-50 border-l-4 border-brand-800 text-brand-800 p-4 rounded-xl text-xs font-bold mb-6"></div>
+
+        <!-- Form Inputs -->
+        <div class="space-y-5 text-xs font-semibold text-slate-500">
+            <div class="flex flex-col gap-1.5">
+                <label for="soDienThoai" class="uppercase tracking-wider">Số điện thoại đăng ký</label>
+                <input type="text" id="soDienThoai" placeholder="Nhập số điện thoại" required autofocus autocomplete="username"
+                       class="w-full bg-slate-50 border border-slate-200 focus:border-brand-800 rounded-xl px-4 py-3 text-sm text-slate-800 placeholder-slate-400 outline-none transition-all font-bold">
+            </div>
+
+            <div class="flex flex-col gap-1.5">
+                <label for="matKhau" class="uppercase tracking-wider">Mật khẩu bảo mật</label>
+                <input type="password" id="matKhau" placeholder="Nhập mật khẩu" required autocomplete="current-password"
+                       class="w-full bg-slate-50 border border-slate-200 focus:border-brand-800 rounded-xl px-4 py-3 text-sm text-slate-800 placeholder-slate-400 outline-none transition-all font-bold">
+            </div>
+
+            <div class="flex items-center justify-between font-bold pt-1">
+                <a href="#" onclick="alert('Vui lòng liên hệ quầy giao dịch gần nhất hoặc gọi Hotline 1800 9999 để cấp lại mật khẩu.'); return false;" class="text-brand-800 hover:text-brand-900 transition-colors">Quên mật khẩu?</a>
+                <a href="/bank-ui/index.html" class="text-slate-400 hover:text-slate-600 transition-colors flex items-center gap-1">
+                    <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                    Quay lại trang chủ
+                </a>
+            </div>
+
+            <button id="loginBtn" onclick="login()" class="w-full py-3.5 bg-brand-800 hover:bg-brand-900 text-white rounded-xl text-xs font-extrabold uppercase tracking-widest transition-all shadow-lg shadow-red-200">
+                Đăng nhập hệ thống
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="/bank-ui/js/api.js"></script>
+    <script src="/bank-ui/js/auth.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

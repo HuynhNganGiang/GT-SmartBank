@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Sổ tiết kiệm | GT Smart Bank</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/bank-ui/css/style.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        slate: {
+                            150: '#eef2f6',
+                            850: '#1e293b',
+                            950: '#030712',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen font-sans transition-colors duration-300">
+
+<!-- Sidebar Mobile Overlay -->
+<div class="fixed inset-0 z-20 bg-slate-950/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<div class="flex min-h-screen">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar fixed lg:static inset-y-0 left-0 z-30 flex flex-col justify-between w-64 md:w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 transition-all duration-300 transform -translate-x-full lg:translate-x-0" id="sidebar">
+        <!-- Managed dynamically by theme.js -->
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content flex-1 p-4 md:p-6 lg:p-8 transition-all duration-300 lg:ml-0 overflow-x-hidden">
+
+        <!-- HEADER / TOPBAR -->
+        <header class="topbar flex items-center justify-between p-4 md:p-6 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-250/50 dark:border-slate-800/60 rounded-2xl mb-6 shadow-sm sticky top-0 z-10 w-full" id="topbar">
+            <!-- Managed dynamically by theme.js -->
+        </header>
+
+        <!-- SAVINGS GRID & FORM LAYOUT -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Left Panel: Savings list -->
+            <div class="lg:col-span-2 space-y-6">
+                <div class="flex justify-between items-center bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-800/80 rounded-3xl shadow-sm">
+                    <h2 class="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2.5">
+                        <span class="inline-block w-1.5 h-6 bg-emerald-500 rounded-full"></span>
+                        Danh sách sổ tiết kiệm của bạn
+                    </h2>
+                    <button class="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-xs bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-750 text-slate-755 dark:text-slate-300 transition-all" onclick="loadSavingsAccounts()">
+                        <svg viewBox="0 0 24 24" class="w-4.5 h-4.5 fill-current"><path d="M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"/></svg>
+                        <span>Tải lại</span>
+                    </button>
+                </div>
+
+                <div id="savingsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <p class="text-slate-500 dark:text-slate-400 italic py-6 col-span-2 text-center font-semibold">Đang tải danh sách sổ...</p>
+                </div>
+            </div>
+
+            <!-- Right Panel: Open new savings form -->
+            <div class="lg:col-span-1">
+                <section class="p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-3xl shadow-sm hover:shadow transition-all duration-300">
+                    <h2 class="text-lg font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-2.5">
+                        <span class="inline-block w-1.5 h-6 bg-emerald-500 rounded-full"></span>
+                        Mở sổ tiết kiệm mới
+                    </h2>
+
+                    <div class="space-y-5">
+                        <!-- Tài khoản trích nợ -->
+                        <div class="form-group flex flex-col gap-1.5">
+                            <label for="tkNguon" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Tài khoản nguồn trích tiền</label>
+                            <select id="tkNguon" onchange="updateBalanceInfo()" 
+                                    class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/15 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-450 outline-none transition-all font-semibold">
+                                <option value="">-- Chọn tài khoản thanh toán --</option>
+                            </select>
+                            <p id="tkNguonBalance" class="text-xs font-bold text-slate-500 dark:text-slate-400 mt-1"></p>
+                        </div>
+
+                        <!-- Số tiền gửi -->
+                        <div class="form-group flex flex-col gap-1.5">
+                            <label for="soTienGoc" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Số tiền gửi tiết kiệm (VND)</label>
+                            <input type="number" id="soTienGoc" placeholder="Tối thiểu 1,000,000 VND" min="1000000" oninput="formatTienWord()"
+                                   class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/15 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-450 outline-none transition-all font-bold">
+                            <p id="soTienChu" class="text-xs font-bold text-emerald-600 dark:text-emerald-400 mt-1 italic"></p>
+                        </div>
+
+                        <!-- Kỳ hạn gửi -->
+                        <div class="form-group flex flex-col gap-1.5">
+                            <label for="kyHan" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Kỳ hạn gửi tiết kiệm</label>
+                            <select id="kyHan" onchange="updateInterestRate()" 
+                                    class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/15 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-450 outline-none transition-all font-semibold">
+                                <option value="">-- Chọn kỳ hạn gửi --</option>
+                                <option value="1">1 Tháng (3.0% / năm)</option>
+                                <option value="3">3 Tháng (3.5% / năm)</option>
+                                <option value="6">6 Tháng (4.5% / năm)</option>
+                                <option value="12">12 Tháng (5.5% / năm)</option>
+                                <option value="24">24 Tháng (6.0% / năm)</option>
+                            </select>
+                        </div>
+
+                        <!-- Dự toán lãi suất -->
+                        <div id="interestInfoBox" class="hidden border border-emerald-250 dark:border-emerald-800/60 rounded-2xl p-4 bg-emerald-50/50 dark:bg-slate-950/40 text-xs text-slate-600 dark:text-slate-350 space-y-1.5 font-semibold">
+                            <div class="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-bold mb-1">
+                                <svg viewBox="0 0 24 24" class="w-4.5 h-4.5 fill-current"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"/></svg>
+                                <span>Dự toán lãi suất kỳ hạn:</span>
+                            </div>
+                            <div class="flex justify-between">Lãi suất dự kiến: <span id="projectedRate" class="text-amber-500 dark:text-amber-400 font-extrabold text-sm">0.0%</span></div>
+                            <div class="flex justify-between">Tiền lãi dự kiến: <span id="projectedInterest" class="text-emerald-600 dark:text-emerald-450 font-extrabold text-sm">0 VND</span></div>
+                        </div>
+
+                        <button class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold text-sm shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300" onclick="openSavingsAccount()">
+                            Xác nhận mở sổ tiết kiệm
+                        </button>
+                    </div>
+                </section>
+            </div>
+            
+        </section>
+
+    </main>
+
+</div>
+
+<script src="/bank-ui/js/api.js"></script>
+<script src="/bank-ui/js/theme.js"></script>
+<script>
+    // Kiểm tra đăng nhập
+    const user = getCurrentUser();
+    if (!user) {
+        window.location.href = "/bank-ui/pages/login.html";
+    }
+
+    function logout() {
+        removeToken();
+        removeCurrentUser();
+        localStorage.removeItem("refreshToken");
+        window.location.href = "/bank-ui/pages/login.html";
+    }
+
+    if (user && user.role !== "Admin") {
+        const navCustomers = document.getElementById("navCustomers");
+        if (navCustomers) navCustomers.style.display = "none";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        if (user) {
+            const userFullNameEl = document.getElementById("userFullName");
+            const userRoleEl = document.getElementById("userRole");
+            if (userFullNameEl) userFullNameEl.innerText = user.hoTen;
+            if (userRoleEl) userRoleEl.innerText = user.role === "Admin" ? "Quản trị viên" : "Khách hàng";
+        }
+    });
+</script>
+<script src="/bank-ui/js/sotietkiem.js"></script>
+
+</body>
+</html>

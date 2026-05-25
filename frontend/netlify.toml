@@ -1,0 +1,9 @@
+[build]
+  publish = "."
+
+# Tự động chuyển hướng các đường dẫn cũ chứa /bank-ui/ sang đường dẫn gốc trên Netlify
+[[redirects]]
+  from = "/bank-ui/*"
+  to = "/:splat"
+  status = 301
+  force = true

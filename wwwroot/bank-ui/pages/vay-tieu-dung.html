@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Các sản phẩm cho vay vốn ưu đãi — GT SmartBank</title>
+    <meta name="description" content="Dịch vụ cho vay tiêu dùng, vay mua xe, vay mua nhà lãi suất cực thấp tại GT SmartBank. Thủ tục nhanh gọn, phê duyệt giải ngân trực tuyến nhanh chóng.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/bank-ui/css/public.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { 800: '#b60000', 850: '#a00000', 900: '#9c0000' },
+                        secondary: { 700: '#f7b500' }
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="text-slate-800 bg-slate-50 antialiased">
+
+    <!-- TOP UTILITY BAR -->
+    <div class="bg-brand-900 text-white text-[11px] font-medium py-2 px-4 md:px-8 flex items-center justify-between">
+        <div class="flex items-center gap-6">
+            <span class="flex items-center gap-1.5"><i data-lucide="phone" class="w-3.5 h-3.5 text-secondary-700"></i>Hotline: <strong class="text-secondary-700 text-xs">1800 9999</strong></span>
+            <span class="hidden sm:inline text-white/70">|</span>
+            <a href="/bank-ui/pages/portal.html?view=lai-suat" class="hover:text-secondary-700 transition-colors">Bảng lãi suất</a>
+            <span class="hidden sm:inline text-white/70">|</span>
+            <a href="/bank-ui/pages/portal.html?view=ty-gia" class="hover:text-secondary-750 transition-colors">Tỷ giá ngoại tệ</a>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="font-bold text-secondary-700">VN</span>
+            <span class="text-white/40">|</span>
+            <span class="text-white/60">EN</span>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header class="bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-slate-100 shadow-sm">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
+            <a href="/bank-ui/index.html" class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-brand-800 rounded-xl flex items-center justify-center text-secondary-700 font-black shadow-lg shadow-red-200">
+                    <svg viewBox="0 0 100 100" class="w-6 h-6">
+                        <path d="M50 12 L82 22 V48 C82 66 69 82 50 88 C31 82 18 66 18 48 V22 Z" fill="#ffffff" />
+                        <path d="M50 20 L74 27 V48 C74 61 64 73 50 78 C36 73 26 61 26 48 V27 Z" fill="#f7b500" opacity="0.9" />
+                        <path d="M43 38 H57 C60 38 62 40 62 43 V46 H52 V43 H44 V55 H57 V52 H62 V55 C62 58 60 60 57 60 H43 C40 60 38 58 38 55 V43 C38 40 40 38 43 38 Z" fill="#ffffff" />
+                        <path d="M47 43 H53 V46 H50.5 V55 H49.5 V46 H47 Z" fill="#b60000" />
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-lg font-black text-brand-800 block">GT <span class="text-slate-800">SmartBank</span></span>
+                    <span class="text-[9px] font-bold text-secondary-700 tracking-widest uppercase block">SMART DIGITAL BANK</span>
+                </div>
+            </a>
+            
+            <nav class="hidden lg:flex items-center gap-1">
+                <a href="/bank-ui/pages/ca-nhan.html" class="px-4 py-2 text-[14px] font-semibold text-brand-800 hover:bg-slate-50 rounded-lg">Cá nhân</a>
+                <a href="/bank-ui/pages/doanh-nghiep.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">Doanh nghiệp</a>
+                <a href="/bank-ui/pages/portal.html?view=vip" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">Khách hàng ưu tiên</a>
+                <a href="/bank-ui/pages/khuyen-mai.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">Khuyến mãi</a>
+                <a href="/bank-ui/pages/ho-tro.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">Hỗ trợ</a>
+            </nav>
+
+            <div id="header-auth-container" class="flex items-center gap-2">
+                <a href="/bank-ui/pages/login.html" class="px-4 py-2 text-xs font-bold text-slate-700 hover:text-brand-850">Đăng nhập</a>
+                <button onclick="openRegisterModal()" class="px-4 py-2 text-xs font-bold text-white bg-brand-800 hover:bg-brand-900 rounded-full transition-all">Mở tài khoản</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB & HERO HEADER -->
+    <section class="bg-gradient-to-r from-brand-900 to-brand-850 text-white py-12">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-8">
+            <div class="flex items-center gap-2 text-xs text-white/60 font-semibold mb-4">
+                <a href="/bank-ui/index.html" class="hover:text-white transition-colors">Trang chủ</a>
+                <i data-lucide="chevron-right" class="w-3 h-3"></i>
+                <a href="/bank-ui/pages/ca-nhan.html" class="hover:text-white transition-colors">Cá nhân</a>
+                <i data-lucide="chevron-right" class="w-3 h-3"></i>
+                <span class="text-white">Dịch vụ cho vay</span>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                    <h1 class="text-2xl md:text-4xl font-black mb-2">Hỗ trợ tài chính & Cho vay ưu đãi</h1>
+                    <p class="text-sm text-white/80 max-w-2xl font-medium">Bứt phá mọi kế hoạch cuộc sống với gói vay đa dạng: vay tiêu dùng tín chấp, vay mua ô tô mới/cũ hay vay mua nhà dài hạn với lãi suất cực hấp dẫn chỉ từ 5.5%/năm.</p>
+                </div>
+                <button onclick="openRegisterModal()" class="px-6 py-3 bg-secondary-700 hover:bg-secondary-600 text-slate-900 font-bold rounded-xl text-xs uppercase tracking-wider transition-all">Đăng ký vay vốn</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN BODY CONTENT -->
+    <main class="max-w-[1280px] mx-auto px-4 md:px-8 py-12 grid lg:grid-cols-12 gap-8">
+        
+        <!-- Loan Products list & calculator -->
+        <div class="lg:col-span-8 space-y-8">
+            
+            <!-- Loan Products Info -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm">
+                    <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center mb-4">
+                        <i data-lucide="user-check" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2">Vay tiêu dùng tín chấp</h4>
+                    <p class="text-[11px] text-slate-500 leading-relaxed font-medium">Vay nhanh dựa trên thu nhập thực tế mà không cần tài sản đảm bảo. Hạn mức lên tới 300 triệu đồng, giải ngân cực nhanh.</p>
+                </div>
+
+                <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm">
+                    <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-4">
+                        <i data-lucide="car" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2">Vay mua ô tô</h4>
+                    <p class="text-[11px] text-slate-500 leading-relaxed font-medium">Hỗ trợ vay tới 85% giá trị xe, thời hạn vay lên tới 8 năm. Thủ tục đơn giản, chấp nhận tài sản bảo đảm là chính chiếc xe mua.</p>
+                </div>
+
+                <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm">
+                    <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center mb-4">
+                        <i data-lucide="home" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2">Vay mua nhà đất</h4>
+                    <p class="text-[11px] text-slate-500 leading-relaxed font-medium">Đồng hành xây dựng tổ ấm mơ ước với thời hạn vay lên tới 25 năm. Hạn mức tài trợ tối đa 80% nhu cầu vốn.</p>
+                </div>
+            </div>
+
+            <!-- Repayment calculator widget -->
+            <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm">
+                <h3 class="font-bold text-slate-800 text-base mb-4 flex items-center gap-2">
+                    <i data-lucide="calculator" class="w-5 h-5 text-brand-800"></i>
+                    Công cụ tính toán gốc lãi hàng tháng
+                </h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1.5">Số tiền muốn vay (VND)</label>
+                            <input type="number" id="loan-amount" value="500000000" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand-800 text-sm font-bold text-slate-800">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1.5">Thời hạn vay (tháng)</label>
+                                <input type="number" id="loan-months" value="60" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand-800 text-sm font-bold text-slate-800">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1.5">Lãi suất (% / năm)</label>
+                                <input type="number" id="loan-rate" value="7.5" step="0.1" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand-800 text-sm font-bold text-slate-800">
+                            </div>
+                        </div>
+                        <button id="calc-loan-btn" class="w-full py-3 bg-brand-800 hover:bg-brand-900 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all">Tính toán gốc lãi</button>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl p-5 border border-slate-150 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="text-slate-500 font-semibold">Ước tính trả tháng đầu:</span>
+                                <span id="loan-monthly-val" class="font-extrabold text-slate-800 text-sm">11,458,333 ₫</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="text-slate-500 font-semibold">Tiền gốc hàng tháng:</span>
+                                <span id="loan-principal-val" class="font-bold text-slate-700">8,333,333 ₫</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="text-slate-500 font-semibold">Tiền lãi tháng đầu:</span>
+                                <span id="loan-interest-val" class="font-bold text-slate-700">3,125,000 ₫</span>
+                            </div>
+                        </div>
+                        <div class="border-t border-slate-200 pt-4 mt-4">
+                            <span class="text-[10px] text-slate-400 font-bold block uppercase">Tổng tiền lãi phải trả</span>
+                            <span id="loan-total-interest-val" class="text-lg font-black text-brand-800 mt-1 block">95,312,500 ₫</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sidebar conditions -->
+        <div class="lg:col-span-4 space-y-6">
+            <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-6">
+                <h4 class="font-bold text-slate-800 text-sm uppercase tracking-wider border-b border-slate-100 pb-3">Hồ sơ đăng ký vay</h4>
+                
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check" class="w-4 h-4 text-emerald-600 mt-0.5"></i>
+                        <div>
+                            <span class="text-xs font-bold text-slate-800 block">Hồ sơ pháp lý</span>
+                            <span class="text-[10px] text-slate-500 block">CCCD gắn chip còn hạn sử dụng.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check" class="w-4 h-4 text-emerald-600 mt-0.5"></i>
+                        <div>
+                            <span class="text-xs font-bold text-slate-800 block">Hồ sơ chứng minh thu nhập</span>
+                            <span class="text-[10px] text-slate-500 block">Hợp đồng lao động, sao kê lương 3 tháng gần nhất.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-900 text-white pt-16 pb-8 border-t border-white/10 mt-12">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-8 mt-12 pt-6 border-t border-white/10 text-[11px] text-white/50 font-bold font-mono">
+            © 2026 GT SMARTBANK CORP. ALL RIGHTS RESERVED.
+        </div>
+    </footer>
+
+    <script src="/bank-ui/js/public.js"></script>
+    <script>
+        lucide.createIcons();
+
+        // Specific loan calculation logic
+        const loanBtn = document.getElementById("calc-loan-btn");
+        if (loanBtn) {
+            loanBtn.addEventListener("click", () => {
+                const amount = parseFloat(document.getElementById("loan-amount").value) || 0;
+                const months = parseInt(document.getElementById("loan-months").value) || 12;
+                const rate = parseFloat(document.getElementById("loan-rate").value) || 7.5;
+
+                // Simple monthly interest rate
+                const monthlyRate = (rate / 12) / 100;
+                
+                // Monthly principal payment (linear reduction method)
+                const principal = amount / months;
+                
+                // Interest of the first month
+                const interestFirstMonth = amount * monthlyRate;
+                
+                // Monthly payment of first month
+                const monthlyPayment = principal + interestFirstMonth;
+
+                // Total interest calculation (approximate linear reduction method)
+                let totalInterest = 0;
+                let balance = amount;
+                for (let i = 0; i < months; i++) {
+                    totalInterest += balance * monthlyRate;
+                    balance -= principal;
+                }
+
+                const formatMoney = (val) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(val);
+
+                document.getElementById("loan-monthly-val").innerText = formatMoney(monthlyPayment);
+                document.getElementById("loan-principal-val").innerText = formatMoney(principal);
+                document.getElementById("loan-interest-val").innerText = formatMoney(interestFirstMonth);
+                document.getElementById("loan-total-interest-val").innerText = formatMoney(totalInterest);
+            });
+        }
+    </script>
+</body>
+</html>

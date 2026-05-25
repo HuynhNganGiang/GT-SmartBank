@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>TÃ i khoáº£n thanh toÃ¡n | GT Smart Bank</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        slate: {
+                            150: '#eef2f6',
+                            850: '#1e293b',
+                            950: '#030712',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @media (min-width: 1024px) {
+            #accountLayout.full-width {
+                grid-template-columns: 1fr !important;
+            }
+            #accountLayout.full-width #tableCol {
+                grid-column: span 3 / span 3 !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen font-sans transition-colors duration-300">
+
+<!-- Sidebar Mobile Overlay -->
+<div class="fixed inset-0 z-20 bg-slate-950/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<div class="flex min-h-screen">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar fixed lg:static inset-y-0 left-0 z-30 flex flex-col justify-between w-64 md:w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 transition-all duration-300 transform -translate-x-full lg:translate-x-0" id="sidebar">
+        <!-- Managed dynamically by theme.js -->
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content flex-1 p-4 md:p-6 lg:p-8 transition-all duration-300 lg:ml-0 overflow-x-hidden">
+
+        <!-- HEADER / TOPBAR -->
+        <header class="topbar flex items-center justify-between p-4 md:p-6 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-250/50 dark:border-slate-800/60 rounded-2xl mb-6 shadow-sm sticky top-0 z-10 w-full" id="topbar">
+            <!-- Managed dynamically by theme.js -->
+            <div>
+                <h1 id="pageTitle">TÃ i khoáº£n thanh toÃ¡n</h1>
+                <p id="pageSubtitle">Quáº£n lÃ½ vÃ  tra cá»©u thÃ´ng tin cÃ¡c tÃ i khoáº£n thanh toÃ¡n táº¡i GT Smart Bank</p>
+            </div>
+
+            <div class="topbar-actions flex items-center gap-4">
+                <div class="user-welcome hidden sm:flex items-center gap-3">
+                    <div class="user-info text-right">
+                        <div class="name font-bold text-sm text-slate-800 dark:text-slate-100" id="userFullName">Äang táº£i...</div>
+                        <div class="role text-xs text-slate-500 dark:text-slate-450 font-bold" id="userRole">...</div>
+                    </div>
+                </div>
+
+                <button onclick="toggleDarkMode()" class="theme-btn flex items-center gap-2 px-3 py-2 text-xs font-bold rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-850 text-slate-700 dark:text-slate-350 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                    ðŸŒ™ Dark Mode
+                </button>
+            </div>
+        </header>
+
+        <section id="accountLayout" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left Column: Search & Account Table -->
+            <div id="tableCol" class="lg:col-span-2 flex flex-col gap-6">
+                <!-- Search Box -->
+                <div class="flex flex-col sm:flex-row gap-4 p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/85 rounded-2xl shadow-sm">
+                    <div class="relative flex-1">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400 dark:text-slate-500">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                        </span>
+                        <input type="text" id="searchKeyword" class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800/80 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-colors text-slate-850 dark:text-slate-100" placeholder="ðŸ” TÃ¬m kiáº¿m theo Sá»‘ tÃ i khoáº£n, TÃªn khÃ¡ch hÃ ng hoáº·c Chi nhÃ¡nh..." oninput="filterAccounts()">
+                    </div>
+                    <button class="px-5 py-3 rounded-xl font-bold text-sm bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/25 dark:shadow-emerald-500/10 hover:shadow-emerald-500/35 transition-all duration-300 flex items-center justify-center gap-2" onclick="loadAccounts()">
+                        <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+                        <span>Táº£i láº¡i</span>
+                    </button>
+                </div>
+
+                <!-- Account Table Container -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-2xl shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-[800px] border-collapse text-left">
+                            <thead>
+                                <tr class="border-b border-slate-200 dark:border-slate-800/85 bg-slate-50 dark:bg-slate-950/20 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                                    <th class="px-6 py-4">Sá»‘ tÃ i khoáº£n</th>
+                                    <th class="px-6 py-4">KhÃ¡ch hÃ ng</th>
+                                    <th class="px-6 py-4">Chi nhÃ¡nh</th>
+                                    <th class="px-6 py-4">Loáº¡i</th>
+                                    <th class="px-6 py-4">Sá»‘ dÆ° kháº£ dá»¥ng</th>
+                                    <th class="px-6 py-4">NgÃ y má»Ÿ</th>
+                                    <th class="px-6 py-4">Tráº¡ng thÃ¡i</th>
+                                    <th class="px-6 py-4 text-center" id="thActions">Thao tÃ¡c</th>
+                                </tr>
+                            </thead>
+                            <tbody id="taiKhoanBody" class="divide-y divide-slate-150 dark:divide-slate-800/60 text-sm">
+                                <tr>
+                                    <td colspan="8" class="px-6 py-8 text-center text-slate-450 italic">Äang táº£i danh sÃ¡ch tÃ i khoáº£n...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Admin Form Box -->
+            <div id="adminFormBox" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-3xl p-6 shadow-sm hover:shadow transition-all duration-300 h-fit">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="inline-block w-1.5 h-6 bg-emerald-500 rounded-full"></span>
+                    <h2 id="formTitle" class="text-lg font-bold text-slate-800 dark:text-white">Má»Ÿ tÃ i khoáº£n thanh toÃ¡n</h2>
+                </div>
+                
+                <hr class="border-slate-100 dark:border-slate-850 mb-6">
+                
+                <input type="hidden" id="isEditMode" value="false">
+
+                <div class="flex flex-col gap-5">
+                    <div class="flex flex-col gap-1.5">
+                        <label for="accountNumber" class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Sá»‘ tÃ i khoáº£n</label>
+                        <input type="text" id="accountNumber" class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-850 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-colors text-slate-800 dark:text-slate-100 font-mono" placeholder="Nháº­p sá»‘ tÃ i khoáº£n má»›i (VD: 10245678)" required>
+                        <span id="accountNumberHelp" class="text-[10px] text-slate-400 dark:text-slate-500 font-medium">* KhÃ´ng Ä‘Æ°á»£c thay Ä‘á»•i khi chá»‰nh sá»­a</span>
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label for="accountCustomer" class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">KhÃ¡ch hÃ ng sá»Ÿ há»¯u</label>
+                        <select id="accountCustomer" class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-850 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-colors text-slate-800 dark:text-slate-100 font-medium" required>
+                            <option value="">-- Chá»n khÃ¡ch hÃ ng --</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label for="accountBranch" class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Chi nhÃ¡nh quáº£n lÃ½</label>
+                        <select id="accountBranch" class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-850 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-colors text-slate-800 dark:text-slate-100 font-medium" required>
+                            <option value="">-- Chá»n chi nhÃ¡nh --</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label for="accountType" class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Loáº¡i tÃ i khoáº£n</label>
+                        <select id="accountType" class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-850 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-colors text-slate-800 dark:text-slate-100 font-medium">
+                            <option value="Thanh toÃ¡n" selected>Thanh toÃ¡n (Payment)</option>
+                            <option value="Thanh toÃ¡n Plus">Thanh toÃ¡n Plus</option>
+                            <option value="Äá»“ng thÆ°Æ¡ng hiá»‡u">Äá»“ng thÆ°Æ¡ng hiá»‡u</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label for="accountBalance" class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Sá»‘ dÆ° ban Ä‘áº§u (VNÄ)</label>
+                        <input type="number" id="accountBalance" class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-850 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-colors text-slate-800 dark:text-slate-100 font-bold" placeholder="Nháº­p sá»‘ dÆ° khá»Ÿi táº¡o (VD: 50000)" value="50000" min="50000" required>
+                        <span class="text-[10px] text-slate-400 dark:text-slate-500 font-medium">* Sá»‘ dÆ° tá»‘i thiá»ƒu lÃ  50,000 VNÄ</span>
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label for="accountStatus" class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Tráº¡ng thÃ¡i tÃ i khoáº£n</label>
+                        <select id="accountStatus" class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-850 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-colors text-slate-800 dark:text-slate-100 font-medium">
+                            <option value="true" selected>Hoáº¡t Ä‘á»™ng (Active)</option>
+                            <option value="false">Táº¡m khÃ³a (Locked)</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-col gap-2.5 mt-2">
+                        <button id="btnSubmitAccount" class="w-full py-3.5 rounded-xl font-bold text-sm bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/35 transition-all duration-300 flex items-center justify-center gap-2" onclick="saveAccount()">
+                            Má»Ÿ tÃ i khoáº£n
+                        </button>
+                        
+                        <button id="btnCancelEdit" class="w-full py-3.5 rounded-xl font-bold text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-350 hover:bg-slate-200 dark:hover:bg-slate-750 transition-colors hidden" onclick="cancelEdit()">
+                            Há»§y chá»‰nh sá»­a
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="/js/config.js"></script>
+    <script src="/js/config.js"></script>
+    <script src="/js/api.js"></script>
+<script src="/js/theme.js"></script>
+<script>
+    // Kiá»ƒm tra Ä‘Äƒng nháº­p
+    const userObj = getCurrentUser();
+    if (!userObj) {
+        window.location.href = "/pages/login.html";
+    }
+
+    if (userObj && userObj.role !== "Admin") {
+        const navCustomers = document.getElementById("navCustomers");
+        if (navCustomers) navCustomers.style.display = "none";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        if (userObj) {
+            const userFullNameEl = document.getElementById("userFullName");
+            const userRoleEl = document.getElementById("userRole");
+            if (userFullNameEl) userFullNameEl.innerText = userObj.hoTen;
+            if (userRoleEl) userRoleEl.innerText = userObj.role === "Admin" ? "Quáº£n trá»‹ viÃªn" : "KhÃ¡ch hÃ ng";
+        }
+    });
+
+    function logout() {
+        removeToken();
+        removeCurrentUser();
+        localStorage.removeItem("refreshToken");
+        window.location.href = "/pages/login.html";
+    }
+</script>
+<script src="/js/taikhoan.js"></script>
+
+</body>
+</html>

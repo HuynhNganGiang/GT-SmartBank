@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Tiáº¿t kiá»‡m Online lÃ£i suáº¥t cao â€” GT SmartBank</title>
+    <meta name="description" content="Gá»­i tiáº¿t kiá»‡m Online táº¡i GT SmartBank vá»›i lÃ£i suáº¥t Æ°u Ä‘Ã£i vÆ°á»£t trá»™i lÃªn tá»›i 6.2%/nÄƒm. Má»Ÿ sá»• nhanh chÃ³ng, an toÃ n báº£o máº­t tuyá»‡t Ä‘á»‘i 24/7.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/css/public.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { 800: '#b60000', 850: '#a00000', 900: '#9c0000' },
+                        secondary: { 700: '#f7b500' }
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="text-slate-800 bg-slate-50 antialiased">
+
+    <!-- TOP UTILITY BAR -->
+    <div class="bg-brand-900 text-white text-[11px] font-medium py-2 px-4 md:px-8 flex items-center justify-between">
+        <div class="flex items-center gap-6">
+            <span class="flex items-center gap-1.5"><i data-lucide="phone" class="w-3.5 h-3.5 text-secondary-700"></i>Hotline: <strong class="text-secondary-700 text-xs">1800 9999</strong></span>
+            <span class="hidden sm:inline text-white/70">|</span>
+            <a href="/pages/portal.html?view=lai-suat" class="hover:text-secondary-700 transition-colors">Báº£ng lÃ£i suáº¥t</a>
+            <span class="hidden sm:inline text-white/70">|</span>
+            <a href="/pages/portal.html?view=ty-gia" class="hover:text-secondary-700 transition-colors">Tá»· giÃ¡ ngoáº¡i tá»‡</a>
+            <span class="hidden sm:inline text-white/70">|</span>
+            <a href="/pages/chinhanh.html" class="hover:text-secondary-700 transition-colors">ATM/Chi nhÃ¡nh</a>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="font-bold text-secondary-700 cursor-pointer">VN</span>
+            <span class="text-white/40">|</span>
+            <span class="text-white/60 hover:text-white cursor-pointer transition-colors">EN</span>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header class="bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-slate-100 shadow-sm">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
+            <a href="/index.html" class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-brand-800 rounded-xl flex items-center justify-center text-secondary-700 font-black shadow-lg shadow-red-200">
+                    <svg viewBox="0 0 100 100" class="w-6 h-6">
+                        <path d="M50 12 L82 22 V48 C82 66 69 82 50 88 C31 82 18 66 18 48 V22 Z" fill="#ffffff" />
+                        <path d="M50 20 L74 27 V48 C74 61 64 73 50 78 C36 73 26 61 26 48 V27 Z" fill="#f7b500" opacity="0.9" />
+                        <path d="M43 38 H57 C60 38 62 40 62 43 V46 H52 V43 H44 V55 H57 V52 H62 V55 C62 58 60 60 57 60 H43 C40 60 38 58 38 55 V43 C38 40 40 38 43 38 Z" fill="#ffffff" />
+                        <path d="M47 43 H53 V46 H50.5 V55 H49.5 V46 H47 Z" fill="#b60000" />
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-lg font-black text-brand-800 tracking-tight block">GT <span class="text-slate-800">SmartBank</span></span>
+                    <span class="text-[9px] font-bold text-secondary-700 tracking-widest uppercase block">SMART DIGITAL BANK</span>
+                </div>
+            </a>
+            
+            <nav class="hidden lg:flex items-center gap-1">
+                <a href="/pages/ca-nhan.html" class="px-4 py-2 text-[14px] font-semibold text-brand-800 hover:bg-slate-50 rounded-lg">CÃ¡ nhÃ¢n</a>
+                <a href="/pages/doanh-nghiep.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">Doanh nghiá»‡p</a>
+                <a href="/pages/portal.html?view=vip" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">KhÃ¡ch hÃ ng Æ°u tiÃªn</a>
+                <a href="/pages/khuyen-mai.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">Khuyáº¿n mÃ£i</a>
+                <a href="/pages/ho-tro.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">Há»— trá»£</a>
+            </nav>
+
+            <div id="header-auth-container" class="flex items-center gap-2">
+                <a href="/pages/login.html" class="px-4 py-2 text-xs font-bold text-slate-700 hover:text-brand-850">ÄÄƒng nháº­p</a>
+                <button onclick="openRegisterModal()" class="px-4 py-2 text-xs font-bold text-white bg-brand-800 hover:bg-brand-900 rounded-full transition-all">Má»Ÿ tÃ i khoáº£n</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB & HERO HEADER -->
+    <section class="bg-gradient-to-r from-brand-900 to-brand-850 text-white py-12">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-8">
+            <div class="flex items-center gap-2 text-xs text-white/60 font-semibold mb-4">
+                <a href="/index.html" class="hover:text-white transition-colors">Trang chá»§</a>
+                <i data-lucide="chevron-right" class="w-3 h-3"></i>
+                <a href="/pages/ca-nhan.html" class="hover:text-white transition-colors">CÃ¡ nhÃ¢n</a>
+                <i data-lucide="chevron-right" class="w-3 h-3"></i>
+                <span class="text-white">Tiáº¿t kiá»‡m Online</span>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                    <h1 class="text-2xl md:text-4xl font-black mb-2">Tiáº¿t kiá»‡m Online</h1>
+                    <p class="text-sm text-white/80 max-w-2xl font-medium">KÃªnh tÃ­ch lÅ©y an toÃ n, sinh lá»i tá»‘i Ä‘a vá»›i lÃ£i suáº¥t Æ°u Ä‘Ã£i cá»™ng thÃªm 0.3%/nÄƒm so vá»›i gá»­i táº¡i quáº§y. Thá»±c hiá»‡n nhanh chÃ³ng, báº£o máº­t tuyá»‡t Ä‘á»‘i.</p>
+                </div>
+                <button onclick="openRegisterModal()" class="px-6 py-3 bg-secondary-700 hover:bg-secondary-600 text-slate-900 font-bold rounded-xl text-xs uppercase tracking-wider transition-all">Gá»­i tiáº¿t kiá»‡m ngay</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN BODY CONTENT -->
+    <main class="max-w-[1280px] mx-auto px-4 md:px-8 py-12 grid lg:grid-cols-12 gap-8">
+        
+        <!-- Rates table & calculator -->
+        <div class="lg:col-span-8 space-y-8">
+            
+            <!-- Rates Table -->
+            <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm">
+                <h3 class="font-bold text-slate-800 text-base mb-4 flex items-center gap-2">
+                    <i data-lucide="table" class="w-5 h-5 text-brand-800"></i>
+                    Báº£ng lÃ£i suáº¥t Tiáº¿t kiá»‡m Online hiá»‡n hÃ nh
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-100 text-slate-500 font-bold">
+                                <th class="px-4 py-3">Ká»² Háº N</th>
+                                <th class="px-4 py-3 text-right">LÃƒI SUáº¤T Táº I QUáº¦Y (%/nÄƒm)</th>
+                                <th class="px-4 py-3 text-right text-brand-800">LÃƒI SUáº¤T ONLINE (%/nÄƒm)</th>
+                                <th class="px-4 py-3 text-center">CHÃªnh Lá»†CH</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 font-semibold text-slate-700">
+                            <tr>
+                                <td class="px-4 py-3.5">KhÃ´ng ká»³ háº¡n</td>
+                                <td class="px-4 py-3.5 text-right">0.10%</td>
+                                <td class="px-4 py-3.5 text-right text-brand-800">0.20%</td>
+                                <td class="px-4 py-3.5 text-center text-emerald-600 font-bold">+0.10%</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3.5">1 - 3 thÃ¡ng</td>
+                                <td class="px-4 py-3.5 text-right">3.20%</td>
+                                <td class="px-4 py-3.5 text-right text-brand-800">3.50%</td>
+                                <td class="px-4 py-3.5 text-center text-emerald-600 font-bold">+0.30%</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3.5">6 thÃ¡ng</td>
+                                <td class="px-4 py-3.5 text-right">4.70%</td>
+                                <td class="px-4 py-3.5 text-right text-brand-800">5.00%</td>
+                                <td class="px-4 py-3.5 text-center text-emerald-600 font-bold">+0.30%</td>
+                            </tr>
+                            <tr class="bg-amber-50/20">
+                                <td class="px-4 py-3.5">12 thÃ¡ng</td>
+                                <td class="px-4 py-3.5 text-right">5.70%</td>
+                                <td class="px-4 py-3.5 text-right text-brand-800 font-bold">6.00%</td>
+                                <td class="px-4 py-3.5 text-center text-emerald-600 font-bold">+0.30%</td>
+                            </tr>
+                            <tr class="bg-amber-50/30">
+                                <td class="px-4 py-3.5">24 thÃ¡ng</td>
+                                <td class="px-4 py-3.5 text-right">5.90%</td>
+                                <td class="px-4 py-3.5 text-right text-brand-800 font-bold">6.20%</td>
+                                <td class="px-4 py-3.5 text-center text-emerald-600 font-bold">+0.30%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <span class="text-[10px] text-slate-400 block mt-4 italic font-medium">* LÃ£i suáº¥t cÃ³ hiá»‡u lá»±c tá»« ngÃ y 01/05/2026 vÃ  cÃ³ thá»ƒ thay Ä‘á»•i tÃ¹y thuá»™c vÃ o biáº¿n Ä‘á»™ng thá»‹ trÆ°á»ng.</span>
+            </div>
+
+            <!-- Detailed Calculator Widget -->
+            <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm">
+                <h3 class="font-bold text-slate-800 text-base mb-4 flex items-center gap-2">
+                    <i data-lucide="calculator" class="w-5 h-5 text-brand-800"></i>
+                    CÃ´ng cá»¥ tÃ­nh toÃ¡n lÃ£i suáº¥t chÃ­nh xÃ¡c
+                </h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1.5">Sá»‘ tiá»n báº¡n muá»‘n gá»­i (VND)</label>
+                            <input type="number" id="calc-amount" value="100000000" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand-800 text-sm font-bold">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1.5">Ká»³ háº¡n gá»­i tiáº¿t kiá»‡m</label>
+                            <select id="calc-term" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand-800 text-sm font-bold">
+                                <option value="1">1 thÃ¡ng (3.5% / nÄƒm)</option>
+                                <option value="3">3 thÃ¡ng (3.5% / nÄƒm)</option>
+                                <option value="6">6 thÃ¡ng (5.0% / nÄƒm)</option>
+                                <option value="12" selected>12 thÃ¡ng (6.0% / nÄƒm)</option>
+                                <option value="24">24 thÃ¡ng (6.2% / nÄƒm)</option>
+                            </select>
+                        </div>
+                        <button id="calc-btn" class="w-full py-3 bg-brand-800 hover:bg-brand-900 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all">TÃ­nh toÃ¡n káº¿t quáº£</button>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl p-5 border border-slate-150 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="text-slate-500 font-semibold">LÃ£i suáº¥t Ã¡p dá»¥ng:</span>
+                                <span id="calc-rate-val" class="font-bold text-brand-800 text-sm">6.0% / nÄƒm</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="text-slate-500 font-semibold">PhÆ°Æ¡ng thá»©c tráº£ lÃ£i:</span>
+                                <span class="font-bold text-slate-700">Cuá»‘i ká»³ nháº­n lÃ£i</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs border-t border-slate-200/60 pt-3">
+                                <span class="text-slate-500 font-semibold">Tiá»n lÃ£i nháº­n Ä‘Æ°á»£c:</span>
+                                <span id="calc-interest-val" class="font-bold text-slate-800 text-sm">6,000,000 â‚«</span>
+                            </div>
+                        </div>
+                        <div class="border-t border-slate-200 pt-4 mt-4">
+                            <span class="text-[10px] text-slate-400 font-bold block uppercase">Tá»•ng tiá»n cuá»‘i ká»³</span>
+                            <span id="calc-total-val" class="text-lg font-black text-brand-800 mt-1 block">106,000,000 â‚«</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conditions / FAQ Accordion -->
+            <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm">
+                <h3 class="font-bold text-slate-800 text-base mb-4">CÃ¡c cÃ¢u há»i thÆ°á»ng gáº·p</h3>
+                <div class="space-y-4">
+                    <details class="group border-b border-slate-100 pb-3" open>
+                        <summary class="flex justify-between items-center font-bold text-xs text-slate-750 cursor-pointer list-none">
+                            <span>Ai Ä‘Æ°á»£c má»Ÿ sá»• tiáº¿t kiá»‡m Online?</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-450 group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="text-xs text-slate-500 leading-relaxed font-medium mt-2">Má»i khÃ¡ch hÃ ng cÃ¡ nhÃ¢n Viá»‡t Nam hoáº·c ngÆ°á»i nÆ°á»›c ngoÃ i cÆ° trÃº há»£p phÃ¡p cÃ³ tÃ i khoáº£n thanh toÃ¡n má»Ÿ táº¡i GT SmartBank vÃ  Ä‘Ã£ Ä‘Äƒng kÃ½ dá»‹ch vá»¥ ngÃ¢n hÃ ng Ä‘iá»‡n tá»­.</p>
+                    </details>
+                    <details class="group border-b border-slate-100 pb-3">
+                        <summary class="flex justify-between items-center font-bold text-xs text-slate-750 cursor-pointer list-none">
+                            <span>CÃ³ thá»ƒ rÃºt tiá»n trÆ°á»›c háº¡n Ä‘Æ°á»£c khÃ´ng?</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-450 group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="text-xs text-slate-500 leading-relaxed font-medium mt-2">CÃ³. KhÃ¡ch hÃ ng cÃ³ thá»ƒ táº¥t toÃ¡n/rÃºt trÆ°á»›c háº¡n báº¥t cá»© lÃºc nÃ o qua á»©ng dá»¥ng. Tuy nhiÃªn pháº§n tiá»n rÃºt trÆ°á»›c háº¡n sáº½ Ä‘Æ°á»£c Ã¡p dá»¥ng má»©c lÃ£i suáº¥t khÃ´ng ká»³ háº¡n cá»±c tháº¥p (0.1%/nÄƒm).</p>
+                    </details>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sidebar benefits & cards -->
+        <div class="lg:col-span-4 space-y-6">
+            
+            <!-- Key Benefits Card -->
+            <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-6">
+                <h4 class="font-bold text-slate-800 text-sm uppercase tracking-wider border-b border-slate-100 pb-3">Lá»£i Ã­ch vÆ°á»£t trá»™i</h4>
+                
+                <div class="flex gap-4">
+                    <div class="w-10 h-10 bg-brand-50 rounded-xl text-brand-800 flex items-center justify-center flex-shrink-0"><i data-lucide="trending-up" class="w-5 h-5"></i></div>
+                    <div>
+                        <h5 class="text-xs font-bold text-slate-800">LÃ£i suáº¥t cáº¡nh tranh</h5>
+                        <p class="text-[11px] text-slate-500 mt-1 font-medium">LÃ£i suáº¥t gá»­i online luÃ´n cao hÆ¡n 0.3%/nÄƒm so vá»›i quáº§y.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="w-10 h-10 bg-amber-50 rounded-xl text-amber-600 flex items-center justify-center flex-shrink-0"><i data-lucide="clock" class="w-5 h-5"></i></div>
+                    <div>
+                        <h5 class="text-xs font-bold text-slate-800">Giao dá»‹ch 24/7</h5>
+                        <p class="text-[11px] text-slate-500 mt-1 font-medium">Má»Ÿ sá»•, táº¥t toÃ¡n hay kiá»ƒm tra sá»‘ dÆ° báº¥t ká»ƒ Ä‘Ãªm ngÃ y, ngÃ y lá»… táº¿t.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="w-10 h-10 bg-blue-50 rounded-xl text-blue-600 flex items-center justify-center flex-shrink-0"><i data-lucide="shield-check" class="w-5 h-5"></i></div>
+                    <div>
+                        <h5 class="text-xs font-bold text-slate-800">An toÃ n tuyá»‡t Ä‘á»‘i</h5>
+                        <p class="text-[11px] text-slate-500 mt-1 font-medium">MÃ£ hÃ³a báº£o máº­t hai lá»›p, xÃ¡c thá»±c OTP SmartToken chá»‘ng giáº£ máº¡o.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ad Card -->
+            <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-6 text-white shadow-lg space-y-4">
+                <span class="bg-secondary-700/20 text-secondary-400 border border-secondary-700/20 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider inline-block">Æ¯u Ä‘Ã£i kÃ©p</span>
+                <h4 class="text-sm font-bold">Má»Ÿ tÃ i khoáº£n eKYC chá»‰ 2 phÃºt</h4>
+                <p class="text-xs text-slate-400 font-medium">Tráº£i nghiá»‡m dá»‹ch vá»¥ ngÃ¢n hÃ ng sá»‘ tháº¿ há»‡ má»›i cá»§a GT SmartBank ngay hÃ´m nay.</p>
+                <button onclick="openRegisterModal()" class="w-full py-2.5 bg-brand-800 hover:bg-brand-900 text-white rounded-xl text-xs font-bold transition-all">ÄÄƒng kÃ½ má»Ÿ tÃ i khoáº£n</button>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-900 text-white pt-16 pb-8 border-t border-white/10 mt-12">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-8 grid grid-cols-2 md:grid-cols-5 gap-8">
+            <div class="col-span-2 space-y-4">
+                <a href="/index.html" class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-brand-800 font-black">
+                        <svg viewBox="0 0 100 100" class="w-6 h-6">
+                            <path d="M50 12 L82 22 V48 C82 66 69 82 50 88 C31 82 18 66 18 48 V22 Z" fill="#b60000" />
+                            <path d="M50 20 L74 27 V48 C74 61 64 73 50 78 C36 73 26 61 26 48 V27 Z" fill="#f7b500" opacity="0.9" />
+                            <path d="M43 38 H57 C60 38 62 40 62 43 V46 H52 V43 H44 V55 H57 V52 H62 V55 C62 58 60 60 57 60 H43 C40 60 38 58 38 55 V43 C38 40 40 38 43 38 Z" fill="#ffffff" />
+                            <path d="M47 43 H53 V46 H50.5 V55 H49.5 V46 H47 Z" fill="#b60000" />
+                        </svg>
+                    </div>
+                    <span class="text-lg font-black tracking-tight">GT <span class="text-slate-350">SmartBank</span></span>
+                </a>
+                <p class="text-xs text-white/70 max-w-sm">Giáº£i phÃ¡p ngÃ¢n hÃ ng thÃ´ng minh cho cuá»™c sá»‘ng hiá»‡n Ä‘áº¡i cá»§a báº¡n.</p>
+            </div>
+            <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase text-secondary-700">CÃ¡ nhÃ¢n</h4>
+                <ul class="space-y-2 text-xs text-white/60">
+                    <li><a href="/pages/portal.html?view=tai-khoan" class="hover:text-white">TÃ i khoáº£n & Tháº»</a></li>
+                    <li><a href="/pages/tiet-kiem-online.html" class="hover:text-white">Tiáº¿t kiá»‡m Online</a></li>
+                    <li><a href="/pages/vay-tieu-dung.html" class="hover:text-white">Vay tiÃªu dÃ¹ng</a></li>
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase text-secondary-700">Há»— trá»£</h4>
+                <ul class="space-y-2 text-xs text-white/60">
+                    <li><a href="/pages/ho-tro.html" class="hover:text-white">Trung tÃ¢m trá»£ giÃºp</a></li>
+                    <li><a href="/pages/chinhanh.html" class="hover:text-white">Tra cá»©u ATM & Chi nhÃ¡nh</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-[1280px] mx-auto px-4 md:px-8 mt-12 pt-6 border-t border-white/10 text-[11px] text-white/50 font-bold font-mono">
+            Â© 2026 GT SMARTBANK CORP. ALL RIGHTS RESERVED.
+        </div>
+    </footer>
+
+    <!-- JS Scripts -->
+    <script src="/js/config.js"></script>
+    <script src="/js/public.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+/* Reset body to light theme */
+body {
+    background: #f8fafc !important; /* light slate background */
+    font-family: "Outfit", "Segoe UI", Arial, sans-serif !important;
+}
+
+.swagger-ui {
+    color: #1e293b !important; /* dark readable text */
+}
+
+/* Header style - Emerald gradient matching GT Smart Bank */
+.swagger-ui .topbar {
+    background: linear-gradient(95deg, #064e3b, #047857) !important;
+    padding: 16px 0 !important;
+    box-shadow: 0 10px 30px rgba(4, 120, 87, 0.15) !important;
+}
+
+.swagger-ui .topbar-wrapper img {
+    display: none !important;
+}
+
+.swagger-ui .topbar-wrapper::before {
+    content: "GT Smart Bank";
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.swagger-ui .topbar-wrapper::after {
+    content: "API Banking Management Console";
+    color: #a7f3d0;
+    font-size: 13px;
+    margin-left: 15px;
+    font-weight: 500;
+}
+
+.swagger-ui .wrapper {
+    max-width: 1280px !important;
+}
+
+/* Info container styling */
+.swagger-ui .info {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 20px !important;
+    padding: 30px !important;
+    margin: 30px 0 !important;
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.05) !important;
+}
+
+.swagger-ui .info .title {
+    color: #0f172a !important;
+    font-size: 36px !important;
+    font-weight: 800 !important;
+}
+
+.swagger-ui .info .title::after {
+    content: "Hệ thống RESTful API - An toàn • Bảo mật • Tốc độ";
+    display: block;
+    color: #047857;
+    font-size: 18px;
+    margin-top: 8px;
+    font-weight: 600;
+}
+
+.swagger-ui .info .description,
+.swagger-ui .info p {
+    color: #475569 !important;
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+}
+
+/* Scheme container */
+.swagger-ui .scheme-container {
+    background: #ffffff !important;
+    border-radius: 16px !important;
+    padding: 16px 20px !important;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04) !important;
+    border: 1px solid #e2e8f0 !important;
+}
+
+/* Tag Headers (Vietnamese Translations via Pseudo-elements) */
+.swagger-ui .opblock-tag {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    border-radius: 16px !important;
+    padding: 16px 24px !important;
+    margin: 24px 0 12px !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.03) !important;
+}
+
+.swagger-ui .opblock-tag small {
+    color: #64748b !important;
+    font-size: 13px !important;
+    margin-left: 10px !important;
+}
+
+
+
+/* Operation blocks container */
+.swagger-ui .opblock {
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    margin: 12px 0 !important;
+    box-shadow: 0 5px 15px rgba(15, 23, 42, 0.02) !important;
+    border: 1px solid #e2e8f0 !important;
+}
+
+.swagger-ui .opblock .opblock-summary {
+    padding: 12px 18px !important;
+}
+
+.swagger-ui .opblock .opblock-summary-method {
+    border-radius: 10px !important;
+    min-width: 80px !important;
+    padding: 6px 12px !important;
+    font-weight: 800 !important;
+    font-size: 13px !important;
+}
+
+.swagger-ui .opblock .opblock-summary-path {
+    color: #1e293b !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+}
+
+.swagger-ui .opblock .opblock-summary-description {
+    color: #475569 !important;
+    font-size: 13px !important;
+}
+
+/* GET Block */
+.swagger-ui .opblock.opblock-get {
+    background: #eff6ff !important;
+    border-left: 6px solid #3b82f6 !important;
+    border-color: #dbeafe !important;
+}
+.swagger-ui .opblock.opblock-get .opblock-summary-method {
+    background: #3b82f6 !important;
+    color: #ffffff !important;
+}
+
+/* POST Block */
+.swagger-ui .opblock.opblock-post {
+    background: #f0fdf4 !important;
+    border-left: 6px solid #10b981 !important;
+    border-color: #dcfce7 !important;
+}
+.swagger-ui .opblock.opblock-post .opblock-summary-method {
+    background: #10b981 !important;
+    color: #ffffff !important;
+}
+
+/* PUT Block */
+.swagger-ui .opblock.opblock-put {
+    background: #fff7ed !important;
+    border-left: 6px solid #f97316 !important;
+    border-color: #ffedd5 !important;
+}
+.swagger-ui .opblock.opblock-put .opblock-summary-method {
+    background: #f97316 !important;
+    color: #ffffff !important;
+}
+
+/* DELETE Block */
+.swagger-ui .opblock.opblock-delete {
+    background: #fef2f2 !important;
+    border-left: 6px solid #ef4444 !important;
+    border-color: #fee2e2 !important;
+}
+.swagger-ui .opblock.opblock-delete .opblock-summary-method {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+}
+
+/* Authorize Button */
+.swagger-ui .btn.authorize {
+    background: #10b981 !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    padding: 10px 16px !important;
+    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.2) !important;
+}
+.swagger-ui .btn.authorize svg {
+    fill: #ffffff !important;
+}
+
+/* Execute Button */
+.swagger-ui .btn.execute {
+    background: #047857 !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    padding: 8px 24px !important;
+}
+
+/* Try it out Button */
+.swagger-ui .btn.try-out__btn {
+    border: 2px solid #047857 !important;
+    color: #047857 !important;
+    background: transparent !important;
+    border-radius: 10px !important;
+    font-weight: 700 !important;
+}
+
+/* Forms & Inputs */
+.swagger-ui input,
+.swagger-ui textarea,
+.swagger-ui select {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 10px !important;
+    padding: 10px !important;
+}
+
+/* Tables styling */
+.swagger-ui table {
+    background: #ffffff !important;
+    color: #1e293b !important;
+    border-radius: 12px !important;
+    border: 1px solid #e2e8f0 !important;
+    overflow: hidden !important;
+}
+
+.swagger-ui table thead tr th {
+    background: #f1f5f9 !important;
+    color: #0f172a !important;
+    font-weight: 750 !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+}
+
+.swagger-ui .parameters-col_description,
+.swagger-ui .parameters-col_name,
+.swagger-ui .response-col_status,
+.swagger-ui .response-col_description {
+    color: #334155 !important;
+}
+
+/* Response Section styling */
+.swagger-ui .responses-wrapper {
+    background: #f8fafc !important;
+    border-radius: 16px !important;
+    padding: 16px !important;
+    margin-top: 14px !important;
+    border: 1px solid #e2e8f0 !important;
+}
+
+/* Code Highlights */
+.swagger-ui .highlight-code,
+.swagger-ui .microlight {
+    background: #0f172a !important; /* keep dark code blocks for high contrast */
+    color: #38bdf8 !important;
+    border-radius: 12px !important;
+    border: 1px solid #1e293b !important;
+}
+
+/* Models container */
+.swagger-ui section.models {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.03) !important;
+}
+
+.swagger-ui .model-title,
+.swagger-ui .models h4 {
+    color: #0f172a !important;
+}
+
+.swagger-ui .model,
+.swagger-ui .model-box {
+    color: #334155 !important;
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #047857;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}

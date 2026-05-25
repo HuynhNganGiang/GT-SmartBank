@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>GT SmartBank — Ngân hàng số thông minh thế hệ mới</title>
+    <meta name="description" content="Chào mừng bạn đến với GT SmartBank. Trải nghiệm ngân hàng số an toàn, tiện lợi với chuyển tiền miễn phí 24/7, gửi tiết kiệm lãi suất cao và mở thẻ eKYC tức thì.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/bank-ui/css/public.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50:  '#fff5f5',
+                            100: '#ffe3e3',
+                            200: '#ffc9c9',
+                            300: '#ffa3a3',
+                            400: '#ff7373',
+                            500: '#f03e3e',
+                            600: '#e03131',
+                            700: '#c92a2a',
+                            800: '#b60000', /* Crimson Primary */
+                            850: '#a00000',
+                            900: '#9c0000',
+                        },
+                        secondary: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#f7b500', /* Golden Secondary */
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="text-slate-800 bg-slate-50 antialiased">
+
+    <!-- ════════════════════════════════════════════════════════
+         TOP UTILITY BAR
+         ════════════════════════════════════════════════════════ -->
+    <div class="bg-brand-900 text-white text-[11px] font-medium py-2 px-4 md:px-8 flex items-center justify-between border-b border-white/10">
+        <div class="flex items-center gap-6">
+            <span class="flex items-center gap-1.5">
+                <i data-lucide="phone" class="w-3.5 h-3.5 text-secondary-700"></i>
+                Hotline: <strong class="text-secondary-700 text-xs">1800 9999</strong>
+            </span>
+            <span class="hidden sm:inline text-white/70">|</span>
+            <a href="/bank-ui/pages/portal.html?view=lai-suat" class="hidden sm:inline hover:text-secondary-700 transition-colors">Bảng lãi suất</a>
+            <span class="hidden sm:inline text-white/70">|</span>
+            <a href="/bank-ui/pages/portal.html?view=ty-gia" class="hidden sm:inline hover:text-secondary-700 transition-colors">Tỷ giá ngoại tệ</a>
+            <span class="hidden sm:inline text-white/70">|</span>
+            <a href="/bank-ui/pages/chinhanh.html" class="hidden sm:inline hover:text-secondary-700 transition-colors">Mạng lưới ATM/Chi nhánh</a>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="hidden lg:inline text-white/60 italic">Nâng tầm giá trị cuộc sống</span>
+            <span class="hidden lg:inline text-white/70">|</span>
+            <div class="flex items-center gap-2">
+                <span class="font-bold text-secondary-700 cursor-pointer">VN</span>
+                <span class="text-white/40">|</span>
+                <span class="text-white/60 hover:text-white cursor-pointer transition-colors">EN</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════
+         MAIN HEADER & NAVIGATION
+         ════════════════════════════════════════════════════════ -->
+    <header class="bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-slate-100 shadow-sm transition-all">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo GT SmartBank -->
+            <a href="/bank-ui/index.html" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 bg-brand-800 rounded-xl flex items-center justify-center text-secondary-700 font-black shadow-lg shadow-red-200 border border-brand-700 transform group-hover:scale-105 transition-all">
+                    <svg viewBox="0 0 100 100" class="w-6 h-6">
+                        <path d="M50 12 L82 22 V48 C82 66 69 82 50 88 C31 82 18 66 18 48 V22 Z" fill="#ffffff" />
+                        <path d="M50 20 L74 27 V48 C74 61 64 73 50 78 C36 73 26 61 26 48 V27 Z" fill="#f7b500" opacity="0.9" />
+                        <path d="M43 38 H57 C60 38 62 40 62 43 V46 H52 V43 H44 V55 H57 V52 H62 V55 C62 58 60 60 57 60 H43 C40 60 38 58 38 55 V43 C38 40 40 38 43 38 Z" fill="#ffffff" />
+                        <path d="M47 43 H53 V46 H50.5 V55 H49.5 V46 H47 Z" fill="#b60000" />
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-lg font-black text-brand-800 tracking-tight leading-none block">GT <span class="text-slate-800">SmartBank</span></span>
+                    <span class="text-[9px] font-bold text-secondary-700 tracking-widest uppercase block mt-0.5">SMART DIGITAL BANK</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden lg:flex items-center gap-1">
+                <!-- Cá nhân -->
+                <div class="relative group py-6">
+                    <a href="/bank-ui/pages/ca-nhan.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 transition-colors flex items-center gap-1 rounded-lg hover:bg-slate-50">
+                        Cá nhân
+                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform group-hover:rotate-180"></i>
+                    </a>
+                    
+                    <!-- Mega Menu Cá nhân -->
+                    <div class="mega-menu absolute top-[76px] left-1/2 -translate-x-[40%] w-[880px] bg-white border border-slate-100 rounded-3xl p-6 shadow-2xl flex gap-8 z-50">
+                        <div class="flex-1 grid grid-cols-3 gap-6">
+                            <div>
+                                <h4 class="text-xs font-bold text-brand-800 uppercase tracking-wider mb-3">Tài khoản & Thẻ</h4>
+                                <ul class="space-y-2.5">
+                                    <li><a href="/bank-ui/pages/portal.html?view=tai-khoan" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block">Tài khoản thanh toán</a></li>
+                                    <li><a href="/bank-ui/pages/portal.html?view=tai-khoan" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block">Tài khoản số đẹp</a></li>
+                                    <li><a href="/bank-ui/pages/the-tin-dung.html" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block">Thẻ tín dụng Quốc tế</a></li>
+                                    <li><a href="/bank-ui/pages/portal.html?view=the" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block">Thẻ ghi nợ nội địa</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-brand-800 uppercase tracking-wider mb-3">Tiết kiệm & Vay</h4>
+                                <ul class="space-y-2.5">
+                                    <li><a href="/bank-ui/pages/tiet-kiem-online.html" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block font-semibold text-brand-800">Tiết kiệm Online lãi cao</a></li>
+                                    <li><a href="/bank-ui/pages/vay-tieu-dung.html" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block">Vay tiêu dùng cá nhân</a></li>
+                                    <li><a href="/bank-ui/pages/vay-tieu-dung.html" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block">Vay mua nhà đất, căn hộ</a></li>
+                                    <li><a href="/bank-ui/pages/vay-tieu-dung.html" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block">Vay mua xe ô tô ưu đãi</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-brand-800 uppercase tracking-wider mb-3">Ngân hàng số</h4>
+                                <ul class="space-y-2.5">
+                                    <li><a href="/bank-ui/pages/dich-vu-so.html" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block">Ứng dụng GT SmartBank Pay</a></li>
+                                    <li><a href="/bank-ui/pages/chuyen-tien-247.html" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block">Chuyển tiền nhanh 24/7</a></li>
+                                    <li><a href="/bank-ui/pages/portal.html?view=bao-hiem" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block">Bảo hiểm liên kết</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Promo card right -->
+                        <div class="w-64 bg-slate-50 border border-slate-150 rounded-2xl p-4 flex flex-col justify-between">
+                            <div>
+                                <span class="bg-brand-100 text-brand-800 font-bold text-[10px] uppercase px-2 py-0.5 rounded-full inline-block mb-2">Đặc quyền</span>
+                                <h5 class="text-sm font-bold text-slate-800">Tiết kiệm Online</h5>
+                                <p class="text-xs text-slate-500 mt-1">Cộng thêm tới 0.3%/năm lãi suất khi gửi từ 10 triệu đồng.</p>
+                            </div>
+                            <a href="/bank-ui/pages/tiet-kiem-online.html" class="mt-4 py-2 bg-brand-800 hover:bg-brand-900 text-white rounded-xl text-center text-xs font-bold transition-all">Khám phá ngay</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doanh nghiệp -->
+                <div class="relative group py-6">
+                    <a href="/bank-ui/pages/doanh-nghiep.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 transition-colors flex items-center gap-1 rounded-lg hover:bg-slate-50">
+                        Doanh nghiệp
+                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform group-hover:rotate-180"></i>
+                    </a>
+                    
+                    <!-- Mega Menu Doanh nghiệp -->
+                    <div class="mega-menu absolute top-[76px] left-1/2 -translate-x-[50%] w-[880px] bg-white border border-slate-100 rounded-3xl p-6 shadow-2xl flex gap-8 z-50">
+                        <div class="flex-1 grid grid-cols-3 gap-6">
+                            <div>
+                                <h4 class="text-xs font-bold text-brand-800 uppercase tracking-wider mb-3">Tài khoản & Quản lý</h4>
+                                <ul class="space-y-2.5">
+                                    <li><a href="/bank-ui/pages/portal.html?view=doanh-nghiep" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block">Tài khoản thanh toán Biz</a></li>
+                                    <li><a href="/bank-ui/pages/portal.html?view=doanh-nghiep" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block">Quản lý dòng tiền thông minh</a></li>
+                                    <li><a href="/bank-ui/pages/portal.html?view=doanh-nghiep" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block">Dịch vụ chi lương tự động</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-brand-800 uppercase tracking-wider mb-3">Tín dụng & Bảo lãnh</h4>
+                                <ul class="space-y-2.5">
+                                    <li><a href="/bank-ui/pages/portal.html?view=doanh-nghiep" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block">Tín dụng doanh nghiệp SME</a></li>
+                                    <li><a href="/bank-ui/pages/portal.html?view=doanh-nghiep" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block">Bảo lãnh ngân hàng uy tín</a></li>
+                                    <li><a href="/bank-ui/pages/portal.html?view=doanh-nghiep" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block">Tài trợ thương mại Quốc tế</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-brand-800 uppercase tracking-wider mb-3">Dịch vụ số Biz</h4>
+                                <ul class="space-y-2.5">
+                                    <li><a href="/bank-ui/pages/portal.html?view=doanh-nghiep" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block font-semibold text-brand-800">Internet Banking GT Biz</a></li>
+                                    <li><a href="/bank-ui/pages/portal.html?view=doanh-nghiep" class="text-[13px] font-medium text-slate-600 hover:text-brand-800 block">Kết nối API ngân hàng</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Promo card right -->
+                        <div class="w-64 bg-slate-50 border border-slate-150 rounded-2xl p-4 flex flex-col justify-between">
+                            <div>
+                                <span class="bg-amber-100 text-amber-800 font-bold text-[10px] uppercase px-2 py-0.5 rounded-full inline-block mb-2">Ưu đãi Biz</span>
+                                <h5 class="text-sm font-bold text-slate-800">GT SmartBiz Pay</h5>
+                                <p class="text-xs text-slate-500 mt-1">Miễn phí giao dịch trọn đời, tặng tài khoản số đẹp trùng mã số thuế.</p>
+                            </div>
+                            <a href="/bank-ui/pages/portal.html?view=doanh-nghiep" class="mt-4 py-2 bg-brand-800 hover:bg-brand-900 text-white rounded-xl text-center text-xs font-bold transition-all">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Khách hàng ưu tiên -->
+                <a href="/bank-ui/pages/portal.html?view=vip" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 transition-colors rounded-lg hover:bg-slate-50">
+                    Khách hàng ưu tiên
+                </a>
+
+                <!-- Khuyến mãi -->
+                <a href="/bank-ui/pages/khuyen-mai.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 transition-colors rounded-lg hover:bg-slate-50">
+                    Khuyến mãi
+                </a>
+
+                <!-- Hỗ trợ -->
+                <a href="/bank-ui/pages/ho-tro.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 transition-colors rounded-lg hover:bg-slate-50">
+                    Hỗ trợ
+                </a>
+            </nav>
+
+            <!-- Search, Action Buttons -->
+            <div class="flex items-center gap-3">
+                <button class="w-10 h-10 rounded-full bg-slate-50 hover:bg-slate-100 flex items-center justify-center text-slate-500 transition-colors border border-slate-100">
+                    <i data-lucide="search" class="w-4 h-4"></i>
+                </button>
+                
+                <!-- Dynamic login button section managed by public.js -->
+                <div id="header-auth-container" class="flex items-center gap-2">
+                    <a href="/bank-ui/pages/login.html" class="px-4 py-2 text-xs font-bold text-slate-700 hover:text-brand-850 transition-colors">
+                        Đăng nhập
+                    </a>
+                    <button onclick="openRegisterModal()" class="px-4 py-2 text-xs font-bold text-white bg-brand-800 hover:bg-brand-900 rounded-full transition-all shadow-md shadow-red-150">
+                        Mở tài khoản
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ════════════════════════════════════════════════════════
+         HERO SECTION
+         ════════════════════════════════════════════════════════ -->
+    <section class="hero-gradient text-white py-16 md:py-24 relative">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-8 grid md:grid-cols-12 gap-8 items-center relative z-10">
+            
+            <!-- Left Info -->
+            <div class="md:col-span-7 space-y-6 md:pr-8">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-xs font-bold tracking-wide uppercase text-secondary-400">
+                    <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+                    Bảo mật chuẩn Quốc tế SSL 256-bit
+                </div>
+                <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
+                    GT SmartBank <br>
+                    <span class="text-secondary-700">Ngân hàng số thông minh</span>
+                </h1>
+                <p class="text-sm md:text-base text-white/80 leading-relaxed max-w-xl font-medium">
+                    Chuyển tiền nhanh Napas 24/7 hoàn toàn miễn phí, mở tài khoản trực tuyến eKYC trong 2 phút, gửi tiết kiệm online nhận lãi suất vượt trội lên tới 6.2%/năm.
+                </p>
+                <div class="flex flex-wrap items-center gap-4 pt-2">
+                    <button onclick="openRegisterModal()" class="px-8 py-3.5 bg-secondary-750 hover:bg-secondary-600 text-slate-900 rounded-xl text-sm font-extrabold transition-all duration-300 transform hover:-translate-y-0.5 glow-gold">
+                        Mở tài khoản eKYC
+                    </button>
+                    <a href="/bank-ui/pages/login.html" class="px-8 py-3.5 bg-white/10 hover:bg-white/20 border border-white/25 rounded-xl text-sm font-bold transition-all">
+                        Internet Banking
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Interactive Graphic / Mini-form -->
+            <div class="md:col-span-5 flex justify-center md:justify-end">
+                <div class="glass-dark-panel rounded-3xl p-6 md:p-8 w-full max-w-sm shadow-2xl relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-secondary-700/10 rounded-full blur-2xl"></div>
+                    
+                    <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
+                        <i data-lucide="calculator" class="w-5 h-5 text-secondary-700"></i>
+                        Tính lãi tiết kiệm online
+                    </h3>
+
+                    <div class="space-y-4 text-slate-200">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-350 mb-1">Số tiền gửi (VND)</label>
+                            <input type="number" id="calc-amount" value="50000000" class="w-full px-4 py-2 text-sm bg-slate-900/50 border border-white/10 rounded-xl focus:outline-none focus:border-secondary-700 transition-all font-bold text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-350 mb-1">Kỳ hạn gửi</label>
+                            <select id="calc-term" class="w-full px-4 py-2 text-sm bg-slate-900/50 border border-white/10 rounded-xl focus:outline-none focus:border-secondary-700 transition-all font-bold text-white">
+                                <option value="1">1 tháng (3.5%/năm)</option>
+                                <option value="3">3 tháng (3.5%/năm)</option>
+                                <option value="6">6 tháng (5.0%/năm)</option>
+                                <option value="12" selected>12 tháng (6.0%/năm)</option>
+                                <option value="24">24 tháng (6.2%/năm)</option>
+                            </select>
+                        </div>
+
+                        <div class="pt-4 border-t border-white/10 space-y-2">
+                            <div class="flex justify-between text-xs font-medium">
+                                <span class="text-slate-350">Lãi suất:</span>
+                                <span id="calc-rate-val" class="font-bold text-secondary-700">6.0% / năm</span>
+                            </div>
+                            <div class="flex justify-between text-xs font-medium">
+                                <span class="text-slate-350">Tiền lãi nhận được:</span>
+                                <span id="calc-interest-val" class="font-bold text-white">3,000,000 ₫</span>
+                            </div>
+                            <div class="flex justify-between text-sm font-bold pt-1 border-t border-white/5">
+                                <span class="text-slate-250">Tổng số tiền nhận:</span>
+                                <span id="calc-total-val" class="text-secondary-700 font-extrabold text-base">53,000,000 ₫</span>
+                            </div>
+                        </div>
+
+                        <button id="calc-btn" class="w-full py-3 bg-secondary-700 hover:bg-secondary-600 text-slate-900 rounded-xl text-xs font-extrabold transition-all uppercase tracking-wider mt-2">
+                            Tính toán lãi suất
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         QUICK SERVICES
+         ════════════════════════════════════════════════════════ -->
+    <section class="max-w-[1280px] mx-auto px-4 md:px-8 py-16 -mt-8 relative z-20">
+        <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-100">
+            <h3 class="text-center font-bold text-slate-800 text-lg mb-8 uppercase tracking-wider">Dịch vụ ngân hàng số nổi bật</h3>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <!-- Chuyển tiền 24/7 -->
+                <a href="/bank-ui/pages/chuyen-tien-247.html" class="service-card flex flex-col items-center justify-center p-5 bg-slate-50 border border-slate-100 rounded-2xl text-center group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-800 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <i data-lucide="arrow-right-left" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-bold text-slate-700 group-hover:text-brand-800 transition-colors">Chuyển tiền 24/7</span>
+                    <span class="text-[9px] text-slate-400 font-semibold mt-1 block">Hoàn toàn miễn phí</span>
+                </a>
+
+                <!-- Tiết kiệm Online -->
+                <a href="/bank-ui/pages/tiet-kiem-online.html" class="service-card flex flex-col items-center justify-center p-5 bg-slate-50 border border-slate-100 rounded-2xl text-center group">
+                    <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <i data-lucide="piggy-bank" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-bold text-slate-700 group-hover:text-brand-800 transition-colors">Tiết kiệm Online</span>
+                    <span class="text-[9px] text-emerald-600 font-bold mt-1 block">Lãi suất tới 6.2%</span>
+                </a>
+
+                <!-- Thẻ tín dụng -->
+                <a href="/bank-ui/pages/the-tin-dung.html" class="service-card flex flex-col items-center justify-center p-5 bg-slate-50 border border-slate-100 rounded-2xl text-center group">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <i data-lucide="credit-card" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-bold text-slate-700 group-hover:text-brand-800 transition-colors">Thẻ tín dụng</span>
+                    <span class="text-[9px] text-slate-400 font-semibold mt-1 block">Hoàn tiền & Tích điểm</span>
+                </a>
+
+                <!-- Vay tiêu dùng -->
+                <a href="/bank-ui/pages/vay-tieu-dung.html" class="service-card flex flex-col items-center justify-center p-5 bg-slate-50 border border-slate-100 rounded-2xl text-center group">
+                    <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <i data-lucide="wallet" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-bold text-slate-700 group-hover:text-brand-800 transition-colors">Vay tiêu dùng</span>
+                    <span class="text-[9px] text-slate-400 font-semibold mt-1 block">Giải ngân trong ngày</span>
+                </a>
+
+                <!-- Ngân hàng số GT Pay -->
+                <a href="/bank-ui/pages/dich-vu-so.html" class="service-card flex flex-col items-center justify-center p-5 bg-slate-50 border border-slate-100 rounded-2xl text-center group">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <i data-lucide="smartphone" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-bold text-slate-700 group-hover:text-brand-800 transition-colors">GT SmartBank Pay</span>
+                    <span class="text-[9px] text-slate-400 font-semibold mt-1 block">Thanh toán QR mượt</span>
+                </a>
+
+                <!-- ATM/Chi nhánh -->
+                <a href="/bank-ui/pages/chinhanh.html" class="service-card flex flex-col items-center justify-center p-5 bg-slate-50 border border-slate-100 rounded-2xl text-center group">
+                    <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <i data-lucide="map-pin" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-bold text-slate-700 group-hover:text-brand-800 transition-colors">ATM / Chi nhánh</span>
+                    <span class="text-[9px] text-slate-400 font-semibold mt-1 block">Bản đồ trực quan</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         SECTION: CÁC SẢN PHẨM GỢI Ý (LIFE STAGES)
+         ════════════════════════════════════════════════════════ -->
+    <section class="max-w-[1280px] mx-auto px-4 md:px-8 py-10">
+        <div class="text-center mb-10">
+            <h2 class="text-2xl font-black text-slate-800 tracking-tight">Sản phẩm thiết kế theo nhu cầu của bạn</h2>
+            <p class="text-sm text-slate-500 mt-2 font-medium">Bất kể bạn đang ở giai đoạn nào của cuộc đời, GT SmartBank luôn đồng hành cùng bạn.</p>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-6">
+            <!-- Sinh viên học sinh -->
+            <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 bg-sky-50 text-sky-600 rounded-xl flex items-center justify-center mb-4">
+                        <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-sm mb-2">Sinh viên học sinh</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed font-medium">Mở tài khoản 0 đồng, miễn phí quản trị thẻ học đường, ưu đãi thanh toán vé xe, học phí và nạp tiền điện thoại.</p>
+                </div>
+                <button onclick="openRegisterModal()" class="mt-6 text-xs font-bold text-brand-800 hover:text-brand-900 flex items-center gap-1.5 justify-center w-full py-2 bg-slate-50 rounded-xl hover:bg-slate-100 transition-all">
+                    Tìm hiểu thêm
+                    <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </button>
+            </div>
+
+            <!-- Phát triển sự nghiệp -->
+            <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-4">
+                        <i data-lucide="briefcase" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-sm mb-2">Phát triển sự nghiệp</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed font-medium">Tài khoản số đẹp phát tài, thẻ tín dụng hoàn tiền tới 5% mọi chi tiêu ăn uống mua sắm, các gói vay mua ô tô lãi suất cực thấp.</p>
+                </div>
+                <button onclick="openRegisterModal()" class="mt-6 text-xs font-bold text-brand-800 hover:text-brand-900 flex items-center gap-1.5 justify-center w-full py-2 bg-slate-50 rounded-xl hover:bg-slate-100 transition-all">
+                    Tìm hiểu thêm
+                    <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </button>
+            </div>
+
+            <!-- Xây dựng tổ ấm -->
+            <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center mb-4">
+                        <i data-lucide="home" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-sm mb-2">Xây dựng tổ ấm</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed font-medium">Gói vay mua nhà trả góp dài hạn lãi suất ưu đãi cố định, tài khoản tích lũy con yêu vững bước tương lai, bảo an toàn diện.</p>
+                </div>
+                <button onclick="openRegisterModal()" class="mt-6 text-xs font-bold text-brand-800 hover:text-brand-900 flex items-center gap-1.5 justify-center w-full py-2 bg-slate-50 rounded-xl hover:bg-slate-100 transition-all">
+                    Tìm hiểu thêm
+                    <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </button>
+            </div>
+
+            <!-- Kế hoạch nghỉ hưu -->
+            <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center mb-4">
+                        <i data-lucide="sun" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-sm mb-2">Kế hoạch nghỉ hưu</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed font-medium">An tâm dưỡng già với dịch vụ gửi tiết kiệm nhận lãi định kỳ hàng tháng, thẻ hưu trí chuyên biệt, dịch vụ chăm sóc y tế cao cấp.</p>
+                </div>
+                <button onclick="openRegisterModal()" class="mt-6 text-xs font-bold text-brand-800 hover:text-brand-900 flex items-center gap-1.5 justify-center w-full py-2 bg-slate-50 rounded-xl hover:bg-slate-100 transition-all">
+                    Tìm hiểu thêm
+                    <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         SECTION: CARD PROMOTIONS
+         ════════════════════════════════════════════════════════ -->
+    <section class="max-w-[1280px] mx-auto px-4 md:px-8 py-10">
+        <div class="bg-slate-900 rounded-3xl p-8 md:p-12 relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-8 shadow-xl border border-slate-800">
+            <div class="absolute top-0 right-0 w-80 h-80 bg-red-800/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-80 h-80 bg-yellow-600/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="space-y-4 max-w-xl text-center md:text-left relative z-10">
+                <span class="bg-secondary-700/25 border border-secondary-700/20 text-secondary-400 font-bold text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full inline-block">Ưu đãi độc quyền</span>
+                <h2 class="text-2xl md:text-3xl font-black text-white leading-tight">Trọn bộ thẻ tín dụng GT SmartBank Visa</h2>
+                <p class="text-sm text-slate-400 leading-relaxed">Miễn phí phát hành, miễn phí quản lý tài khoản trọn đời, đặc biệt hoàn tiền tới 5% mọi chi tiêu và tận hưởng chu kỳ miễn lãi lên đến <strong class="text-white">55 ngày</strong>.</p>
+            </div>
+            
+            <div class="flex items-center gap-4 flex-shrink-0 relative z-10">
+                <a href="/bank-ui/pages/the-tin-dung.html" class="px-8 py-3.5 bg-brand-800 hover:bg-brand-900 text-white rounded-xl text-xs font-black transition-all shadow-lg shadow-red-950/20">Khám phá ngay</a>
+                <button onclick="openRegisterModal()" class="px-8 py-3.5 bg-white/10 hover:bg-white/20 border border-white/10 text-white rounded-xl text-xs font-bold transition-all">Mở thẻ eKYC</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         SECTION: MOBILE APP & QR (GT SmartBank Pay)
+         ════════════════════════════════════════════════════════ -->
+    <section class="max-w-[1280px] mx-auto px-4 md:px-8 py-10 grid md:grid-cols-2 gap-12 items-center">
+        
+        <!-- Left Visual: Mock phone and features -->
+        <div class="flex items-center justify-center relative">
+            <div class="w-72 h-[550px] bg-slate-900 rounded-[40px] border-4 border-slate-800 shadow-2xl relative overflow-hidden flex flex-col justify-between p-4 transform -rotate-2">
+                <!-- Phone Top notch -->
+                <div class="absolute top-2 left-1/2 -translate-x-1/2 w-32 h-4 bg-slate-800 rounded-full flex items-center justify-center gap-1 z-20">
+                    <span class="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+                </div>
+                
+                <!-- Inner Screen header -->
+                <div class="pt-4 flex items-center justify-between border-b border-white/5 pb-2 text-[10px] text-white/40 font-bold">
+                    <span>9:41</span>
+                    <span class="flex items-center gap-1">
+                        <i data-lucide="wifi" class="w-2.5 h-2.5"></i>
+                        <i data-lucide="battery" class="w-2.5 h-2.5"></i>
+                    </span>
+                </div>
+                
+                <!-- Inner Screen body -->
+                <div class="flex-1 py-4 flex flex-col justify-between">
+                    <div>
+                        <!-- Header App -->
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-extrabold text-white">GT SmartBank Pay</span>
+                            <div class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-secondary-400">
+                                <i data-lucide="bell" class="w-3 h-3"></i>
+                            </div>
+                        </div>
+
+                        <!-- Card Simulator -->
+                        <div class="mt-4 bg-gradient-to-r from-red-800 to-amber-700 rounded-xl p-3 text-white shadow-lg relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full blur-xl"></div>
+                            <span class="text-[8px] font-bold text-white/50 tracking-wider">SIGNATURE DEBIT</span>
+                            <div class="flex items-center justify-between mt-2">
+                                <span class="text-sm font-black tracking-widest font-mono">**** 5678</span>
+                                <span class="text-[9px] font-bold text-amber-400">VISA</span>
+                            </div>
+                            <div class="flex justify-between items-end mt-4">
+                                <div>
+                                    <span class="text-[6px] text-white/40 block">HỌ TÊN CHỦ THẺ</span>
+                                    <span class="text-[9px] font-bold tracking-wide uppercase">NGUYEN VAN A</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-[6px] text-white/40 block">HẠN SỬ DỤNG</span>
+                                    <span class="text-[9px] font-bold">12/30</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions inside simulator -->
+                        <div class="grid grid-cols-4 gap-2 mt-4">
+                            <div class="bg-white/5 rounded-lg p-2 text-center flex flex-col items-center">
+                                <i data-lucide="arrow-up-right" class="w-4 h-4 text-secondary-500"></i>
+                                <span class="text-[7px] text-white/70 mt-1 block">Chuyển tiền</span>
+                            </div>
+                            <div class="bg-white/5 rounded-lg p-2 text-center flex flex-col items-center">
+                                <i data-lucide="qr-code" class="w-4 h-4 text-emerald-500"></i>
+                                <span class="text-[7px] text-white/70 mt-1 block">Quét mã QR</span>
+                            </div>
+                            <div class="bg-white/5 rounded-lg p-2 text-center flex flex-col items-center">
+                                <i data-lucide="piggy-bank" class="w-4 h-4 text-amber-500"></i>
+                                <span class="text-[7px] text-white/70 mt-1 block">Tiết kiệm</span>
+                            </div>
+                            <div class="bg-white/5 rounded-lg p-2 text-center flex flex-col items-center">
+                                <i data-lucide="receipt" class="w-4 h-4 text-rose-500"></i>
+                                <span class="text-[7px] text-white/70 mt-1 block">Hóa đơn</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom QR Simulator inside screen -->
+                    <div class="bg-white/5 rounded-xl p-3 border border-white/5 flex items-center gap-3">
+                        <div class="w-12 h-12 bg-white rounded-lg p-1 flex items-center justify-center flex-shrink-0">
+                            <!-- Mimic QR Code -->
+                            <div class="w-full h-full bg-slate-900" style="clip-path: polygon(0 0, 40% 0, 40% 40%, 0 40%, 0 0, 100% 0, 100% 40%, 60% 40%, 60% 0, 100% 0, 0 100%, 40% 100%, 40% 60%, 0 60%, 0 100%, 100% 100%, 100% 60%, 60% 60%, 60% 100%, 100% 100%);"></div>
+                        </div>
+                        <div>
+                            <span class="text-[9px] font-extrabold text-white block">Quét Mã QR Pay</span>
+                            <span class="text-[7px] text-slate-400 block mt-0.5 leading-snug">Chuyển khoản nhanh chóng, thanh toán hóa đơn tiện lợi 24/7.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Float visual elements -->
+            <div class="absolute -top-6 -left-6 bg-white border border-slate-100 rounded-2xl p-3 shadow-lg flex items-center gap-2 transform rotate-6">
+                <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                    <i data-lucide="check" class="w-4 h-4"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold block text-slate-800">Miễn phí 100%</span>
+                    <span class="text-[8px] block text-slate-400 font-semibold">Mọi phí dịch vụ</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Description -->
+        <div class="space-y-6">
+            <span class="bg-brand-50 border border-brand-100 text-brand-800 font-bold text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full inline-block">Ngân hàng túi quần</span>
+            <h2 class="text-2xl md:text-3xl font-black text-slate-800 leading-tight">Ứng dụng GT SmartBank Pay</h2>
+            <p class="text-sm text-slate-500 leading-relaxed font-medium">Quản lý dòng tiền, chuyển khoản Napas 24/7 tức thì, gửi tiết kiệm, nạp tiền điện thoại, thanh toán hóa đơn nước điện hoặc đặt vé máy bay khách sạn chỉ với một ứng dụng duy nhất.</p>
+            
+            <div class="flex items-center gap-6 pt-4">
+                <div class="p-3 bg-white border border-slate-150 rounded-2xl shadow-sm text-center">
+                    <div class="w-24 h-24 bg-white p-1 flex items-center justify-center mx-auto mb-2 border border-slate-100 rounded-lg">
+                        <!-- Simulated QR to download -->
+                        <div class="w-full h-full bg-slate-900" style="clip-path: polygon(0 0, 10% 0, 10% 10%, 0 10%, 0 0, 90% 0, 100% 0, 100% 10%, 90% 10%, 90% 0, 0 90%, 10% 90%, 10% 100%, 0 100%, 0 90%, 100% 90%, 100% 100%, 90% 100%, 90% 90%);"></div>
+                    </div>
+                    <span class="text-[10px] font-bold text-slate-600 block">Quét tải app ngay</span>
+                </div>
+                
+                <div class="space-y-2.5">
+                    <div class="flex items-center gap-3 px-4 py-2 border border-slate-200 bg-white hover:bg-slate-50 rounded-xl cursor-pointer transition-colors w-40">
+                        <i data-lucide="play" class="w-4 h-4 text-slate-800"></i>
+                        <div>
+                            <span class="text-[7px] text-slate-400 block font-semibold leading-none uppercase">Tải ngay trên</span>
+                            <span class="text-xs font-bold text-slate-800 block mt-0.5 leading-none">Google Play</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-3 px-4 py-2 border border-slate-200 bg-white hover:bg-slate-50 rounded-xl cursor-pointer transition-colors w-40">
+                        <i data-lucide="apple" class="w-4 h-4 text-slate-800"></i>
+                        <div>
+                            <span class="text-[7px] text-slate-400 block font-semibold leading-none uppercase">Tải ngay trên</span>
+                            <span class="text-xs font-bold text-slate-800 block mt-0.5 leading-none">App Store</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         SECTION: NEWS & PROMOTIONS (3 CARDS)
+         ════════════════════════════════════════════════════════ -->
+    <section class="max-w-[1280px] mx-auto px-4 md:px-8 py-16">
+        <div class="flex items-center justify-between mb-10">
+            <div>
+                <h2 class="text-2xl font-black text-slate-800 tracking-tight">Tin tức & Khuyến mãi nổi bật</h2>
+                <p class="text-sm text-slate-500 mt-2 font-medium">Cập nhật những ưu đãi hấp dẫn nhất cùng các bản tin ngân hàng số mới nhất.</p>
+            </div>
+            <a href="/bank-ui/pages/khuyen-mai.html" class="hidden sm:flex items-center gap-1.5 text-xs font-bold text-brand-800 hover:underline">
+                Xem tất cả tin tức
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            
+            <!-- Card 1 -->
+            <div class="bg-white border border-slate-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group flex flex-col justify-between">
+                <div>
+                    <div class="h-44 bg-gradient-to-tr from-brand-800 to-amber-700 flex items-center justify-center text-white p-6 relative">
+                        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
+                        <i data-lucide="shield-check" class="w-16 h-16 opacity-20 absolute -right-4 -bottom-4"></i>
+                        <span class="text-sm font-extrabold text-white/90 border border-white/20 px-3 py-1 rounded-full backdrop-blur-sm">Thanh toán An toàn</span>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-2">Tin tức dịch vụ</div>
+                        <h3 class="font-bold text-slate-800 text-sm mb-3 group-hover:text-brand-800 transition-colors">Đơn giản hóa thanh toán online cùng cổng bảo mật OTP thế hệ mới</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed font-medium">Bảo vệ tài khoản tối đa với tính năng mã OTP Smart Token, xác minh bảo mật sinh trắc học FaceID chỉ trong nháy mắt.</p>
+                    </div>
+                </div>
+                <div class="px-6 pb-6 pt-2">
+                    <a href="/bank-ui/pages/portal.html?view=bao-mat" class="text-xs font-bold text-brand-800 hover:text-brand-900 inline-flex items-center gap-1">
+                        Chi tiết bài viết
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white border border-slate-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group flex flex-col justify-between">
+                <div>
+                    <div class="h-44 bg-gradient-to-tr from-emerald-800 to-teal-600 flex items-center justify-center text-white p-6 relative">
+                        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
+                        <i data-lucide="sparkles" class="w-16 h-16 opacity-20 absolute -right-4 -bottom-4"></i>
+                        <span class="text-sm font-extrabold text-white/90 border border-white/20 px-3 py-1 rounded-full backdrop-blur-sm">Số đẹp thịnh vượng</span>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-2">Chương trình ưu đãi</div>
+                        <h3 class="font-bold text-slate-800 text-sm mb-3 group-hover:text-brand-800 transition-colors">Mở tài khoản Số Đẹp hoàn toàn miễn phí, rước tài lộc may mắn</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed font-medium">Chọn số điện thoại, ngày sinh nhật hoặc dãy số phát tài phát lộc làm số tài khoản ngân hàng, hỗ trợ khai lộc kinh doanh cực đỉnh.</p>
+                    </div>
+                </div>
+                <div class="px-6 pb-6 pt-2">
+                    <a href="/bank-ui/pages/portal.html?view=tai-khoan" class="text-xs font-bold text-brand-800 hover:text-brand-900 inline-flex items-center gap-1">
+                        Chi tiết bài viết
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white border border-slate-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group flex flex-col justify-between">
+                <div>
+                    <div class="h-44 bg-gradient-to-tr from-amber-700 to-yellow-500 flex items-center justify-center text-white p-6 relative">
+                        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
+                        <i data-lucide="credit-card" class="w-16 h-16 opacity-20 absolute -right-4 -bottom-4"></i>
+                        <span class="text-sm font-extrabold text-white/90 border border-white/20 px-3 py-1 rounded-full backdrop-blur-sm">Hoàn tiền 5%</span>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-2">Ưu đãi chủ thẻ</div>
+                        <h3 class="font-bold text-slate-800 text-sm mb-3 group-hover:text-brand-800 transition-colors">Mở thẻ tín dụng GT SmartBank Visa Platinum, ngập tràn hoàn tiền</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed font-medium">Trải nghiệm du lịch mua sắm đẳng cấp quốc tế. Nhận ngay quyền lợi phòng chờ sân bay thương gia và hoàn tiền 5% mọi giao dịch trực tuyến.</p>
+                    </div>
+                </div>
+                <div class="px-6 pb-6 pt-2">
+                    <a href="/bank-ui/pages/the-tin-dung.html" class="text-xs font-bold text-brand-800 hover:text-brand-900 inline-flex items-center gap-1">
+                        Chi tiết bài viết
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         FOOTER
+         ════════════════════════════════════════════════════════ -->
+    <footer class="bg-brand-900 text-white pt-16 pb-8 border-t border-white/10">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-8 grid grid-cols-2 md:grid-cols-5 gap-8">
+            
+            <!-- Branding & Slogan -->
+            <div class="col-span-2 space-y-4">
+                <a href="/bank-ui/index.html" class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-brand-800 font-black">
+                        <svg viewBox="0 0 100 100" class="w-6 h-6">
+                            <path d="M50 12 L82 22 V48 C82 66 69 82 50 88 C31 82 18 66 18 48 V22 Z" fill="#b60000" />
+                            <path d="M50 20 L74 27 V48 C74 61 64 73 50 78 C36 73 26 61 26 48 V27 Z" fill="#f7b500" opacity="0.9" />
+                            <path d="M43 38 H57 C60 38 62 40 62 43 V46 H52 V43 H44 V55 H57 V52 H62 V55 C62 58 60 60 57 60 H43 C40 60 38 58 38 55 V43 C38 40 40 38 43 38 Z" fill="#ffffff" />
+                            <path d="M47 43 H53 V46 H50.5 V55 H49.5 V46 H47 Z" fill="#b60000" />
+                        </svg>
+                    </div>
+                    <span class="text-lg font-black tracking-tight leading-none">GT <span class="text-slate-350">SmartBank</span></span>
+                </a>
+                <p class="text-xs text-white/70 leading-relaxed font-medium max-w-sm">GT SmartBank tự hào là tổ chức tài chính uy tín, tiên phong ứng dụng công nghệ hiện đại mang tới trải nghiệm ngân hàng số an toàn, bảo mật tuyệt đối cho mọi khách hàng.</p>
+                <div class="flex items-center gap-3">
+                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all"><i data-lucide="facebook" class="w-4 h-4 text-white"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all"><i data-lucide="youtube" class="w-4 h-4 text-white"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all"><i data-lucide="twitter" class="w-4 h-4 text-white"></i></a>
+                </div>
+            </div>
+
+            <!-- Col 1: Cá nhân -->
+            <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase text-secondary-700 tracking-wider">Khách hàng cá nhân</h4>
+                <ul class="space-y-2 text-xs text-white/60 font-medium">
+                    <li><a href="/bank-ui/pages/portal.html?view=tai-khoan" class="hover:text-white transition-colors">Tài khoản & Thẻ</a></li>
+                    <li><a href="/bank-ui/pages/tiet-kiem-online.html" class="hover:text-white transition-colors">Gửi tiết kiệm Online</a></li>
+                    <li><a href="/bank-ui/pages/vay-tieu-dung.html" class="hover:text-white transition-colors">Vay mua nhà, mua xe</a></li>
+                    <li><a href="/bank-ui/pages/chuyen-tien-247.html" class="hover:text-white transition-colors">Chuyển khoản Napas 24/7</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 2: Doanh nghiệp -->
+            <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase text-secondary-700 tracking-wider">Khách hàng doanh nghiệp</h4>
+                <ul class="space-y-2 text-xs text-white/60 font-medium">
+                    <li><a href="/bank-ui/pages/portal.html?view=doanh-nghiep" class="hover:text-white transition-colors">Tài khoản Biz</a></li>
+                    <li><a href="/bank-ui/pages/portal.html?view=doanh-nghiep" class="hover:text-white transition-colors">Bảo lãnh doanh nghiệp</a></li>
+                    <li><a href="/bank-ui/pages/portal.html?view=doanh-nghiep" class="hover:text-white transition-colors">Dịch vụ quản trị dòng tiền</a></li>
+                    <li><a href="/bank-ui/pages/portal.html?view=doanh-nghiep" class="hover:text-white transition-colors">GT SmartBiz Pay Portal</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Liên kết nhanh -->
+            <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase text-secondary-700 tracking-wider">Hỗ trợ khách hàng</h4>
+                <ul class="space-y-2 text-xs text-white/60 font-medium">
+                    <li><a href="/bank-ui/pages/ho-tro.html" class="hover:text-white transition-colors">Trung tâm trợ giúp</a></li>
+                    <li><a href="/bank-ui/pages/chinhanh.html" class="hover:text-white transition-colors">Tra cứu ATM & Chi nhánh</a></li>
+                    <li><a href="/bank-ui/pages/portal.html?view=lai-suat" class="hover:text-white transition-colors">Biểu phí & Lãi suất</a></li>
+                    <li><a href="/bank-ui/pages/portal.html?view=bao-mat" class="hover:text-white transition-colors">Hướng dẫn bảo mật</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="max-w-[1280px] mx-auto px-4 md:px-8 mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between text-[11px] text-white/50 font-bold font-mono gap-4">
+            <div>
+                © 2026 GT SMARTBANK CORP. ALL RIGHTS RESERVED.
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="#" class="hover:text-white transition-colors">ĐIỀU KHOẢN SỬ DỤNG</a>
+                <a href="#" class="hover:text-white transition-colors">BẢO MẬT THÔNG TIN</a>
+                <a href="#" class="hover:text-white transition-colors">SƠ ĐỒ TRANG WEB</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Files -->
+    <script src="/bank-ui/js/public.js"></script>
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
