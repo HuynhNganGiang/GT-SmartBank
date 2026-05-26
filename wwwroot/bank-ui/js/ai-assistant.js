@@ -41,7 +41,38 @@
         .dark .ai-chat-trigger {
             border-color: #1e293b;
         }
+            /* Bubble lời chào */
+.ai-chat-greeting {
+    background: #ffffff;
+    color: #0f172a;
+    padding: 12px 16px;
+    border-radius: 18px 18px 4px 18px;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.16);
+    border: 1px solid #e2e8f0;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    cursor: pointer;
+    max-width: 260px;
+    animation: aiGreetingFade 1s ease;
+}
 
+.dark .ai-chat-greeting {
+    background: #0f172a;
+    color: #f8fafc;
+    border-color: #334155;
+}
+
+@keyframes aiGreetingFade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
         /* Điểm báo có tin nhắn/chú ý */
         .ai-chat-badge {
             position: absolute;
@@ -568,12 +599,18 @@
                 </form>
             </div>
 
-            <!-- Nút bấm nổi kích hoạt Chatbot -->
-            <button class="ai-chat-trigger" id="aiChatTrigger" onclick="window.toggleChatWindow()">
-                <div class="ai-chat-badge" id="aiChatBadge"></div>
-                <svg viewBox="0 0 24 24" class="w-7 h-7 fill-current"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
-            </button>
-        </div>
+   <!-- Bubble lời chào -->
+<div class="ai-chat-greeting" id="aiChatGreeting" onclick="window.toggleChatWindow()">
+    Xin chào, tôi là trợ lý GT SmartBank 👋
+</div>
+
+<!-- Nút bấm nổi kích hoạt Chatbot -->
+<button class="ai-chat-trigger" id="aiChatTrigger" onclick="window.toggleChatWindow()">
+    <div class="ai-chat-badge" id="aiChatBadge"></div>
+    <svg viewBox="0 0 24 24" class="w-7 h-7 fill-current">
+        <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/>
+    </svg>
+</button>
     `;
 
     // 4. Inject cấu trúc DOM Chatbot vào body
@@ -650,15 +687,25 @@
 
     // Đóng mở cửa sổ chat
     window.toggleChatWindow = function() {
-        widgetWindow.classList.toggle("open");
-        
-        // Ẩn badge nhấp nháy khi người dùng đã mở xem
-        if (widgetWindow.classList.contains("open")) {
-            attentionBadge.style.display = "none";
+
+    const greeting = document.getElementById("aiChatGreeting");
+
+    if (greeting) {
+        greeting.style.display = "none";
+    }
+
+    widgetWindow.classList.toggle("open");
+
+    if (widgetWindow.classList.contains("open")) {
+        attentionBadge.style.display = "none";
+
+        if (inputField) {
             inputField.focus();
-            scrollToBottom();
         }
-    };
+
+        scrollToBottom();
+    }
+};
 
     // Kiểm tra và bật/tắt nút gửi tin
     window.handleInputCheck = function() {
