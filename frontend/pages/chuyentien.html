@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Chuyá»ƒn tiá»n | GT Smart Bank</title>
+    <title>Chuyển tiền | GT Smart Bank</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -54,48 +54,48 @@
             <section class="p-6 md:p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-3xl shadow-sm hover:shadow transition-all duration-300">
                 <h2 class="text-xl font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-2.5">
                     <span class="inline-block w-1.5 h-6 bg-emerald-500 rounded-full"></span>
-                    ThÃ´ng tin chuyá»ƒn khoáº£n
+                    Thông tin chuyển khoản
                 </h2>
 
                 <div class="space-y-6">
-                    <!-- TÃ i khoáº£n nguá»“n -->
+                    <!-- Tài khoản nguồn -->
                     <div class="form-group flex flex-col gap-1.5">
-                        <label for="tkNguon" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">TÃ i khoáº£n nguá»“n</label>
+                        <label for="tkNguon" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Tài khoản nguồn</label>
                         <select id="tkNguon" onchange="updateBalanceInfo()" 
                                 class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/15 rounded-xl px-4 py-3.5 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-450 outline-none transition-all font-semibold">
-                            <option value="">-- Chá»n tÃ i khoáº£n thanh toÃ¡n --</option>
+                            <option value="">-- Chọn tài khoản thanh toán --</option>
                         </select>
                         <p id="tkNguonBalance" class="text-xs font-bold text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1.5"></p>
                     </div>
 
-                    <!-- TÃ i khoáº£n nháº­n -->
+                    <!-- Tài khoản nhận -->
                     <div class="form-group flex flex-col gap-1.5">
-                        <label for="tkDich" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">TÃ i khoáº£n nháº­n</label>
+                        <label for="tkDich" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Tài khoản nhận</label>
                         <div class="flex gap-2">
-                            <input type="text" id="tkDich" placeholder="Nháº­p sá»‘ tÃ i khoáº£n thá»¥ hÆ°á»Ÿng" oninput="hideDestName()"
+                            <input type="text" id="tkDich" placeholder="Nhập số tài khoản thụ hưởng" oninput="hideDestName()"
                                    class="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/15 rounded-xl px-4 py-3.5 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-450 outline-none transition-all font-mono font-bold tracking-wider">
-                            <button class="px-5 py-3.5 rounded-xl font-bold text-sm bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/25 transition-all duration-300" onclick="checkDestAccount()">Kiá»ƒm tra</button>
+                            <button class="px-5 py-3.5 rounded-xl font-bold text-sm bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/25 transition-all duration-300" onclick="checkDestAccount()">Kiểm tra</button>
                         </div>
                         <div id="destNameBox" class="hidden text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-250 dark:border-emerald-800/60 rounded-xl px-4 py-3 mt-1.5"></div>
                     </div>
 
-                    <!-- Sá»‘ tiá»n chuyá»ƒn -->
+                    <!-- Số tiền chuyển -->
                     <div class="form-group flex flex-col gap-1.5">
-                        <label for="soTien" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Sá»‘ tiá»n chuyá»ƒn (VND)</label>
-                        <input type="number" id="soTien" placeholder="Nháº­p sá»‘ tiá»n chuyá»ƒn (tá»‘i thiá»ƒu 10,000 VND)" min="10000" oninput="formatTienWord()"
+                        <label for="soTien" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Số tiền chuyển (VND)</label>
+                        <input type="number" id="soTien" placeholder="Nhập số tiền chuyển (tối thiểu 10,000 VND)" min="10000" oninput="formatTienWord()"
                                class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/15 rounded-xl px-4 py-3.5 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-450 outline-none transition-all font-bold">
                         <p id="soTienChu" class="text-xs font-bold text-emerald-600 dark:text-emerald-400 mt-1 italic"></p>
                     </div>
 
-                    <!-- Ná»™i dung chuyá»ƒn khoáº£n -->
+                    <!-- Nội dung chuyển khoản -->
                     <div class="form-group flex flex-col gap-1.5">
-                        <label for="noiDung" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Ná»™i dung chuyá»ƒn khoáº£n</label>
-                        <textarea id="noiDung" placeholder="Nháº­p ná»™i dung chuyá»ƒn tiá»n khÃ´ng dáº¥u (VD: NGUYEN VAN A CHUYEN TIEN)" rows="3"
+                        <label for="noiDung" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Nội dung chuyển khoản</label>
+                        <textarea id="noiDung" placeholder="Nhập nội dung chuyển tiền không dấu (VD: NGUYEN VAN A CHUYEN TIEN)" rows="3"
                                   class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/15 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-450 outline-none transition-all font-semibold"></textarea>
                     </div>
 
                     <button id="btnGetOtp" class="w-full py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-sm shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300" onclick="getOtpCode()">
-                        Nháº­n mÃ£ xÃ¡c thá»±c OTP
+                        Nhận mã xác thực OTP
                     </button>
 
                     <!-- OTP input box -->
@@ -103,20 +103,20 @@
                         <div class="bg-amber-500/10 border-l-4 border-amber-500 text-amber-650 dark:text-amber-300 p-4 rounded-xl text-xs font-semibold leading-relaxed space-y-1">
                             <div class="flex items-center gap-1.5 font-bold">
                                 <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-                                <span>Báº£n thá»­ nghiá»‡m:</span>
+                                <span>Bản thử nghiệm:</span>
                             </div>
-                            <p>Há»‡ thá»‘ng Ä‘Ã£ tá»± Ä‘á»™ng táº¡o mÃ£ OTP: <span id="otpCodeShow" class="font-extrabold text-sm text-emerald-600 dark:text-emerald-400 bg-slate-100 dark:bg-slate-850 px-2 py-0.5 rounded font-mono">XXXXXX</span></p>
-                            <p>MÃ£ OTP cÃ³ hiá»‡u lá»±c trong vÃ²ng <span id="countdownTimer" class="countdown text-rose-500 dark:text-rose-450 font-bold font-mono">180</span> giÃ¢y.</p>
+                            <p>Hệ thống đã tự động tạo mã OTP: <span id="otpCodeShow" class="font-extrabold text-sm text-emerald-600 dark:text-emerald-400 bg-slate-100 dark:bg-slate-850 px-2 py-0.5 rounded font-mono">XXXXXX</span></p>
+                            <p>Mã OTP có hiệu lực trong vòng <span id="countdownTimer" class="countdown text-rose-500 dark:text-rose-450 font-bold font-mono">180</span> giây.</p>
                         </div>
 
                         <div class="form-group flex flex-col gap-1.5">
-                            <label for="maOtp" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-center">MÃ£ xÃ¡c thá»±c OTP</label>
-                            <input type="text" id="maOtp" placeholder="Nháº­p 6 chá»¯ sá»‘ OTP" maxlength="6" 
+                            <label for="maOtp" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-center">Mã xác thực OTP</label>
+                            <input type="text" id="maOtp" placeholder="Nhập 6 chữ số OTP" maxlength="6" 
                                    class="w-full max-w-[240px] mx-auto bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/15 rounded-xl px-4 py-3.5 text-center text-xl font-bold tracking-[0.4em] text-slate-800 dark:text-white placeholder-slate-400 outline-none transition-all">
                         </div>
 
                         <button id="btnConfirmTransfer" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold text-sm shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300" onclick="confirmTransfer()">
-                            XÃ¡c nháº­n chuyá»ƒn khoáº£n
+                            Xác nhận chuyển khoản
                         </button>
                     </div>
 
@@ -129,11 +129,10 @@
 </div>
 
 <script src="/js/config.js"></script>
-    <script src="/js/config.js"></script>
     <script src="/js/api.js"></script>
 <script src="/js/theme.js"></script>
 <script>
-    // Kiá»ƒm tra Ä‘Äƒng nháº­p
+    // Kiểm tra đăng nhập
     const user = getCurrentUser();
     if (!user) {
         window.location.href = "/pages/login.html";
@@ -156,7 +155,7 @@
             const userFullNameEl = document.getElementById("userFullName");
             const userRoleEl = document.getElementById("userRole");
             if (userFullNameEl) userFullNameEl.innerText = user.hoTen;
-            if (userRoleEl) userRoleEl.innerText = user.role === "Admin" ? "Quáº£n trá»‹ viÃªn" : "KhÃ¡ch hÃ ng";
+            if (userRoleEl) userRoleEl.innerText = user.role === "Admin" ? "Quản trị viên" : "Khách hàng";
         }
     });
 </script>

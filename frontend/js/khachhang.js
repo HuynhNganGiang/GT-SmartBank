@@ -1,4 +1,4 @@
-﻿// Quản lý Khách hàng - GT Smart Bank
+// Quản lý Khách hàng - GT Smart Bank
 // Tích hợp API chuẩn RESTful và bảo mật JWT
 
 let allCustomers = [];
@@ -10,7 +10,23 @@ document.addEventListener("DOMContentLoaded", () => {
 // Tải danh sách khách hàng từ API
 async function loadCustomers() {
     const tbody = document.getElementById("khachHangBody");
-    tbody.innerHTML = '<tr><td colspan="7" class="px-6 py-8 text-center text-slate-500 dark:text-slate-400 italic">Đang tải danh sách khách hàng...</td></tr>';
+    tbody.innerHTML = Array(3).fill(0).map(() => `
+        <tr class="animate-pulse">
+            <td class="px-6 py-4"><div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-10 skeleton"></div></td>
+            <td class="px-6 py-4"><div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-32 skeleton"></div></td>
+            <td class="px-6 py-4">
+                <div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-28 mb-1 skeleton"></div>
+                <div class="h-3 bg-slate-100 dark:bg-slate-900 rounded w-20 skeleton"></div>
+            </td>
+            <td class="px-6 py-4">
+                <div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-36 mb-1 skeleton"></div>
+                <div class="h-3 bg-slate-100 dark:bg-slate-900 rounded w-24 skeleton"></div>
+            </td>
+            <td class="px-6 py-4"><div class="h-5 bg-slate-200 dark:bg-slate-800 rounded-full w-16 skeleton"></div></td>
+            <td class="px-6 py-4"><div class="h-5 bg-slate-200 dark:bg-slate-800 rounded-full w-20 skeleton"></div></td>
+            <td class="px-6 py-4"><div class="h-8 bg-slate-200 dark:bg-slate-800 rounded-lg w-20 mx-auto skeleton"></div></td>
+        </tr>
+    `).join("");
 
     try {
         const response = await apiGet("customers");

@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Sá»• tiáº¿t kiá»‡m | GT Smart Bank</title>
+    <title>Sổ tiết kiệm | GT Smart Bank</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -57,16 +57,16 @@
                 <div class="flex justify-between items-center bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-800/80 rounded-3xl shadow-sm">
                     <h2 class="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2.5">
                         <span class="inline-block w-1.5 h-6 bg-emerald-500 rounded-full"></span>
-                        Danh sÃ¡ch sá»• tiáº¿t kiá»‡m cá»§a báº¡n
+                        Danh sách sổ tiết kiệm của bạn
                     </h2>
                     <button class="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-xs bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-750 text-slate-755 dark:text-slate-300 transition-all" onclick="loadSavingsAccounts()">
                         <svg viewBox="0 0 24 24" class="w-4.5 h-4.5 fill-current"><path d="M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"/></svg>
-                        <span>Táº£i láº¡i</span>
+                        <span>Tải lại</span>
                     </button>
                 </div>
 
                 <div id="savingsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <p class="text-slate-500 dark:text-slate-400 italic py-6 col-span-2 text-center font-semibold">Äang táº£i danh sÃ¡ch sá»•...</p>
+                    <p class="text-slate-500 dark:text-slate-400 italic py-6 col-span-2 text-center font-semibold">Đang tải danh sách sổ...</p>
                 </div>
             </div>
 
@@ -75,54 +75,54 @@
                 <section class="p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-3xl shadow-sm hover:shadow transition-all duration-300">
                     <h2 class="text-lg font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-2.5">
                         <span class="inline-block w-1.5 h-6 bg-emerald-500 rounded-full"></span>
-                        Má»Ÿ sá»• tiáº¿t kiá»‡m má»›i
+                        Mở sổ tiết kiệm mới
                     </h2>
 
                     <div class="space-y-5">
-                        <!-- TÃ i khoáº£n trÃ­ch ná»£ -->
+                        <!-- Tài khoản trích nợ -->
                         <div class="form-group flex flex-col gap-1.5">
-                            <label for="tkNguon" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">TÃ i khoáº£n nguá»“n trÃ­ch tiá»n</label>
+                            <label for="tkNguon" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Tài khoản nguồn trích tiền</label>
                             <select id="tkNguon" onchange="updateBalanceInfo()" 
                                     class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/15 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-450 outline-none transition-all font-semibold">
-                                <option value="">-- Chá»n tÃ i khoáº£n thanh toÃ¡n --</option>
+                                <option value="">-- Chọn tài khoản thanh toán --</option>
                             </select>
                             <p id="tkNguonBalance" class="text-xs font-bold text-slate-500 dark:text-slate-400 mt-1"></p>
                         </div>
 
-                        <!-- Sá»‘ tiá»n gá»­i -->
+                        <!-- Số tiền gửi -->
                         <div class="form-group flex flex-col gap-1.5">
-                            <label for="soTienGoc" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Sá»‘ tiá»n gá»­i tiáº¿t kiá»‡m (VND)</label>
-                            <input type="number" id="soTienGoc" placeholder="Tá»‘i thiá»ƒu 1,000,000 VND" min="1000000" oninput="formatTienWord()"
+                            <label for="soTienGoc" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Số tiền gửi tiết kiệm (VND)</label>
+                            <input type="number" id="soTienGoc" placeholder="Tối thiểu 1,000,000 VND" min="1000000" oninput="formatTienWord()"
                                    class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/15 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-450 outline-none transition-all font-bold">
                             <p id="soTienChu" class="text-xs font-bold text-emerald-600 dark:text-emerald-400 mt-1 italic"></p>
                         </div>
 
-                        <!-- Ká»³ háº¡n gá»­i -->
+                        <!-- Kỳ hạn gửi -->
                         <div class="form-group flex flex-col gap-1.5">
-                            <label for="kyHan" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Ká»³ háº¡n gá»­i tiáº¿t kiá»‡m</label>
+                            <label for="kyHan" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Kỳ hạn gửi tiết kiệm</label>
                             <select id="kyHan" onchange="updateInterestRate()" 
                                     class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/15 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-450 outline-none transition-all font-semibold">
-                                <option value="">-- Chá»n ká»³ háº¡n gá»­i --</option>
-                                <option value="1">1 ThÃ¡ng (3.0% / nÄƒm)</option>
-                                <option value="3">3 ThÃ¡ng (3.5% / nÄƒm)</option>
-                                <option value="6">6 ThÃ¡ng (4.5% / nÄƒm)</option>
-                                <option value="12">12 ThÃ¡ng (5.5% / nÄƒm)</option>
-                                <option value="24">24 ThÃ¡ng (6.0% / nÄƒm)</option>
+                                <option value="">-- Chọn kỳ hạn gửi --</option>
+                                <option value="1">1 Tháng (3.0% / năm)</option>
+                                <option value="3">3 Tháng (3.5% / năm)</option>
+                                <option value="6">6 Tháng (4.5% / năm)</option>
+                                <option value="12">12 Tháng (5.5% / năm)</option>
+                                <option value="24">24 Tháng (6.0% / năm)</option>
                             </select>
                         </div>
 
-                        <!-- Dá»± toÃ¡n lÃ£i suáº¥t -->
+                        <!-- Dự toán lãi suất -->
                         <div id="interestInfoBox" class="hidden border border-emerald-250 dark:border-emerald-800/60 rounded-2xl p-4 bg-emerald-50/50 dark:bg-slate-950/40 text-xs text-slate-600 dark:text-slate-350 space-y-1.5 font-semibold">
                             <div class="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-bold mb-1">
                                 <svg viewBox="0 0 24 24" class="w-4.5 h-4.5 fill-current"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"/></svg>
-                                <span>Dá»± toÃ¡n lÃ£i suáº¥t ká»³ háº¡n:</span>
+                                <span>Dự toán lãi suất kỳ hạn:</span>
                             </div>
-                            <div class="flex justify-between">LÃ£i suáº¥t dá»± kiáº¿n: <span id="projectedRate" class="text-amber-500 dark:text-amber-400 font-extrabold text-sm">0.0%</span></div>
-                            <div class="flex justify-between">Tiá»n lÃ£i dá»± kiáº¿n: <span id="projectedInterest" class="text-emerald-600 dark:text-emerald-450 font-extrabold text-sm">0 VND</span></div>
+                            <div class="flex justify-between">Lãi suất dự kiến: <span id="projectedRate" class="text-amber-500 dark:text-amber-400 font-extrabold text-sm">0.0%</span></div>
+                            <div class="flex justify-between">Tiền lãi dự kiến: <span id="projectedInterest" class="text-emerald-600 dark:text-emerald-450 font-extrabold text-sm">0 VND</span></div>
                         </div>
 
                         <button class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold text-sm shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300" onclick="openSavingsAccount()">
-                            XÃ¡c nháº­n má»Ÿ sá»• tiáº¿t kiá»‡m
+                            Xác nhận mở sổ tiết kiệm
                         </button>
                     </div>
                 </section>
@@ -135,11 +135,10 @@
 </div>
 
 <script src="/js/config.js"></script>
-    <script src="/js/config.js"></script>
     <script src="/js/api.js"></script>
 <script src="/js/theme.js"></script>
 <script>
-    // Kiá»ƒm tra Ä‘Äƒng nháº­p
+    // Kiểm tra đăng nhập
     const user = getCurrentUser();
     if (!user) {
         window.location.href = "/pages/login.html";
@@ -162,7 +161,7 @@
             const userFullNameEl = document.getElementById("userFullName");
             const userRoleEl = document.getElementById("userRole");
             if (userFullNameEl) userFullNameEl.innerText = user.hoTen;
-            if (userRoleEl) userRoleEl.innerText = user.role === "Admin" ? "Quáº£n trá»‹ viÃªn" : "KhÃ¡ch hÃ ng";
+            if (userRoleEl) userRoleEl.innerText = user.role === "Admin" ? "Quản trị viên" : "Khách hàng";
         }
     });
 </script>

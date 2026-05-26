@@ -12,6 +12,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 4. Rate details updates
     updateExchangeRates();
+
+    // 5. Hero interactions
+    setupHeroInteractions();
+
+    // 6. Global animations
+    setupGlobalAnimations();
 });
 
 // Sync user auth status in header
@@ -36,7 +42,7 @@ function syncHeaderAuth() {
         authContainer.innerHTML = `
             <div class="flex items-center gap-3">
                 <span class="hidden md:inline-block text-xs font-semibold text-slate-600">Chào, <strong class="text-brand-800">${user.hoTen}</strong></span>
-                <a href="/bank-ui/admin/dashboard.html" class="px-4 py-2 text-xs font-bold text-white bg-brand-800 hover:bg-brand-900 rounded-full transition-all shadow-sm shadow-red-100 flex items-center gap-1.5">
+                <a href="/admin/dashboard.html" class="px-4 py-2 text-xs font-bold text-white bg-brand-800 hover:bg-brand-900 rounded-full transition-all shadow-sm shadow-red-100 flex items-center gap-1.5">
                     <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-current"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
                     Dashboard
                 </a>
@@ -47,7 +53,7 @@ function syncHeaderAuth() {
         `;
     } else {
         authContainer.innerHTML = `
-            <a href="/bank-ui/pages/login.html" class="px-4 py-2 text-xs font-bold text-slate-700 hover:text-brand-850 transition-colors">
+            <a href="/pages/login.html" class="px-4 py-2 text-xs font-bold text-slate-700 hover:text-brand-850 transition-colors">
                 Đăng nhập
             </a>
             <button onclick="openRegisterModal()" class="px-4 py-2 text-xs font-bold text-white bg-brand-800 hover:bg-brand-900 rounded-full transition-all shadow-md shadow-red-150">
@@ -156,8 +162,9 @@ window.handlePublicRegister = async function(e) {
     }
 
     try {
-        // Send request directly to API
-        const response = await fetch(window.location.origin + "/api/auth/register", {
+        // Send request directly to API read from CONFIG
+        const apiUrl = typeof CONFIG !== "undefined" ? CONFIG.API_BASE_URL : "https://gtsmartbank-api.onrender.com/api";
+        const response = await fetch(apiUrl + "/auth/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -175,7 +182,7 @@ window.handlePublicRegister = async function(e) {
         if (response.ok && data.success) {
             alert("Đăng ký tài khoản thành công! Bạn có thể đăng nhập ngay.");
             closeRegisterModal();
-            window.location.href = "/bank-ui/pages/login.html";
+            window.location.href = "/pages/login.html";
         } else {
             alert(data.message || "Đăng ký không thành công. Số điện thoại có thể đã tồn tại.");
         }
@@ -234,3 +241,167 @@ function updateExchangeRates() {
         </tr>
     `).join("");
 }
+
+// Hero banner interactions (3D card tilt & tab switcher)
+function setupHeroInteractions() {
+    const card = document.getElementById("premium-card-mockup");
+    if (card) {
+        const cardParent = card.parentElement;
+        if (cardParent) {
+            // Disable default float animation on hover to prevent jumping
+            cardParent.addEventListener("mouseenter", () => {
+                card.classList.remove("premium-card-float");
+            });
+
+            cardParent.addEventListener("mousemove", (e) => {
+                const rect = cardParent.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                // Calculate tilt angles (max 15 degrees)
+                const rotateX = -(y / (rect.height / 2)) * 15;
+                const rotateY = (x / (rect.width / 2)) * 15;
+                
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+            });
+            
+            cardParent.addEventListener("mouseleave", () => {
+                card.classList.add("premium-card-float");
+                card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+            });
+        }
+    }
+}
+
+// Global function to switch between App and Calculator tabs in Hero
+window.switchHeroTab = function(tabName) {
+    const tabApp = document.getElementById("hero-tab-app");
+    const tabCalc = document.getElementById("hero-tab-calc");
+    const contentApp = document.getElementById("hero-content-app");
+    const contentCalc = document.getElementById("hero-content-calc");
+
+    if (!tabApp || !tabCalc || !contentApp || !contentCalc) return;
+
+    if (tabName === "app") {
+        // Activate App tab
+        tabApp.className = "pb-2 text-sm font-bold text-white border-b-2 border-secondary-700 transition-all focus:outline-none flex items-center gap-1.5";
+        tabCalc.className = "pb-2 text-sm font-bold text-slate-400 hover:text-white border-b-2 border-transparent transition-all focus:outline-none flex items-center gap-1.5";
+        contentApp.classList.remove("hidden");
+        contentApp.classList.add("block");
+        contentCalc.classList.remove("block");
+        contentCalc.classList.add("hidden");
+    } else if (tabName === "calc") {
+        // Activate Calculator tab
+        tabApp.className = "pb-2 text-sm font-bold text-slate-400 hover:text-white border-b-2 border-transparent transition-all focus:outline-none flex items-center gap-1.5";
+        tabCalc.className = "pb-2 text-sm font-bold text-white border-b-2 border-secondary-700 transition-all focus:outline-none flex items-center gap-1.5";
+        contentApp.classList.remove("block");
+        contentApp.classList.add("hidden");
+        contentCalc.classList.remove("hidden");
+        contentCalc.classList.add("block");
+    }
+};
+
+// Global Animations initialization
+function setupGlobalAnimations() {
+    // Add page-fade-in to body
+    document.body.classList.add("page-fade-in");
+
+    // Ripple effect handler for buttons
+    document.addEventListener("click", function(e) {
+        const button = e.target.closest("button, .btn-ripple, input[type='submit'], .service-card, a.px-8, .action-card, .theme-btn");
+        if (!button) return;
+
+        // Skip normal text links
+        if (button.tagName === 'A' && !button.classList.contains('px-8') && !button.classList.contains('service-card') && !button.classList.contains('action-card') && !button.classList.contains('theme-btn')) {
+            return;
+        }
+
+        const rect = button.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const ripple = document.createElement("span");
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${x - size / 2}px`;
+        ripple.style.top = `${y - size / 2}px`;
+
+        const style = window.getComputedStyle(button);
+        const bgColor = style.backgroundColor;
+
+        let isLight = true;
+        const match = bgColor.match(/\d+/g);
+        if (match && match.length >= 3) {
+            const r = parseInt(match[0]);
+            const g = parseInt(match[1]);
+            const b = parseInt(match[2]);
+            const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+            isLight = brightness > 180;
+        }
+
+        ripple.className = isLight ? "ripple-dark" : "ripple";
+
+        const oldRipples = button.querySelectorAll(".ripple, .ripple-dark");
+        oldRipples.forEach(r => r.remove());
+
+        const originalPosition = style.position;
+        if (originalPosition === 'static' || !originalPosition) {
+            button.style.position = 'relative';
+        }
+        button.style.overflow = 'hidden';
+
+        button.appendChild(ripple);
+    });
+
+    // Auto-Scroll Reveal observer
+    autoInjectRevealClasses();
+
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("revealed");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.05,
+            rootMargin: "0px 0px -30px 0px"
+        });
+
+        document.querySelectorAll(".reveal-on-scroll").forEach(el => {
+            observer.observe(el);
+        });
+    } else {
+        document.querySelectorAll(".reveal-on-scroll").forEach(el => {
+            el.classList.add("revealed");
+        });
+    }
+}
+
+function autoInjectRevealClasses() {
+    const targets = document.querySelectorAll(
+        "main > section, " +
+        "body > section:not(.hero-gradient), " +
+        ".grid > .bg-white, " +
+        ".stat-card-shadow, " +
+        ".service-card, " +
+        ".action-card"
+    );
+
+    targets.forEach((el) => {
+        if (el.classList.contains("hero-gradient") || el.closest("header") || el.closest("footer")) return;
+        el.classList.add("reveal-on-scroll");
+    });
+}
+
+// Tự động nạp Trợ lý ảo AI Assistant nổi
+(function() {
+    if (!document.getElementById("ai-assistant-script")) {
+        const script = document.createElement("script");
+        script.id = "ai-assistant-script";
+        script.src = "/js/ai-assistant.js";
+        script.async = true;
+        document.head.appendChild(script);
+    }
+})();

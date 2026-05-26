@@ -1,4 +1,4 @@
-﻿// Quản lý Tài khoản - GT Smart Bank
+// Quản lý Tài khoản - GT Smart Bank
 // Tích hợp API chuẩn RESTful và phân quyền Admin/User
 
 let allAccounts = [];
@@ -42,7 +42,21 @@ function initPage() {
 async function loadAccounts() {
     const tbody = document.getElementById("taiKhoanBody");
     const colspan = isAdmin ? 8 : 7;
-    tbody.innerHTML = `<tr><td colspan="${colspan}" class="px-6 py-8 text-center text-slate-500 dark:text-slate-400 italic">Đang tải danh sách tài khoản...</td></tr>`;
+    tbody.innerHTML = Array(3).fill(0).map(() => `
+        <tr class="animate-pulse">
+            <td class="px-6 py-4"><div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-20 skeleton"></div></td>
+            <td class="px-6 py-4">
+                <div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-24 mb-1 skeleton"></div>
+                <div class="h-3 bg-slate-100 dark:bg-slate-900 rounded w-16 skeleton"></div>
+            </td>
+            <td class="px-6 py-4"><div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-32 skeleton"></div></td>
+            <td class="px-6 py-4"><div class="h-3 bg-slate-200 dark:bg-slate-800 rounded w-12 skeleton"></div></td>
+            <td class="px-6 py-4"><div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-16 skeleton"></div></td>
+            <td class="px-6 py-4"><div class="h-3 bg-slate-200 dark:bg-slate-800 rounded w-16 skeleton"></div></td>
+            <td class="px-6 py-4"><div class="h-5 bg-slate-200 dark:bg-slate-800 rounded-full w-20 skeleton"></div></td>
+            ${isAdmin ? `<td class="px-6 py-4"><div class="h-8 bg-slate-200 dark:bg-slate-800 rounded-lg w-16 mx-auto skeleton"></div></td>` : ''}
+        </tr>
+    `).join("");
 
     try {
         const response = await apiGet("accounts");

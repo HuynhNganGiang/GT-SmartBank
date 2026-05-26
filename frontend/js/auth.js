@@ -1,4 +1,4 @@
-﻿async function login() {
+async function login() {
     const soDienThoaiInput = document.getElementById("soDienThoai");
     const matKhauInput = document.getElementById("matKhau");
     const loginBtn = document.getElementById("loginBtn");
@@ -8,13 +8,13 @@
     const matKhau = matKhauInput.value.trim();
 
     if (!soDienThoai || !matKhau) {
-        showError("Vui lÃ²ng nháº­p Ä‘áº§y Ä‘á»§ sá»‘ Ä‘iá»‡n thoáº¡i vÃ  máº­t kháº©u.");
+        showError("Vui lòng nhập đầy đủ số điện thoại và mật khẩu.");
         return;
     }
 
-    // Hiá»ƒn thá»‹ tráº¡ng thÃ¡i loading
+    // Hiển thị trạng thái loading
     loginBtn.disabled = true;
-    loginBtn.innerText = "Äang Ä‘Äƒng nháº­p...";
+    loginBtn.innerText = "Đang đăng nhập...";
     if (errorMsgDiv) errorMsgDiv.style.display = "none";
 
     try {
@@ -24,26 +24,26 @@
         });
 
         if (result.success && result.data && result.data.accessToken) {
-            // LÆ°u token vÃ  thÃ´ng tin user vÃ o localStorage
+            // Lưu token và thông tin user vào localStorage
             setToken(result.data.accessToken);
             if (result.data.refreshToken) {
                 localStorage.setItem("refreshToken", result.data.refreshToken);
             }
             setCurrentUser(result.data.user);
 
-            // Hiá»ƒn thá»‹ thÃ´ng bÃ¡o thÃ nh cÃ´ng
-            loginBtn.innerText = "ÄÄƒng nháº­p thÃ nh cÃ´ng!";
+            // Hiển thị thông báo thành công
+            loginBtn.innerText = "Đăng nhập thành công!";
             loginBtn.style.backgroundColor = "#28a745";
             
             setTimeout(() => {
                 window.location.href = "/admin/dashboard.html";
             }, 1000);
         } else {
-            showError(result.message || "ÄÄƒng nháº­p tháº¥t báº¡i.");
+            showError(result.message || "Đăng nhập thất bại.");
             resetLoginButton();
         }
     } catch (error) {
-        showError(error.message || "Lá»—i káº¿t ná»‘i Ä‘áº¿n mÃ¡y chá»§.");
+        showError(error.message || "Lỗi kết nối đến máy chủ.");
         resetLoginButton();
     }
 }
@@ -70,11 +70,11 @@ function resetLoginButton() {
     const loginBtn = document.getElementById("loginBtn");
     if (loginBtn) {
         loginBtn.disabled = false;
-        loginBtn.innerText = "ÄÄƒng nháº­p";
+        loginBtn.innerText = "Đăng nhập";
     }
 }
 
-// Báº¯t sá»± kiá»‡n nháº¥n Enter trong Ã´ máº­t kháº©u
+// Bắt sự kiện nhấn Enter trong ô mật khẩu
 document.addEventListener("DOMContentLoaded", () => {
     const matKhauInput = document.getElementById("matKhau");
     if (matKhauInput) {
@@ -94,3 +94,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+// Tự động nạp Trợ lý ảo AI Assistant nổi
+(function() {
+    if (!document.getElementById("ai-assistant-script")) {
+        const script = document.createElement("script");
+        script.id = "ai-assistant-script";
+        script.src = "/js/ai-assistant.js";
+        script.async = true;
+        document.head.appendChild(script);
+    }
+})();

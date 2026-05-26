@@ -28,7 +28,7 @@ window.logout = function() {
         window.showToast("Đăng xuất thành công", "success", 1500);
     }
     setTimeout(() => {
-        window.location.href = "/bank-ui/pages/login.html";
+        window.location.href = "/pages/login.html";
     }, 1200);
 };
 
@@ -38,9 +38,10 @@ const _path = window.location.pathname;
 const isPublicPage = _path.includes("login.html") ||
                      _path.includes("portal.html") ||
                      _path.includes("chinhanh.html") ||
+                     _path.includes("chi-nhanh-atm.html") ||
                      _path.includes("index.html") ||
-                     _path.endsWith("bank-ui/") ||
-                     _path.endsWith("bank-ui") ||
+                     _path === "/" ||
+                     _path === "" ||
                      _path.includes("ca-nhan.html") ||
                      _path.includes("doanh-nghiep.html") ||
                      _path.includes("dich-vu-so.html") ||
@@ -53,8 +54,8 @@ const isPublicPage = _path.includes("login.html") ||
 const currentUser = getSavedUser();
 
 if (!isPublicPage && !currentUser) {
-    const isLocal = _path.includes("/bank-ui/");
-    window.location.href = isLocal ? "/bank-ui/pages/login.html" : "/pages/login.html";
+    const isLocal = _path.includes("/");
+    window.location.href = isLocal ? "/pages/login.html" : "/pages/login.html";
 }
 
 function toggleDarkMode() {
@@ -267,33 +268,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     <!-- Navigation Menu -->
                     <nav style="display:flex;flex-direction:column;gap:4px;padding:16px 12px;">
-                        <a href="/bank-ui/admin/dashboard.html" class="nav-link" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;transition:all 0.2s;${isIndexActive ? 'background:#ffffff;color:#b60000;box-shadow:0 4px 12px rgba(0,0,0,0.15);' : 'color:rgba(255,255,255,0.7);'}" onmouseover="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='rgba(255,255,255,0.1)';this.style.color='white';}" onmouseout="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='';this.style.color='rgba(255,255,255,0.7)';}" data-tooltip="Tổng quan">
+                        <a href="/admin/dashboard.html" class="nav-link" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;transition:all 0.2s;${isIndexActive ? 'background:#ffffff;color:#b60000;box-shadow:0 4px 12px rgba(0,0,0,0.15);' : 'color:rgba(255,255,255,0.7);'}" onmouseover="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='rgba(255,255,255,0.1)';this.style.color='white';}" onmouseout="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='';this.style.color='rgba(255,255,255,0.7)';}" data-tooltip="Tổng quan">
                             <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor;flex-shrink:0;"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
                             <span class="nav-text">Tổng quan</span>
                         </a>
-                        <a href="/bank-ui/pages/khachhang.html" id="navCustomers" class="nav-link" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;transition:all 0.2s;${isActive('khachhang.html') ? 'background:#ffffff;color:#b60000;box-shadow:0 4px 12px rgba(0,0,0,0.15);' : 'color:rgba(255,255,255,0.7);'}${currentUser.role !== 'Admin' ? 'display:none;' : ''}" onmouseover="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='rgba(255,255,255,0.1)';this.style.color='white';}" onmouseout="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='';this.style.color='rgba(255,255,255,0.7)';}" data-tooltip="Khách hàng">
+                        <a href="/pages/khachhang.html" id="navCustomers" class="nav-link" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;transition:all 0.2s;${isActive('khachhang.html') ? 'background:#ffffff;color:#b60000;box-shadow:0 4px 12px rgba(0,0,0,0.15);' : 'color:rgba(255,255,255,0.7);'}${currentUser.role !== 'Admin' ? 'display:none;' : ''}" onmouseover="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='rgba(255,255,255,0.1)';this.style.color='white';}" onmouseout="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='';this.style.color='rgba(255,255,255,0.7)';}" data-tooltip="Khách hàng">
                             <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor;flex-shrink:0;"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                             <span class="nav-text">Khách hàng</span>
                         </a>
-                        <a href="/bank-ui/pages/taikhoan.html" class="nav-link" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;transition:all 0.2s;${isActive('taikhoan.html') ? 'background:#ffffff;color:#b60000;box-shadow:0 4px 12px rgba(0,0,0,0.15);' : 'color:rgba(255,255,255,0.7);'}" onmouseover="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='rgba(255,255,255,0.1)';this.style.color='white';}" onmouseout="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='';this.style.color='rgba(255,255,255,0.7)';}" data-tooltip="Tài khoản">
+                        <a href="/pages/taikhoan.html" class="nav-link" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;transition:all 0.2s;${isActive('taikhoan.html') ? 'background:#ffffff;color:#b60000;box-shadow:0 4px 12px rgba(0,0,0,0.15);' : 'color:rgba(255,255,255,0.7);'}" onmouseover="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='rgba(255,255,255,0.1)';this.style.color='white';}" onmouseout="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='';this.style.color='rgba(255,255,255,0.7)';}" data-tooltip="Tài khoản">
                             <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor;flex-shrink:0;"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
                             <span class="nav-text">Tài khoản</span>
                         </a>
-                        <a href="/bank-ui/pages/chuyentien.html" class="nav-link" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;transition:all 0.2s;${isActive('chuyentien.html') ? 'background:#ffffff;color:#b60000;box-shadow:0 4px 12px rgba(0,0,0,0.15);' : 'color:rgba(255,255,255,0.7);'}" onmouseover="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='rgba(255,255,255,0.1)';this.style.color='white';}" onmouseout="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='';this.style.color='rgba(255,255,255,0.7)';}" data-tooltip="Chuyển tiền">
+                        <a href="/pages/chuyentien.html" class="nav-link" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;transition:all 0.2s;${isActive('chuyentien.html') ? 'background:#ffffff;color:#b60000;box-shadow:0 4px 12px rgba(0,0,0,0.15);' : 'color:rgba(255,255,255,0.7);'}" onmouseover="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='rgba(255,255,255,0.1)';this.style.color='white';}" onmouseout="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='';this.style.color='rgba(255,255,255,0.7)';}" data-tooltip="Chuyển tiền">
                             <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor;flex-shrink:0;"><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/></svg>
                             <span class="nav-text">Chuyển tiền</span>
                         </a>
-                        <a href="/bank-ui/pages/giaodich.html" class="nav-link" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;transition:all 0.2s;${isActive('giaodich.html') ? 'background:#ffffff;color:#b60000;box-shadow:0 4px 12px rgba(0,0,0,0.15);' : 'color:rgba(255,255,255,0.7);'}" onmouseover="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='rgba(255,255,255,0.1)';this.style.color='white';}" onmouseout="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='';this.style.color='rgba(255,255,255,0.7)';}" data-tooltip="Giao dịch">
+                        <a href="/pages/giaodich.html" class="nav-link" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;transition:all 0.2s;${isActive('giaodich.html') ? 'background:#ffffff;color:#b60000;box-shadow:0 4px 12px rgba(0,0,0,0.15);' : 'color:rgba(255,255,255,0.7);'}" onmouseover="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='rgba(255,255,255,0.1)';this.style.color='white';}" onmouseout="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='';this.style.color='rgba(255,255,255,0.7)';}" data-tooltip="Giao dịch">
                             <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor;flex-shrink:0;"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
                             <span class="nav-text">Giao dịch</span>
                         </a>
-                        <a href="/bank-ui/pages/sotietkiem.html" class="nav-link" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;transition:all 0.2s;${isActive('sotietkiem.html') ? 'background:#ffffff;color:#b60000;box-shadow:0 4px 12px rgba(0,0,0,0.15);' : 'color:rgba(255,255,255,0.7);'}" onmouseover="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='rgba(255,255,255,0.1)';this.style.color='white';}" onmouseout="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='';this.style.color='rgba(255,255,255,0.7)';}" data-tooltip="Sổ tiết kiệm">
+                        <a href="/pages/sotietkiem.html" class="nav-link" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;transition:all 0.2s;${isActive('sotietkiem.html') ? 'background:#ffffff;color:#b60000;box-shadow:0 4px 12px rgba(0,0,0,0.15);' : 'color:rgba(255,255,255,0.7);'}" onmouseover="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='rgba(255,255,255,0.1)';this.style.color='white';}" onmouseout="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='';this.style.color='rgba(255,255,255,0.7)';}" data-tooltip="Sổ tiết kiệm">
                             <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor;flex-shrink:0;"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.9 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
                             <span class="nav-text">Sổ tiết kiệm</span>
                         </a>
-                        <a href="/bank-ui/pages/chinhanh.html" class="nav-link" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;transition:all 0.2s;${isActive('chinhanh.html') ? 'background:#ffffff;color:#b60000;box-shadow:0 4px 12px rgba(0,0,0,0.15);' : 'color:rgba(255,255,255,0.7);'}" onmouseover="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='rgba(255,255,255,0.1)';this.style.color='white';}" onmouseout="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='';this.style.color='rgba(255,255,255,0.7)';}" data-tooltip="Chi nhánh">
+                        <a href="/pages/chi-nhanh-atm.html" class="nav-link" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;transition:all 0.2s;${isActive('chi-nhanh-atm.html') ? 'background:#ffffff;color:#b60000;box-shadow:0 4px 12px rgba(0,0,0,0.15);' : 'color:rgba(255,255,255,0.7);'}" onmouseover="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='rgba(255,255,255,0.1)';this.style.color='white';}" onmouseout="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='';this.style.color='rgba(255,255,255,0.7)';}" data-tooltip="Chi nhánh & ATM">
                             <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor;flex-shrink:0;"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>
-                            <span class="nav-text">Chi nhánh</span>
+                            <span class="nav-text">Chi nhánh & ATM</span>
                         </a>
                         <a href="/swagger/index.html" target="_blank" class="nav-link" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;transition:all 0.2s;color:rgba(255,255,255,0.7);" onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.color='white';" onmouseout="this.style.background='';this.style.color='rgba(255,255,255,0.7)';" data-tooltip="Swagger API">
                             <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor;flex-shrink:0;"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"/></svg>
@@ -369,6 +370,9 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         `;
     }
+    
+    // Initialize global animations
+    setupGlobalAnimations();
 });
 
 // =========================================================================
@@ -429,3 +433,108 @@ window.addEventListener("unhandledrejection", function(event) {
         window.showToast(message, "error", 5000);
     }
 });
+
+// Global Animations initialization
+function setupGlobalAnimations() {
+    // Add page-fade-in to body
+    document.body.classList.add("page-fade-in");
+
+    // Ripple effect handler for buttons
+    document.addEventListener("click", function(e) {
+        const button = e.target.closest("button, .btn-ripple, input[type='submit'], .service-card, a.px-8, .action-card, .theme-btn");
+        if (!button) return;
+
+        // Skip normal text links
+        if (button.tagName === 'A' && !button.classList.contains('px-8') && !button.classList.contains('service-card') && !button.classList.contains('action-card') && !button.classList.contains('theme-btn')) {
+            return;
+        }
+
+        const rect = button.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const ripple = document.createElement("span");
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${x - size / 2}px`;
+        ripple.style.top = `${y - size / 2}px`;
+
+        const style = window.getComputedStyle(button);
+        const bgColor = style.backgroundColor;
+
+        let isLight = true;
+        const match = bgColor.match(/\d+/g);
+        if (match && match.length >= 3) {
+            const r = parseInt(match[0]);
+            const g = parseInt(match[1]);
+            const b = parseInt(match[2]);
+            const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+            isLight = brightness > 180;
+        }
+
+        ripple.className = isLight ? "ripple-dark" : "ripple";
+
+        const oldRipples = button.querySelectorAll(".ripple, .ripple-dark");
+        oldRipples.forEach(r => r.remove());
+
+        const originalPosition = style.position;
+        if (originalPosition === 'static' || !originalPosition) {
+            button.style.position = 'relative';
+        }
+        button.style.overflow = 'hidden';
+
+        button.appendChild(ripple);
+    });
+
+    // Auto-Scroll Reveal observer
+    autoInjectRevealClasses();
+
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("revealed");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.05,
+            rootMargin: "0px 0px -30px 0px"
+        });
+
+        document.querySelectorAll(".reveal-on-scroll").forEach(el => {
+            observer.observe(el);
+        });
+    } else {
+        document.querySelectorAll(".reveal-on-scroll").forEach(el => {
+            el.classList.add("revealed");
+        });
+    }
+}
+
+function autoInjectRevealClasses() {
+    const targets = document.querySelectorAll(
+        "main > section, " +
+        "body > section:not(.hero-gradient), " +
+        ".grid > .bg-white, " +
+        ".stat-card-shadow, " +
+        ".service-card, " +
+        ".action-card"
+    );
+
+    targets.forEach((el) => {
+        if (el.classList.contains("hero-gradient") || el.closest("header") || el.closest("footer")) return;
+        el.classList.add("reveal-on-scroll");
+    });
+}
+
+// Tự động nạp Trợ lý ảo AI Assistant nổi
+(function() {
+    if (!document.getElementById("ai-assistant-script")) {
+        const script = document.createElement("script");
+        script.id = "ai-assistant-script";
+        script.src = "/js/ai-assistant.js";
+        script.async = true;
+        document.head.appendChild(script);
+    }
+})();
