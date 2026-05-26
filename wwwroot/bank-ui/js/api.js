@@ -1,5 +1,5 @@
 // Tự động nhận diện host của API để tránh hardcode cổng port
-const API_BASE_URL = window.location.origin + "/api";
+const API_BASE_URL = "http://localhost:5232/api";
 
 function getToken() {
     return localStorage.getItem("token");
