@@ -36,7 +36,7 @@ async function login() {
             loginBtn.style.backgroundColor = "#28a745";
             
             setTimeout(() => {
-                window.location.href = "/admin/dashboard.html";
+                window.location.href = "/bank-ui/admin/dashboard.html";
             }, 1000);
         } else {
             showError(result.message || "Đăng nhập thất bại.");
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!document.getElementById("ai-assistant-script")) {
         const script = document.createElement("script");
         script.id = "ai-assistant-script";
-        script.src = "/js/ai-assistant.js";
+        script.src = "/bank-ui/js/ai-assistant.js";
         script.async = true;
         document.head.appendChild(script);
     }

@@ -42,7 +42,7 @@ function syncHeaderAuth() {
         authContainer.innerHTML = `
             <div class="flex items-center gap-3">
                 <span class="hidden md:inline-block text-xs font-semibold text-slate-600">Chào, <strong class="text-brand-800">${user.hoTen}</strong></span>
-                <a href="/admin/dashboard.html" class="px-4 py-2 text-xs font-bold text-white bg-brand-800 hover:bg-brand-900 rounded-full transition-all shadow-sm shadow-red-100 flex items-center gap-1.5">
+                <a href="/bank-ui/admin/dashboard.html" class="px-4 py-2 text-xs font-bold text-white bg-brand-800 hover:bg-brand-900 rounded-full transition-all shadow-sm shadow-red-100 flex items-center gap-1.5">
                     <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-current"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
                     Dashboard
                 </a>

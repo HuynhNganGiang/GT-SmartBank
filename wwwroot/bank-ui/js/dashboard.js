@@ -70,14 +70,14 @@ function hideDashboardError() {
 // Kiểm tra trạng thái đăng nhập
 const user = getCurrentUser();
 if (!user) {
-    window.location.href = "/pages/login.html";
+    window.location.href = "/bank-ui/pages/login.html";
 }
 
 function logout() {
     removeToken();
     removeCurrentUser();
     localStorage.removeItem("refreshToken");
-    window.location.href = "/pages/login.html";
+    window.location.href = "/bank-ui/pages/login.html";
 }
 
 function formatVND(amount) {
