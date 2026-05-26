@@ -182,7 +182,7 @@ window.handlePublicRegister = async function(e) {
         if (response.ok && data.success) {
             alert("Đăng ký tài khoản thành công! Bạn có thể đăng nhập ngay.");
             closeRegisterModal();
-            window.location.href = "/pages/login.html";
+            window.location.href = "/bank-ui/pages/login.html";
         } else {
             alert(data.message || "Đăng ký không thành công. Số điện thoại có thể đã tồn tại.");
         }

@@ -28,7 +28,7 @@ window.logout = function() {
         window.showToast("Đăng xuất thành công", "success", 1500);
     }
     setTimeout(() => {
-        window.location.href = "/pages/login.html";
+        window.location.href = "/bank-ui/pages/login.html";
     }, 1200);
 };
 
