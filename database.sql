@@ -374,3 +374,108 @@ USE [master]
 GO
 ALTER DATABASE [GTSmartBank] SET  READ_WRITE 
 GO
+USE GTSmartBank;
+GO
+
+/* =========================================================
+   PHÂN QUYỀN CHUẨN GT SMARTBANK
+   1. Founder/Admin chính: Huỳnh Ngân Giang - Admin
+   2. Nhân viên ngân hàng - Staff
+   3. Khách hàng - User
+========================================================= */
+
+-- 1. Đưa toàn bộ tài khoản Admin cũ về User
+UPDATE KhachHang
+SET Role = N'User'
+WHERE Role = N'Admin';
+
+-- 2. Chỉ định Huỳnh Ngân Giang là Founder/Admin chính
+UPDATE KhachHang
+SET 
+    HoTen = N'Huỳnh Ngân Giang',
+    Email = N'sonhuynh2014.bt@gmail.com',
+    DiaChi = N'Việt Nam',
+    Role = N'Admin',
+    TrangThai = 1
+WHERE SoDienThoai = N'0909999999';
+
+-- 3. Xóa dữ liệu nhân viên demo cũ
+DELETE FROM NhanVien;
+DBCC CHECKIDENT ('NhanVien', RESEED, 0);
+
+-- 4. Thêm 4 nhân viên ngân hàng
+INSERT INTO NhanVien
+(
+    MaCN,
+    HoTen,
+    ChucVu,
+    TenDangNhap,
+    MatKhauHash
+)
+VALUES
+(1, N'Nguyễn Thị Anh Vũ', N'Data & Database Manager', N'anhvu', N'123456'),
+(1, N'Trần Lê Anh Thư', N'UI/UX & Product Designer', N'anhthu', N'123456'),
+(1, N'Phan Thị Mai Trâm', N'Security & Quality Assurance', N'maitram', N'123456'),
+(1, N'Nguyễn Thị Phương Nhưng', N'CTO - System Developer', N'phuongnhung', N'123456');
+
+-- 5. Kiểm tra lại khách hàng và phân quyền
+SELECT 
+    MaKH,
+    HoTen,
+    SoDienThoai,
+    Email,
+    Role,
+    TrangThai
+FROM KhachHang
+ORDER BY 
+    CASE 
+        WHEN Role = N'Admin' THEN 1
+        WHEN Role = N'Staff' THEN 2
+        ELSE 3
+    END,
+    MaKH;
+
+-- 6. Kiểm tra danh sách nhân viên ngân hàng
+SELECT 
+    MaNV,
+    MaCN,
+    HoTen,
+    ChucVu,
+    TenDangNhap
+FROM NhanVien
+ORDER BY MaNV;
+USE GTSmartBank;
+GO
+
+USE GTSmartBank;
+GO
+
+-- 1. Kiểm tra hiện có tài khoản nào
+SELECT MaKH, HoTen, SoDienThoai, MatKhauHash, Role, TrangThai
+FROM KhachHang;
+
+-- 2. Đưa tất cả Admin cũ về User
+UPDATE KhachHang
+SET Role = N'User'
+WHERE Role = N'Admin';
+
+-- 3. Set tài khoản MaKH = 3 làm Admin chính
+UPDATE KhachHang
+SET 
+    HoTen = N'Huỳnh Ngân Giang',
+    Email = N'sonhuynh2014.bt@gmail.com',
+    DiaChi = N'Việt Nam',
+    SoDienThoai = N'0366604140',
+    MatKhauHash = N'1234567',
+    Role = N'Admin',
+    TrangThai = 1
+WHERE MaKH = 3;
+
+-- 4. Xóa token cũ để tránh phiên đăng nhập hết hạn
+DELETE FROM RefreshTokens
+WHERE UserId = 3;
+
+-- 5. Kiểm tra lại
+SELECT MaKH, HoTen, SoDienThoai, MatKhauHash, Role, TrangThai
+FROM KhachHang
+WHERE MaKH = 3;
