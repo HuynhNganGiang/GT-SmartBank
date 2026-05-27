@@ -1,155 +1,146 @@
 // Quản lý Tài khoản - GT Smart Bank
-// Tích hợp API chuẩn RESTful và phân quyền Admin/User
 
 let allAccounts = [];
-const currentUser = getCurrentUser();
-const isAdmin = currentUser && currentUser.role === "Admin";
 
 document.addEventListener("DOMContentLoaded", () => {
-    initPage();
+    loadAccounts();
 });
 
-// Khởi tạo trang dựa trên quyền truy cập
-function initPage() {
-    const accountLayout = document.getElementById("accountLayout");
-    const adminFormBox = document.getElementById("adminFormBox");
-    const thActions = document.getElementById("thActions");
-
-    if (isAdmin) {
-        // Cấu hình UI cho Admin
-        if (adminFormBox) adminFormBox.style.display = "block";
-        if (accountLayout) accountLayout.classList.remove("full-width");
-        if (thActions) thActions.style.display = "";
-        
-        // Tải dữ liệu bổ trợ cho Dropdown Form
-        loadCustomersForDropdown();
-        loadBranchesForDropdown();
-    } else {
-        // Cấu hình UI cho User thường
-        if (adminFormBox) adminFormBox.style.display = "none";
-        if (accountLayout) accountLayout.classList.add("full-width");
-        if (thActions) thActions.style.display = "none";
-
-        // Thay đổi tiêu đề trang cho khách hàng
-        document.getElementById("pageTitle").innerText = "Tài khoản của tôi";
-        document.getElementById("pageSubtitle").innerText = "Danh sách các tài khoản thanh toán cá nhân đang hoạt động";
+function getValue(obj, ...keys) {
+    for (const key of keys) {
+        if (obj && obj[key] !== undefined && obj[key] !== null) return obj[key];
     }
-
-    loadAccounts();
+    return "";
 }
 
-// Tải danh sách tài khoản từ API
+function formatVND(value) {
+    const number = Number(value || 0);
+    return number.toLocaleString("vi-VN") + " đ";
+}
+
+async function apiGetFirst(paths) {
+    let lastError = null;
+
+    for (const path of paths) {
+        try {
+            const response = await apiGet(path);
+            if (response && response.success !== false) {
+                return response;
+            }
+        } catch (error) {
+            lastError = error;
+        }
+    }
+
+    throw lastError || new Error("Không thể tải dữ liệu.");
+}
+
 async function loadAccounts() {
     const tbody = document.getElementById("taiKhoanBody");
-    const colspan = isAdmin ? 8 : 7;
-    tbody.innerHTML = Array(3).fill(0).map(() => `
-        <tr class="animate-pulse">
-            <td class="px-6 py-4"><div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-20 skeleton"></div></td>
-            <td class="px-6 py-4">
-                <div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-24 mb-1 skeleton"></div>
-                <div class="h-3 bg-slate-100 dark:bg-slate-900 rounded w-16 skeleton"></div>
+    if (!tbody) return;
+
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="8" class="px-6 py-10 text-center text-slate-500 italic">
+                Đang tải danh sách tài khoản...
             </td>
-            <td class="px-6 py-4"><div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-32 skeleton"></div></td>
-            <td class="px-6 py-4"><div class="h-3 bg-slate-200 dark:bg-slate-800 rounded w-12 skeleton"></div></td>
-            <td class="px-6 py-4"><div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-16 skeleton"></div></td>
-            <td class="px-6 py-4"><div class="h-3 bg-slate-200 dark:bg-slate-800 rounded w-16 skeleton"></div></td>
-            <td class="px-6 py-4"><div class="h-5 bg-slate-200 dark:bg-slate-800 rounded-full w-20 skeleton"></div></td>
-            ${isAdmin ? `<td class="px-6 py-4"><div class="h-8 bg-slate-200 dark:bg-slate-800 rounded-lg w-16 mx-auto skeleton"></div></td>` : ''}
         </tr>
-    `).join("");
+    `;
 
     try {
-        const response = await apiGet("accounts");
-        if (response && response.success) {
-            allAccounts = response.data || [];
-            renderAccounts(allAccounts);
-        } else {
-            tbody.innerHTML = `<tr><td colspan="${colspan}" class="px-6 py-8 text-center text-rose-500 font-medium">Lỗi: ${response.message || 'Không thể tải danh sách tài khoản'}</td></tr>`;
-        }
+        const result = await apiGetFirst([
+    "accounts"
+]);
+
+allAccounts = Array.isArray(result)
+    ? result
+    : Array.isArray(result.data)
+        ? result.data
+        : [];
+
+renderAccounts(allAccounts);
     } catch (error) {
-        tbody.innerHTML = `<tr><td colspan="${colspan}" class="px-6 py-8 text-center text-rose-500 font-medium">Lỗi kết nối API: ${error.message}</td></tr>`;
+        console.error("Lỗi tải tài khoản:", error);
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8" class="px-6 py-10 text-center text-red-600 font-semibold">
+                    Không thể tải danh sách tài khoản. Vui lòng kiểm tra API /api/TaiKhoan.
+                </td>
+            </tr>
+        `;
     }
 }
 
-// Render danh sách tài khoản lên bảng
 function renderAccounts(accounts) {
     const tbody = document.getElementById("taiKhoanBody");
-    const colspan = isAdmin ? 8 : 7;
+    if (!tbody) return;
 
-    if (accounts.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="${colspan}" class="px-6 py-8 text-center text-slate-500 dark:text-slate-400">Không có tài khoản nào được hiển thị.</td></tr>`;
+    if (!accounts || accounts.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8" class="px-6 py-10 text-center text-slate-500">
+                    Chưa có tài khoản nào trong hệ thống.
+                </td>
+            </tr>
+        `;
         return;
     }
 
-    tbody.innerHTML = accounts.map(x => {
-        const number = x.soTaiKhoan || x.SoTaiKhoan;
-        const khId = x.maKH || x.MaKH;
-        const khName = x.tenKhachHang || x.TenKhachHang || `Khách hàng #${khId}`;
-        const cnId = x.maCN || x.MaCN;
-        const cnName = x.tenChiNhanh || x.TenChiNhanh || `Chi nhánh #${cnId}`;
-        const type = x.loaiTaiKhoan || x.LoaiTaiKhoan || 'Thanh toán';
-        const balance = x.soDu !== undefined ? x.soDu : x.SoDu;
-        const dateStr = x.ngayMoTK || x.NgayMoTK;
-        const active = x.trangThai !== undefined ? x.trangThai : x.TrangThai;
+    tbody.innerHTML = accounts.map(acc => {
+        const soTaiKhoan = getValue(acc, "soTaiKhoan", "SoTaiKhoan");
+        const loaiTaiKhoan = getValue(acc, "loaiTaiKhoan", "LoaiTaiKhoan") || "Thanh toán";
+        const soDu = getValue(acc, "soDu", "SoDu") || 0;
+        const ngayMoTK = getValue(acc, "ngayMoTK", "NgayMoTK");
+        const trangThai = getValue(acc, "trangThai", "TrangThai");
 
-        const statusClass = active 
-            ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-955/30 dark:text-emerald-450 border border-emerald-200/50 dark:border-emerald-800/30" 
-            : "bg-rose-50 text-rose-700 dark:bg-rose-955/30 dark:text-rose-450 border border-rose-200/50 dark:border-rose-800/30";
-        const statusText = active ? "Hoạt động" : "Bị khóa";
-        const formattedBalance = Number(balance).toLocaleString("vi-VN") + " đ";
-        
-        let dateFormatted = "N/A";
-        if (dateStr) {
-            try {
-                const date = new Date(dateStr);
-                dateFormatted = date.toLocaleDateString("vi-VN");
-            } catch(e) {}
-        }
+        const maKH = getValue(acc, "maKH", "MaKH");
+        const maCN = getValue(acc, "maCN", "MaCN");
 
-        let actionCellHtml = "";
-        if (isAdmin) {
-            actionCellHtml = `
-                <td class="px-6 py-4">
-                    <div class="flex items-center justify-center gap-2">
-                        <button class="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400 hover:bg-sky-500 hover:text-white dark:hover:bg-sky-500 transition-colors" onclick="setupEditAccount('${number}', ${khId}, ${cnId}, '${type}', ${balance}, ${active})">📝 Sửa</button>
-                        <button class="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-rose-50 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400 hover:bg-rose-500 hover:text-white dark:hover:bg-rose-500 transition-colors" onclick="deleteAccount('${number}')">🗑️ Xóa</button>
-                    </div>
-                </td>
-            `;
-        }
+        const khachHang = getValue(acc, "tenKhachHang", "TenKhachHang", "hoTen", "HoTen") || `Khách hàng #${maKH}`;
+        const chiNhanh = getValue(acc, "tenChiNhanh", "TenChiNhanh", "tenCN", "TenCN") || `Chi nhánh #${maCN}`;
+
+        const ngayMo = ngayMoTK ? new Date(ngayMoTK).toLocaleDateString("vi-VN") : "N/A";
+        const active = trangThai === true || trangThai === 1 || trangThai === "true" || trangThai === "Hoạt động";
 
         return `
-            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-950/20 transition-colors">
-                <td class="px-6 py-4 font-mono font-bold text-slate-800 dark:text-white text-base">${number}</td>
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-6 py-4 font-bold font-mono text-slate-800">${soTaiKhoan}</td>
                 <td class="px-6 py-4">
-                    <span class="font-bold text-slate-800 dark:text-slate-100">${khName}</span>
-                    <div class="text-[11px] text-slate-400 dark:text-slate-550 font-medium">Mã KH: #${khId}</div>
+                    <div class="font-bold text-slate-800">${khachHang}</div>
+                    <div class="text-xs text-slate-400">Mã KH: ${maKH || "N/A"}</div>
                 </td>
-                <td class="px-6 py-4 text-slate-600 dark:text-slate-350 font-medium">🏢 ${cnName}</td>
-                <td class="px-6 py-4"><span class="text-xs font-bold text-slate-500 dark:text-slate-400">${type}</span></td>
-                <td class="px-6 py-4"><span class="font-extrabold text-emerald-600 dark:text-emerald-450">${formattedBalance}</span></td>
-                <td class="px-6 py-4 text-xs font-semibold text-slate-550 dark:text-slate-400">${dateFormatted}</td>
-                <td class="px-6 py-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${statusClass}">${statusText}</span></td>
-                ${actionCellHtml}
+                <td class="px-6 py-4 text-slate-600">${chiNhanh}</td>
+                <td class="px-6 py-4 font-semibold">${loaiTaiKhoan}</td>
+                <td class="px-6 py-4 font-extrabold text-emerald-600">${formatVND(soDu)}</td>
+                <td class="px-6 py-4 text-slate-600">${ngayMo}</td>
+                <td class="px-6 py-4">
+                    <span class="px-3 py-1 rounded-full text-xs font-bold ${active ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"}">
+                        ${active ? "Hoạt động" : "Bị khóa"}
+                    </span>
+                </td>
+                <td class="px-6 py-4 text-center">
+                    <button onclick="showToast('Chức năng quản lý tài khoản đang ở chế độ demo', 'info')" 
+                            class="px-3 py-2 rounded-lg bg-slate-100 hover:bg-red-700 hover:text-white text-xs font-bold">
+                        Xem
+                    </button>
+                </td>
             </tr>
         `;
     }).join("");
 }
 
-// Tìm kiếm tài khoản trên giao diện Client
 function filterAccounts() {
-    const keyword = document.getElementById("searchKeyword").value.trim().toLowerCase();
+    const input = document.getElementById("searchKeyword");
+    const keyword = input ? input.value.trim().toLowerCase() : "";
+
     if (!keyword) {
         renderAccounts(allAccounts);
         return;
     }
 
-    const filtered = allAccounts.filter(x => {
-        const number = (x.soTaiKhoan || x.SoTaiKhoan || "").toLowerCase();
-        const khName = (x.tenKhachHang || x.TenKhachHang || "").toLowerCase();
-        const cnName = (x.tenChiNhanh || x.TenChiNhanh || "").toLowerCase();
-        
-        return number.includes(keyword) || khName.includes(keyword) || cnName.includes(keyword);
+    const filtered = allAccounts.filter(acc => {
+        const text = JSON.stringify(acc).toLowerCase();
+        return text.includes(keyword);
     });
 
     renderAccounts(filtered);
