@@ -514,6 +514,21 @@
     // Hàm phân tích từ khóa tin nhắn của người dùng để chọn câu trả lời tương ứng
     function getAiResponse(userText) {
         const text = removeVietnameseTones(userText.toLowerCase());
+        if (message.includes("số dư")) {
+    return "Bạn có thể kiểm tra số dư tại mục Tài khoản. Hệ thống sẽ hiển thị số tài khoản, loại tài khoản và số dư khả dụng.";
+}
+
+if (message.includes("chuyển tiền")) {
+    return "Bạn vào mục Chuyển tiền 24/7, chọn tài khoản nguồn, nhập tài khoản nhận, số tiền, nội dung và xác nhận OTP.";
+}
+
+if (message.includes("atm") || message.includes("chi nhánh")) {
+    return "Bạn có thể vào mục Chi nhánh & ATM để xem bản đồ các điểm giao dịch gần nhất của GT SmartBank.";
+}
+
+if (message.includes("tiết kiệm")) {
+    return "Bạn vào mục Sổ tiết kiệm E-Savings để mở sổ tiết kiệm online, chọn kỳ hạn và số tiền gửi.";
+}
         
         if (text.includes("mo") && text.includes("tai khoan") || text.includes("mo tk") || text.includes("reg") || text.includes("create")) {
             return responses["mơ tai khoan"];
