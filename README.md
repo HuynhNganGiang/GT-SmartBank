@@ -54,11 +54,14 @@ dotnet run
 http://localhost:5232/swagger
 7.Mở giao diện Web:
 http://localhost:5232/bank-ui/index.html
-Thông tin SQL Server cho giảng viên.
-Server name: 14.225.224.67,1433
+Thông tin SQL Server cho giảng viên
+Vì thông tin SQL Server có tài khoản và mật khẩu nên không nên công khai trực tiếp trên GitHub public. Thông tin kết nối SQL Server sẽ được gửi riêng cho giảng viên để kiểm tra dữ liệu thực tế.
+
+Mẫu thông tin gửi riêng:
+Server name: IP_SERVER,1433
 Authentication: SQL Server Authentication
-Login: nhom_gtsmartbank
-Password: GtmartBank@20226
+Login: USER_SQL
+Password: PASSWORD_SQL
 Database: GTSmartBank
 Tác giả
 Sinh viên thực hiện:
