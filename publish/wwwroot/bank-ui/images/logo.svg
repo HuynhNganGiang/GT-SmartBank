@@ -1,6 +1,0 @@
-<svg width="70" height="70" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="50" cy="50" r="45" fill="#008F4C"></circle>
-  <path d="M50 15 L80 50 L50 85 L20 50 Z" fill="#D9E76C"></path>
-  <circle cx="50" cy="50" r="20" fill="#ffffff"></circle>
-  <text x="50" y="56" font-size="18" text-anchor="middle" fill="#008F4C" font-family="Arial" font-weight="bold">GT</text>
-</svg>
