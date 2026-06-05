@@ -28,9 +28,9 @@
                             500: '#f03e3e',
                             600: '#e03131',
                             700: '#c92a2a',
-                            800: '#b60000', /* Primary Red */
-                            900: '#9c0000',
-                            950: '#5c0000'
+                            800: '#01479D',
+                            900: '#003A80',
+                            950: '#002D66'
                         },
                         secondary: {
                             50:  '#fffbeb',
@@ -55,8 +55,13 @@
 
         /* ── Layout & Sidebar styling ── */
         .sidebar-gradient {
-            background: linear-gradient(185deg, #b60000 0%, #800000 100%);
-            box-shadow: 4px 0 25px rgba(182, 0, 0, 0.15);
+    background: linear-gradient(
+        185deg,
+        #01479D 0%,
+        #003A80 100%
+    );
+}
+            box-shadow: 4px 0 25px rgba(1,71,157,.20);
         }
         .nav-link {
             transition: all 0.2s ease;
@@ -66,8 +71,8 @@
             transform: translateX(4px);
         }
         .nav-link.active {
-            background: #ffffff;
-            color: #b60000 !important;
+    color: #01479D !important;
+}
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
@@ -86,11 +91,11 @@
             max-height: 320px;
             overflow-y: auto;
             scrollbar-width: thin;
-            scrollbar-color: #b60000 #f1f5f9;
+            scrollbar-color: #01479D #f1f5f9;
         }
         .tx-scroll::-webkit-scrollbar { width: 5px; }
         .tx-scroll::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 99px; }
-        .tx-scroll::-webkit-scrollbar-thumb { background: #b60000; border-radius: 99px; }
+        .tx-scroll::-webkit-scrollbar-thumb { background: #01479D; border-radius: 99px; }
 
         /* ── Fintech Premium Card 3D Tilt & Shimmer ── */
         @keyframes shimmer {
@@ -150,8 +155,8 @@
         .tx-amount.minus { color: #b60000; }
         
         .stat-badge {
-            background-color: rgba(182, 0, 0, 0.08);
-            color: #b60000;
+            background-color: rgba(1,71,157,.08);
+            color:#01479D;
             font-size: 9px;
             font-weight: 800;
             padding: 1.5px 5px;
@@ -202,17 +207,10 @@
         <div class="space-y-8">
             <!-- Brand -->
             <a href="../index.html" class="flex items-center gap-3 group">
-                <div class="w-9 h-9 rounded-xl bg-white flex items-center justify-center shadow-lg border border-white/20">
-                    <svg viewBox="0 0 100 100" class="w-6 h-6">
-                        <path d="M50 12 L82 22 V48 C82 66 69 82 50 88 C31 82 18 66 18 48 V22 Z" fill="#b60000" />
-                        <path d="M43 38 H57 C60 38 62 40 62 43 V46 H52 V43 H44 V55 H57 V52 H62 V55 C62 58 60 60 57 60 H43 C40 60 38 58 38 55 V43 C38 40 40 38 43 38 Z" fill="#f7b500" />
-                    </svg>
-                </div>
-                <div>
-                    <h2 class="text-base font-black text-white leading-none tracking-tight font-montserrat">GT SmartBank</h2>
-                    <p class="text-[8px] font-bold text-secondary-300 uppercase tracking-widest leading-none mt-1">Digital Banking</p>
-                </div>
-            </a>
+    <img src="/bank-ui/assets/login/logo-gt-blue.png"
+         alt="GT SmartBank"
+         style="height:50px">
+</a>
 
             <!-- Navigation Links -->
             <nav class="space-y-1.5">

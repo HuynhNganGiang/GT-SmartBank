@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -31,8 +32,56 @@ namespace GTSmartBank.Controllers
             _configuration = configuration;
         }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDTO model)
+        [AllowAnonymous]
+[HttpPost("register")]
+public async Task<IActionResult> Register([FromBody] RegisterDTO model)
+{
+    if (model == null ||
+        string.IsNullOrWhiteSpace(model.HoTen) ||
+        string.IsNullOrWhiteSpace(model.SoDienThoai) ||
+        string.IsNullOrWhiteSpace(model.MatKhau))
+    {
+        return BadRequest(ApiResponse<object>.ErrorResult(400, "Vui lòng nhập đầy đủ họ tên, số điện thoại và mật khẩu."));
+    }
+
+    var existedPhone = await _context.KhachHang
+        .AnyAsync(x => x.SoDienThoai == model.SoDienThoai);
+
+    if (existedPhone)
+    {
+        return BadRequest(ApiResponse<object>.ErrorResult(400, "Số điện thoại đã tồn tại."));
+    }
+
+    var khachHang = new KhachHang
+    {
+        HoTen = model.HoTen.Trim(),
+        SoDienThoai = model.SoDienThoai.Trim(),
+        CCCD = Guid.NewGuid().ToString("N").Substring(0, 12),
+        Email = string.IsNullOrWhiteSpace(model.Email)
+            ? model.SoDienThoai.Trim() + "@gtsmartbank.com.vn"
+            : model.Email.Trim(),
+        DiaChi = model.DiaChi ?? "",
+        MatKhauHash = PasswordHasher.HashPassword(model.MatKhau),
+        TrangThai = true,
+        Role = "User"
+    };
+
+    _context.KhachHang.Add(khachHang);
+    await _context.SaveChangesAsync();
+
+    var result = new
+    {
+        khachHang.MaKH,
+        khachHang.HoTen,
+        khachHang.SoDienThoai,
+        khachHang.Email,
+        khachHang.Role
+    };
+
+    return Ok(ApiResponse<object>.SuccessResult(result, "Đăng ký tài khoản thành công."));
+}
+         [HttpPost("login")]
+          public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
             if (model == null || string.IsNullOrWhiteSpace(model.SoDienThoai) || string.IsNullOrWhiteSpace(model.MatKhau))
             {
@@ -85,8 +134,9 @@ namespace GTSmartBank.Controllers
             return Ok(ApiResponse<object>.SuccessResult(authData, "Đăng nhập thành công."));
         }
 
-        [HttpPost("refresh")]
-        public async Task<IActionResult> Refresh([FromBody] string refreshToken)
+        [AllowAnonymous]
+         [HttpPost("refresh")]
+         public async Task<IActionResult> Refresh([FromBody] string refreshToken)
         {
             if (string.IsNullOrWhiteSpace(refreshToken))
             {

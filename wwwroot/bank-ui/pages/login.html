@@ -22,58 +22,77 @@
                     },
                     colors: {
                         brand: {
-                            800: '#b60000',
-                            850: '#a00000',
-                            900: '#9c0000',
-                        },
-                        secondary: {
-                            700: '#f7b500',
-                        }
+                        800: '#01479D',
+                        850: '#01479D',
+                        900: '#003A80',
+                    },
+               secondary: {
+                    700: '#1BC3CC',
+                 }
                     }
                 }
             }
         };
     </script>
     <style>
-        .login-bg {
-            background: linear-gradient(135deg, #b60000 0%, #700000 50%, #4a0000 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        .login-bg::after {
-            content: '';
-            position: absolute;
-            top: -20%;
-            right: -20%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(247, 181, 0, 0.1) 0%, rgba(247, 181, 0, 0) 70%);
-            pointer-events: none;
-            border-radius: 50%;
-        }
+    .login-bg {
+        background:
+            linear-gradient(rgba(0,0,0,.15), rgba(0,0,0,.15)),
+            url('/bank-ui/assets/login/phanthiet-login.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+    }
+
+    .login-card {
+        background: rgba(255, 255, 255, 0.90);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 28px;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.22);
+    }
+
+    .login-logo {
+        height: 64px;
+        width: auto;
+        object-fit: contain;
+    }
+
+    .login-input {
+        background: rgba(245, 249, 255, 0.92);
+        border: 1px solid #dbe3f0;
+    }
+
+    .login-input:focus {
+        border-color: #01479D;
+        box-shadow: 0 0 0 4px rgba(1, 71, 157, 0.14);
+    }
+
+    .login-btn {
+        background: #01479D;
+        box-shadow: 0 12px 24px rgba(1, 71, 157, 0.28);
+    }
+
+    .login-btn:hover {
+        background: #003A80;
+        transform: translateY(-2px);
+        box-shadow: 0 16px 30px rgba(1, 71, 157, 0.35);
+    }
     </style>
 </head>
 <body class="login-bg min-h-screen flex items-center justify-center p-4">
 
     <!-- Login Card -->
-    <div class="w-full max-w-md bg-white rounded-3xl p-8 shadow-2xl relative border border-white/10 z-10">
+    <div class="login-card w-full max-w-md p-8 relative border border-white/30 z-10">
         
         <!-- Header -->
         <div class="text-center mb-8">
-            <a href="/bank-ui/index.html" class="inline-flex items-center gap-3 mb-6">
-                <div class="w-10 h-10 bg-brand-800 rounded-xl flex items-center justify-center text-secondary-700 font-black shadow-lg shadow-red-200">
-                    <svg viewBox="0 0 100 100" class="w-6 h-6">
-                        <path d="M50 12 L82 22 V48 C82 66 69 82 50 88 C31 82 18 66 18 48 V22 Z" fill="#ffffff" />
-                        <path d="M50 20 L74 27 V48 C74 61 64 73 50 78 C36 73 26 61 26 48 V27 Z" fill="#f7b500" opacity="0.9" />
-                        <path d="M43 38 H57 C60 38 62 40 62 43 V46 H52 V43 H44 V55 H57 V52 H62 V55 C62 58 60 60 57 60 H43 C40 60 38 58 38 55 V43 C38 40 40 38 43 38 Z" fill="#ffffff" />
-                        <path d="M47 43 H53 V46 H50.5 V55 H49.5 V46 H47 Z" fill="#b60000" />
-                    </svg>
-                </div>
-                <div class="text-left">
-                    <span class="text-lg font-black text-brand-800 tracking-tight leading-none block">GT <span class="text-slate-800">SmartBank</span></span>
-                    <span class="text-[9px] font-bold text-secondary-700 tracking-widest uppercase block mt-0.5">SMART DIGITAL BANK</span>
-                </div>
-            </a>
+            <a href="/bank-ui/index.html" class="inline-flex justify-center mb-6">
+    <img src="/bank-ui/assets/login/logo-gt-blue.png"
+         alt="GT SmartBank"
+         class="login-logo">
+</a>
             <h2 class="text-xl font-bold text-slate-800">Cổng Ngân hàng số</h2>
             <p class="text-xs text-slate-400 mt-1 font-semibold">INTERNET BANKING PORTAL</p>
         </div>
@@ -86,13 +105,13 @@
             <div class="flex flex-col gap-1.5">
                 <label for="soDienThoai" class="uppercase tracking-wider">Số điện thoại đăng ký</label>
                 <input type="text" id="soDienThoai" placeholder="Nhập số điện thoại" required autofocus autocomplete="username"
-                       class="w-full bg-slate-50 border border-slate-200 focus:border-brand-800 rounded-xl px-4 py-3 text-sm text-slate-800 placeholder-slate-400 outline-none transition-all font-bold">
+                       class="login-input w-full rounded-xl px-4 py-3 text-sm text-slate-800 placeholder-slate-400 outline-none transition-all font-bold">
             </div>
 
             <div class="flex flex-col gap-1.5">
                 <label for="matKhau" class="uppercase tracking-wider">Mật khẩu bảo mật</label>
                 <input type="password" id="matKhau" placeholder="Nhập mật khẩu" required autocomplete="current-password"
-                       class="w-full bg-slate-50 border border-slate-200 focus:border-brand-800 rounded-xl px-4 py-3 text-sm text-slate-800 placeholder-slate-400 outline-none transition-all font-bold">
+                       class="login-input w-full rounded-xl px-4 py-3 text-sm text-slate-800 placeholder-slate-400 outline-none transition-all font-bold">
             </div>
 
             <div class="flex items-center justify-between font-bold pt-1">
@@ -103,7 +122,7 @@
                 </a>
             </div>
 
-            <button id="loginBtn" onclick="login()" class="w-full py-3.5 bg-brand-800 hover:bg-brand-900 text-white rounded-xl text-xs font-extrabold uppercase tracking-widest transition-all shadow-lg shadow-red-200">
+            <button id="loginBtn" onclick="login()" class="login-btn w-full py-3.5 text-white rounded-xl text-xs font-extrabold uppercase tracking-widest transition-all">
                 Đăng nhập hệ thống
             </button>
         </div>

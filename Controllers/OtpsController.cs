@@ -11,7 +11,7 @@ namespace GTSmartBank.Controllers
 {
     [Route("api/otps")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "User,Admin")]
     [Tags("Xác thực OTP")]
     public class OtpsController : ControllerBase
     {
@@ -64,7 +64,8 @@ namespace GTSmartBank.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ApiResponse<object>.ErrorResult(400, ex.Message));
+                var errorMessage = ex.InnerException?.Message ?? ex.Message;
+                return BadRequest(ApiResponse<object>.ErrorResult(400, errorMessage));
             }
         }
     }

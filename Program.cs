@@ -173,35 +173,17 @@ app.UseCors("VercelCorsPolicy");
 // =====================================
 // 1. SWAGGER UI
 // =====================================
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint(
-            "/swagger/v1/swagger.json",
-            "GT Smart Bank API v1"
-        );
-
-        c.DocumentTitle = "GT Smart Bank - Banking API";
-
-        // File CSS custom Swagger
-        // wwwroot/swagger-ui/custom.css
-        c.InjectStylesheet("/swagger-ui/custom.css?v=1.1");
-
-        // Ẩn phần Models
-        c.DefaultModelsExpandDepth(-1);
-
-        // Hiển thị thời gian request
-        c.DisplayRequestDuration();
-
-        // Mở API dạng list
-        c.DocExpansion(
-            Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.List
-        );
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "GT Smart Bank API v1");
+    c.DocumentTitle = "GT Smart Bank - Banking API";
+    c.InjectStylesheet("/swagger-ui/custom.css?v=1.1");
+    c.DefaultModelsExpandDepth(-1);
+    c.DisplayRequestDuration();
+    c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.List);
+});
 
 
 // =====================================

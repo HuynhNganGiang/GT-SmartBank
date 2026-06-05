@@ -1,0 +1,57 @@
+/* GT SmartBank Admin Stylesheet */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f1f5f9;
+    color: #0f172a;
+}
+
+/* Admin Sidebar Layout */
+.admin-sidebar {
+    width: 260px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 40;
+    transition: transform 0.3s ease-in-out;
+}
+
+.admin-main {
+    margin-left: 260px;
+    min-height: 100vh;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+/* Sidebar item active state */
+.sidebar-link-active {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-left: 4px solid #f7b500;
+    color: #ffffff !important;
+}
+
+/* Chart Canvas Wrapper */
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+/* Stats Card */
+.stat-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Table styling override */
+.admin-table th {
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+}

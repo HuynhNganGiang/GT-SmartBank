@@ -42,8 +42,20 @@ namespace GTSmartBank.Services
                     throw new InvalidOperationException("Số dư không đủ để thực hiện giao dịch.");
                 }
 
-                // Verify and claim the OTP for the source account
-                var otpDb = await _otpService.VerifyOtpAsync(tkNguon, otpCode);
+                // Verify OTP mới nhất, chưa dùng, còn hạn
+      var otpDb = await _context.LichSuOTP
+    .Where(x =>
+        x.MaCode == otpCode &&
+        x.TrangThaiXacNhan == false &&
+        x.ThoiGianHetHan > DateTime.Now
+    )
+    .OrderByDescending(x => x.ThoiGianTao)
+    .FirstOrDefaultAsync();
+
+    if (otpDb == null)
+    {
+    throw new InvalidOperationException("Mã OTP không hợp lệ, đã được sử dụng hoặc đã hết hạn.");
+    }
 
                 // Deduct & credit
                 sourceAcc.SoDu -= soTien;

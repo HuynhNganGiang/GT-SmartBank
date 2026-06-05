@@ -1,16 +1,15 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using GTSmartBank.Data;
 using GTSmartBank.Models;
 
-using Microsoft.AspNetCore.Http;
-
 namespace GTSmartBank.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "User,Admin")]
     [Tags("Xác thực OTP")]
     public class OtpController : ControllerBase
     {
@@ -24,33 +23,55 @@ namespace GTSmartBank.Controllers
         [HttpPost("tao-otp")]
         public async Task<IActionResult> TaoOTP()
         {
-            var maKhClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (string.IsNullOrEmpty(maKhClaim))
-                return Unauthorized("Không lấy được MaKH từ token");
-
-            int maKH = int.Parse(maKhClaim);
-
-            var code = Random.Shared.Next(100000, 999999).ToString();
-
-            var otp = new LichSuOTP
+            try
             {
-                MaGD = null,
-                MaCode = code,
-                ThoiGianTao = DateTime.Now,
-                ThoiGianHetHan = DateTime.Now.AddMinutes(3),
-                TrangThaiXacNhan = false
-            };
+                var maKhClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            _context.LichSuOTP.Add(otp);
-            await _context.SaveChangesAsync();
+                if (string.IsNullOrEmpty(maKhClaim))
+                    return Unauthorized("Không lấy được MaKH từ token");
 
-            return Ok(new
+                int maKH = int.Parse(maKhClaim);
+
+                var code = Random.Shared.Next(100000, 999999).ToString();
+
+                var taiKhoan = await _context.TaiKhoan
+    .FirstOrDefaultAsync(x => x.MaKH == maKH);
+
+if (taiKhoan == null)
+{
+    return BadRequest("Không tìm thấy tài khoản.");
+}
+
+var otp = new LichSuOTP
+{
+    MaGD = null,
+    MaCode = code,
+    ThoiGianTao = DateTime.Now,
+    ThoiGianHetHan = DateTime.Now.AddMinutes(3),
+    TrangThaiXacNhan = false,
+    SoTaiKhoan = taiKhoan.SoTaiKhoan
+    };
+
+                _context.LichSuOTP.Add(otp);
+                await _context.SaveChangesAsync();
+
+                return Ok(new
+                {
+                    message = "Tạo OTP thành công",
+                    otp = code,
+                    maKH = maKH,
+                    hetHanSauPhut = 3
+                });
+            }
+            catch (Exception ex)
             {
-                message = "Tạo OTP thành công",
-                otp = code,
-                hetHanSauPhut = 3
-            });
+                return BadRequest(new
+                {
+                    message = "Lỗi khi tạo OTP",
+                    error = ex.Message,
+                    innerError = ex.InnerException?.Message
+                });
+            }
         }
     }
 }

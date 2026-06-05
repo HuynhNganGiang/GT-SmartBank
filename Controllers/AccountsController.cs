@@ -14,7 +14,7 @@ namespace GTSmartBank.Controllers
 {
     [Route("api/accounts")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "User,Admin")]
     [Tags("Tài khoản")]
     public class AccountsController : ControllerBase
     {
@@ -86,7 +86,8 @@ namespace GTSmartBank.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ApiResponse<object>.ErrorResult(400, ex.Message));
+                var errorMessage = ex.InnerException?.Message ?? ex.Message;
+                return BadRequest(ApiResponse<object>.ErrorResult(400, errorMessage));
             }
         }
 

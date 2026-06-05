@@ -32,14 +32,14 @@ namespace GTSmartBank.Controllers
             });
         }
 
-        [Authorize(Roles = "User")]
-        [HttpGet("user")]
+       [Authorize(Roles = "User,Admin")]
+       [HttpGet("user")]
         public IActionResult UserOnly()
-        {
+          {
             return Ok(new
-            {
-                message = "Chỉ User mới xem được API này"
-            });
-        }
+           {
+        message = "User và Admin đều xem được API này"
+        });
+    }
     }
 }

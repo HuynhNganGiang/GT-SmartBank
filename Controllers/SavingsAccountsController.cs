@@ -13,7 +13,7 @@ namespace GTSmartBank.Controllers
 {
     [Route("api/savings-accounts")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "User,Admin")]
     [Tags("Sổ tiết kiệm")]
     public class SavingsAccountsController : ControllerBase
     {
@@ -117,7 +117,8 @@ namespace GTSmartBank.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ApiResponse<object>.ErrorResult(500, "Đã xảy ra lỗi hệ thống: " + ex.Message));
+                var errorMessage = ex.InnerException?.Message ?? ex.Message;
+                return StatusCode(500, ApiResponse<object>.ErrorResult(500, "Đã xảy ra lỗi hệ thống: " + errorMessage));
             }
         }
 
