@@ -231,8 +231,23 @@ async function getOtpCode() {
         otpContainer.style.display = "block";
     }
 
-    showToast("Mã OTP demo là 123456.", "info", 5000);
-    startOtpTimer(60);
+    const otpResult = await apiPost(
+    `otps/generate?soTaiKhoan=${tkNguon}`,
+    {}
+);
+
+console.log("OTP Response:", otpResult);
+
+const otp =
+    otpResult?.data?.otp ||
+    otpResult?.otp ||
+    "Lỗi OTP";
+
+document.getElementById("otpCodeShow").innerText = otp;
+
+showToast("Đã tạo mã OTP thành công.", "success");
+
+startOtpTimer(180);
 }
 
 function startOtpTimer(durationSeconds) {
@@ -278,11 +293,6 @@ async function confirmTransfer() {
         return;
     }
 
-    if (maOtp !== "123456") {
-        showToast("Mã OTP demo không đúng. Vui lòng nhập 123456.", "error");
-        return;
-    }
-
     const btnConfirmTransfer = document.getElementById("btnConfirmTransfer");
 
     if (btnConfirmTransfer) {
@@ -292,12 +302,14 @@ async function confirmTransfer() {
 
     try {
         const requestBody = {
-            TK_Nguon: tkNguon,
-            TK_Dich: tkDich,
-            SoTien: soTien,
-            NoiDung: noiDung,
-            MaOTP: maOtp
-        };
+    tk_Nguon: tkNguon,
+    tk_Dich: tkDich,
+    soTien: soTien,
+    noiDung: noiDung,
+    maOTP: maOtp
+};
+
+console.log("Request chuyển tiền:", requestBody);
 
         let result = null;
 
@@ -305,12 +317,39 @@ async function confirmTransfer() {
             result = await apiPost("GiaoDich/ChuyenTien", requestBody);
         } catch {
             result = await apiPost("transactions/transfer", requestBody);
+            console.log("Kết quả chuyển tiền:", result);
         }
 
         if (result && result.success !== false) {
             clearInterval(otpInterval);
 
-            showToast(`Chuyển khoản thành công! Số tiền: ${formatVND(soTien)}`, "success", 5000);
+            showSuccessModal(
+    "Chuyển khoản thành công",
+    `Giao dịch ${formatVND(soTien)} đã được xử lý thành công.`
+);
+
+setTimeout(() => {
+    const successModalBtn =
+        document.querySelector("#successModal button");
+
+    if (successModalBtn) {
+
+        successModalBtn.onclick = async function () {
+
+            document.getElementById("successModal").remove();
+
+            showReceiptModal({
+                maGD:
+                    result?.data?.maGD ||
+                    result?.maGD ||
+                    ("GD" + Date.now().toString().slice(-6)),
+
+                ngayGD: new Date().toLocaleString("vi-VN"),
+
+                tkNguon: tkNguon,
+                tkDich: tkDich,
+                soTien: formatVND(soTien)
+            });
 
             document.getElementById("tkDich").value = "";
             document.getElementById("soTien").value = "";
@@ -328,6 +367,9 @@ async function confirmTransfer() {
             if (tkNguonBalance) tkNguonBalance.innerText = "";
 
             await loadAccounts();
+        };
+    }
+}, 100);
         } else {
             showToast(result.message || "Giao dịch không thành công.", "error");
         }
@@ -339,4 +381,72 @@ async function confirmTransfer() {
             btnConfirmTransfer.innerText = "Xác nhận chuyển khoản";
         }
     }
+}
+function showReceiptModal(data) {
+    const oldModal = document.getElementById("receiptModal");
+    if (oldModal) oldModal.remove();
+
+    const modal = document.createElement("div");
+    modal.id = "receiptModal";
+    modal.innerHTML = `
+        <div style="
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+        ">
+            <div style="
+                width: 420px;
+                max-width: 92%;
+                background: white;
+                border-radius: 24px;
+                padding: 28px;
+                box-shadow: 0 25px 70px rgba(0,0,0,0.25);
+                font-family: Arial, sans-serif;
+            ">
+                <div style="text-align:center; margin-bottom:18px;">
+                    <div style="font-size:42px; color:#16a34a;">✓</div>
+                    <h2 style="margin:8px 0 4px; color:#0f172a;">
+                        BIÊN LAI GIAO DỊCH
+                    </h2>
+                    <p style="margin:0; color:#64748b;">GT SmartBank</p>
+                </div>
+
+                <hr style="border:none; border-top:1px dashed #cbd5e1; margin:18px 0;">
+
+                <p><b>Mã GD:</b> ${data.maGD}</p>
+                <p><b>Ngày GD:</b> ${data.ngayGD}</p>
+                <p><b>TK nguồn:</b><br>${data.tkNguon}</p>
+                <p><b>TK nhận:</b><br>${data.tkDich}</p>
+                <p><b>Số tiền:</b><br>
+                    <span style="font-size:22px; font-weight:bold; color:#dc2626;">
+                        ${data.soTien}
+                    </span>
+                </p>
+                <p><b>Trạng thái:</b>
+                    <span style="color:#16a34a; font-weight:bold;">✓ Thành công</span>
+                </p>
+
+                <button onclick="document.getElementById('receiptModal').remove()"
+                    style="
+                        width:100%;
+                        margin-top:18px;
+                        padding:13px;
+                        border:none;
+                        border-radius:14px;
+                        background:#16a34a;
+                        color:white;
+                        font-weight:bold;
+                        cursor:pointer;
+                    ">
+                    Hoàn tất
+                </button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
 }

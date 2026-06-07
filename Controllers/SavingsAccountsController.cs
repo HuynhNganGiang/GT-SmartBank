@@ -161,9 +161,14 @@ namespace GTSmartBank.Controllers
                 return NotFound(ApiResponse<object>.ErrorResult(404, ex.Message));
             }
             catch (Exception ex)
-            {
-                return StatusCode(500, ApiResponse<object>.ErrorResult(500, "Đã xảy ra lỗi hệ thống: " + ex.Message));
-            }
+{
+    var errorMessage = ex.InnerException?.Message ?? ex.Message;
+
+    return StatusCode(500, ApiResponse<object>.ErrorResult(
+        500,
+        "Đã xảy ra lỗi hệ thống: " + errorMessage
+    ));
+}
         }
     }
 }

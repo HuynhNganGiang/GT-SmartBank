@@ -2,8 +2,10 @@
 
 let allAccounts = [];
 
-document.addEventListener("DOMContentLoaded", () => {
-    loadAccounts();
+document.addEventListener("DOMContentLoaded", async () => {
+    await loadAccounts();
+    await loadCustomersForDropdown();
+    await loadBranchesForDropdown();
 });
 
 function getValue(obj, ...keys) {
@@ -117,13 +119,13 @@ function renderAccounts(accounts) {
                     <span class="px-3 py-1 rounded-full text-xs font-bold ${active ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"}">
                         ${active ? "Hoạt động" : "Bị khóa"}
                     </span>
-                </td>
+                    </td>
                 <td class="px-6 py-4 text-center">
-                    <button onclick="showToast('Chức năng quản lý tài khoản đang ở chế độ demo', 'info')" 
-                            class="px-3 py-2 rounded-lg bg-slate-100 hover:bg-red-700 hover:text-white text-xs font-bold">
-                        Xem
-                    </button>
-                </td>
+    <button onclick="viewAccount('${soTaiKhoan}')"
+            class="px-3 py-2 rounded-lg bg-slate-100 hover:bg-red-700 hover:text-white text-xs font-bold">
+        Xem
+    </button>
+</td>
             </tr>
         `;
     }).join("");
@@ -322,4 +324,111 @@ async function deleteAccount(number) {
     } catch (error) {
         showToast(`Lỗi khi xóa tài khoản: ${error.message}`, "error");
     }
+}
+function viewAccount(soTaiKhoan) {
+    const acc = allAccounts.find(a =>
+        String(a.soTaiKhoan || a.SoTaiKhoan) === String(soTaiKhoan)
+    );
+
+    if (!acc) {
+        showToast("Không tìm thấy tài khoản.", "error");
+        return;
+    }
+
+    const chuTK =
+        acc.tenKhachHang || acc.TenKhachHang ||
+        acc.hoTen || acc.HoTen ||
+        "Không xác định";
+
+    const loaiTK = acc.loaiTaiKhoan || acc.LoaiTaiKhoan || "Thanh toán";
+    const soDu = formatVND(acc.soDu || acc.SoDu || 0);
+
+    const chiNhanh =
+        acc.tenChiNhanh || acc.TenChiNhanh ||
+        acc.tenCN || acc.TenCN ||
+        "Không xác định";
+
+    const ngayMoRaw = acc.ngayMoTK || acc.NgayMoTK;
+    const ngayMo = ngayMoRaw
+        ? new Date(ngayMoRaw).toLocaleDateString("vi-VN")
+        : "N/A";
+
+    const trangThaiRaw = acc.trangThai || acc.TrangThai;
+    const active =
+        trangThaiRaw === true ||
+        trangThaiRaw === 1 ||
+        trangThaiRaw === "true" ||
+        trangThaiRaw === "Hoạt động";
+
+    const oldModal = document.getElementById("accountDetailModal");
+    if (oldModal) oldModal.remove();
+
+    const modal = document.createElement("div");
+    modal.id = "accountDetailModal";
+
+    modal.innerHTML = `
+        <div style="
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+        ">
+            <div style="
+                width: 430px;
+                max-width: 92%;
+                background: white;
+                border-radius: 24px;
+                padding: 28px;
+                box-shadow: 0 25px 70px rgba(0,0,0,0.25);
+                font-family: Outfit, Arial, sans-serif;
+                color: #0f172a;
+            ">
+                <div style="text-align:center;">
+                    <div style="font-size:42px;">💳</div>
+                    <h2 style="margin:8px 0 4px; font-size:22px;">
+                        CHI TIẾT TÀI KHOẢN
+                    </h2>
+                    <p style="margin:0; color:#64748b;">GT SmartBank</p>
+                </div>
+
+                <hr style="border:none; border-top:1px dashed #cbd5e1; margin:20px 0;">
+
+                <p><b>Số TK:</b><br>${soTaiKhoan}</p>
+                <p><b>Chủ TK:</b><br>${chuTK.toUpperCase()}</p>
+                <p><b>Loại:</b><br>${loaiTK}</p>
+                <p><b>Số dư:</b><br>
+                    <span style="font-size:22px; font-weight:800; color:#059669;">
+                        ${soDu}
+                    </span>
+                </p>
+                <p><b>Chi nhánh:</b><br>${chiNhanh}</p>
+                <p><b>Ngày mở:</b><br>${ngayMo}</p>
+                <p><b>Trạng thái:</b><br>
+                    <span style="color:${active ? "#16a34a" : "#dc2626"}; font-weight:800;">
+                        ${active ? "✓ Hoạt động" : "✕ Bị khóa"}
+                    </span>
+                </p>
+
+                <button onclick="document.getElementById('accountDetailModal').remove()"
+                    style="
+                        width:100%;
+                        margin-top:18px;
+                        padding:13px;
+                        border:none;
+                        border-radius:14px;
+                        background:#059669;
+                        color:white;
+                        font-weight:800;
+                        cursor:pointer;
+                    ">
+                    Đóng
+                </button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
 }

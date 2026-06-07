@@ -185,15 +185,15 @@ namespace GTSmartBank.Services
 
                 // Ghi nhận giao dịch tất toán
                 var gd = new GiaoDich
-                {
-                    TK_Nguon = maSo,
-                    TK_Dich = stk.SoTaiKhoan,
-                    SoTien = tongNhan,
-                    ThoiGianGD = now,
-                    LoaiGD = "TatToanTietKiem",
-                    NoiDung = $"Tất toán sổ tiết kiệm {maSo} (Gốc: {stk.SoTienGoc:N0}, Lãi: {lai:N0})",
-                    TrangThai = "ThanhCong"
-                };
+{
+    TK_Nguon = stk.SoTaiKhoan,
+    TK_Dich = stk.SoTaiKhoan,
+    SoTien = tongNhan,
+    ThoiGianGD = now,
+    LoaiGD = "TatToanTietKiem",
+    NoiDung = $"Tất toán sổ tiết kiệm {maSo} (Gốc: {stk.SoTienGoc:N0}, Lãi: {lai:N0})",
+    TrangThai = "ThanhCong"
+};
                 _context.GiaoDich.Add(gd);
 
                 await _context.SaveChangesAsync();

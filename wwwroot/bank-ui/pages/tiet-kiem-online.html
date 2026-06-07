@@ -1,319 +1,461 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <title>Tiết kiệm Online lãi suất cao — GT SmartBank</title>
-    <meta name="description" content="Gửi tiết kiệm Online tại GT SmartBank với lãi suất ưu đãi vượt trội lên tới 6.2%/năm. Mở sổ nhanh chóng, an toàn bảo mật tuyệt đối 24/7.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="/bank-ui/css/public.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Poppins', 'Inter', 'sans-serif'] },
-                    colors: {
-                        brand: { 800: '#b60000', 850: '#a00000', 900: '#9c0000' },
-                        secondary: { 700: '#f7b500' }
-                    }
-                }
-            }
-        };
-    </script>
-</head>
-<body class="text-slate-800 bg-slate-50 antialiased">
+  <meta charset="UTF-8">
+  <title>Tiết kiệm Online — GT SmartBank</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- TOP UTILITY BAR -->
-    <div class="bg-brand-900 text-white text-[11px] font-medium py-2 px-4 md:px-8 flex items-center justify-between">
-        <div class="flex items-center gap-6">
-            <span class="flex items-center gap-1.5"><i data-lucide="phone" class="w-3.5 h-3.5 text-secondary-700"></i>Hotline: <strong class="text-secondary-700 text-xs">1800 9999</strong></span>
-            <span class="hidden sm:inline text-white/70">|</span>
-            <a href="/bank-ui/pages/portal.html?view=lai-suat" class="hover:text-secondary-700 transition-colors">Bảng lãi suất</a>
-            <span class="hidden sm:inline text-white/70">|</span>
-            <a href="/bank-ui/pages/portal.html?view=ty-gia" class="hover:text-secondary-700 transition-colors">Tỷ giá ngoại tệ</a>
-            <span class="hidden sm:inline text-white/70">|</span>
-            <a href="/bank-ui/pages/chinhanh.html" class="hover:text-secondary-700 transition-colors">ATM/Chi nhánh</a>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'Arial', 'sans-serif'] },
+          colors: {
+            bank: {
+              50: '#eef8ff',
+              100: '#d7efff',
+              500: '#13aeea',
+              700: '#0057b8',
+              800: '#004a9f',
+              900: '#00408f'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-slate-50 text-slate-800 font-sans">
+
+  <!-- TOP BAR -->
+  <div class="bg-white border-b border-slate-100">
+    <div class="max-w-[1200px] mx-auto px-5 h-9 flex items-center justify-between text-[12px] text-slate-400">
+      <div class="hidden md:flex gap-8">
+        <a href="#">Về chúng tôi</a>
+        <a href="#">Chi nhánh</a>
+        <a href="#">Bảng lãi suất</a>
+        <a href="#">Tỷ giá ngoại tệ</a>
+        <a href="#">Khuyến mãi</a>
+      </div>
+
+      <div class="flex items-center gap-4 ml-auto text-bank-700 font-semibold">
+        <span class="flex items-center gap-1"><i data-lucide="headphones" class="w-4 h-4"></i> Hỗ trợ</span>
+        <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-4 h-4"></i> Liên hệ</span>
+        <i data-lucide="search" class="w-4 h-4"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="bg-white sticky top-0 z-50 shadow-sm">
+    <div class="max-w-[1200px] mx-auto px-5 h-[78px] flex items-center justify-between">
+      <a href="/bank-ui/index.html" class="flex items-center">
+        <img src="/bank-ui/assets/logo-gt.png" class="h-[65px] w-auto object-contain" alt="GT SmartBank">
+      </a>
+
+      <nav class="hidden lg:flex items-center justify-center gap-9 text-[14px] font-bold">
+        <a href="/bank-ui/pages/canhan.html" class="text-bank-700">Cá nhân</a>
+        <a href="#" class="hover:text-bank-700">Doanh nghiệp</a>
+        <a href="#" class="hover:text-bank-700">Khách hàng ưu tiên</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="/bank-ui/pages/login.html" class="hidden md:block text-[14px] font-bold text-bank-800">Đăng nhập</a>
+        <a href="/bank-ui/pages/login.html" class="bg-bank-500 hover:bg-bank-700 text-white px-5 py-3 rounded-full text-[13px] font-bold">
+          Mở tài khoản ngay!
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative h-[300px] bg-bank-900 overflow-hidden">
+    <img src="/bank-ui/assets/tietkiem-banner.png?v=2"
+     class="absolute inset-0 w-full h-full object-cover object-center opacity-80"
+     alt="Tiết kiệm Online">
+
+<div class="absolute inset-0 bg-bank-900/25"></div>
+
+    <div class="relative z-10 max-w-[1200px] mx-auto px-5 h-full flex items-center justify-center text-center">
+      <div>
+        <h1 class="text-white text-4xl md:text-5xl font-black">Tiết kiệm Online</h1>
+        <p class="mt-4 text-white/90 max-w-[620px] text-[15px] leading-7">
+          Kênh tích lũy an toàn, sinh lời tối đa với lãi suất ưu đãi cộng thêm 0.3%/năm so với gửi tại quầy.
+          Thực hiện nhanh chóng, bảo mật tuyệt đối.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <main class="max-w-[1200px] mx-auto px-5 py-10 grid lg:grid-cols-[1fr_360px] gap-8">
+
+    <!-- LEFT -->
+    <div class="space-y-8">
+
+      <!-- RATE TABLE -->
+      <section class="bg-white rounded-[24px] shadow-sm border border-slate-100 p-7">
+        <h2 class="flex items-center gap-2 text-xl font-black text-slate-800 mb-6">
+          <i data-lucide="table-2" class="w-5 h-5 text-red-500"></i>
+          Bảng lãi suất Tiết kiệm Online hiện hành
+        </h2>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-slate-50 text-slate-500">
+                <th class="text-left py-4 px-4 rounded-l-xl">Kỳ hạn</th>
+                <th class="text-center py-4 px-4">Lãi suất tại quầy</th>
+                <th class="text-center py-4 px-4 text-red-500">Lãi suất Online</th>
+                <th class="text-center py-4 px-4 rounded-r-xl">Chênh lệch</th>
+              </tr>
+            </thead>
+            <tbody class="font-semibold text-slate-700">
+              <tr class="border-b"><td class="py-4 px-4">Không kỳ hạn</td><td class="text-center">0.10%</td><td class="text-center text-red-500">0.20%</td><td class="text-center text-emerald-500">+0.10%</td></tr>
+              <tr class="border-b"><td class="py-4 px-4">1 - 3 tháng</td><td class="text-center">3.20%</td><td class="text-center text-red-500">3.50%</td><td class="text-center text-emerald-500">+0.30%</td></tr>
+              <tr class="border-b"><td class="py-4 px-4">6 tháng</td><td class="text-center">4.70%</td><td class="text-center text-red-500">5.00%</td><td class="text-center text-emerald-500">+0.30%</td></tr>
+              <tr class="border-b"><td class="py-4 px-4">12 tháng</td><td class="text-center">5.70%</td><td class="text-center text-red-500">6.00%</td><td class="text-center text-emerald-500">+0.30%</td></tr>
+              <tr><td class="py-4 px-4">24 tháng</td><td class="text-center">5.90%</td><td class="text-center text-red-500">6.20%</td><td class="text-center text-emerald-500">+0.30%</td></tr>
+            </tbody>
+          </table>
         </div>
-        <div class="flex items-center gap-2">
-            <span class="font-bold text-secondary-700 cursor-pointer">VN</span>
-            <span class="text-white/40">|</span>
-            <span class="text-white/60 hover:text-white cursor-pointer transition-colors">EN</span>
+
+        <p class="mt-4 text-xs text-slate-400 italic">
+          * Lãi suất chỉ mang tính tham khảo và có thể thay đổi theo từng thời điểm.
+        </p>
+      </section>
+
+      <!-- CALCULATOR -->
+      <section class="bg-white rounded-[24px] shadow-sm border border-slate-100 p-7">
+        <h2 class="flex items-center gap-2 text-xl font-black mb-6">
+          <i data-lucide="calculator" class="w-5 h-5 text-red-500"></i>
+          Công cụ tính toán lãi suất chính xác
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <div>
+              <label class="text-sm font-semibold">Số tiền bạn muốn gửi</label>
+              <input id="amount" type="number" value="100000000"
+                     class="mt-2 w-full h-12 rounded-xl border border-slate-200 px-4 font-bold outline-none focus:border-bank-500">
+            </div>
+
+            <div>
+              <label class="text-sm font-semibold">Kỳ hạn gửi tiết kiệm</label>
+              <select id="term"
+                      class="mt-2 w-full h-12 rounded-xl border border-slate-200 px-4 font-bold outline-none focus:border-bank-500">
+                <option value="0.002">Không kỳ hạn - 0.20%/năm</option>
+                <option value="0.035">1 - 3 tháng - 3.50%/năm</option>
+                <option value="0.05">6 tháng - 5.00%/năm</option>
+                <option value="0.06" selected>12 tháng - 6.00%/năm</option>
+                <option value="0.062">24 tháng - 6.20%/năm</option>
+              </select>
+            </div>
+
+            <button onclick="calculateInterest()"
+                    class="w-full h-12 rounded-xl bg-bank-700 hover:bg-bank-900 text-white font-bold">
+              Tính toán kết quả
+            </button>
+          </div>
+
+          <div class="bg-slate-50 rounded-2xl p-6 space-y-4">
+            <div class="flex justify-between">
+              <span class="text-sm text-slate-500 font-semibold">Lãi suất áp dụng:</span>
+              <b id="rateText" class="text-red-500">6.0% / năm</b>
+            </div>
+
+            <div class="flex justify-between">
+              <span class="text-sm text-slate-500 font-semibold">Phương thức trả lãi:</span>
+              <b>Cuối kỳ nhận lãi</b>
+            </div>
+
+            <div class="border-t pt-4 flex justify-between">
+              <span class="text-sm text-slate-500 font-semibold">Tiền lãi nhận được:</span>
+              <b id="interestText">6,000,000 đ</b>
+            </div>
+
+            <div class="border-t pt-4">
+              <p class="text-xs uppercase text-slate-400 font-black">Tổng tiền cuối kỳ</p>
+              <p id="totalText" class="text-2xl font-black text-red-600 mt-1">106,000,000 đ</p>
+            </div>
+          </div>
         </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="bg-white rounded-[24px] shadow-sm border border-slate-100 p-7">
+        <h2 class="text-xl font-black mb-5">Các câu hỏi thường gặp</h2>
+
+        <div class="space-y-4">
+          <details class="border-b pb-4" open>
+            <summary class="font-bold cursor-pointer">Ai được mở sổ tiết kiệm Online?</summary>
+            <p class="mt-3 text-sm text-slate-500 leading-6">
+              Mọi khách hàng có nhân viên Việt Nam hoặc người nước ngoài cư trú hợp pháp,
+              có tài khoản thanh toán mở tại GT SmartBank và đã đăng ký dịch vụ ngân hàng điện tử.
+            </p>
+          </details>
+
+          <details class="border-b pb-4">
+            <summary class="font-bold cursor-pointer">Có thể rút tiền trước hạn được không?</summary>
+            <p class="mt-3 text-sm text-slate-500 leading-6">
+              Khách hàng có thể tất toán trước hạn. Lãi suất sẽ được tính theo chính sách không kỳ hạn tại thời điểm tất toán.
+            </p>
+          </details>
+
+          <details>
+            <summary class="font-bold cursor-pointer">Gửi tiết kiệm Online có an toàn không?</summary>
+            <p class="mt-3 text-sm text-slate-500 leading-6">
+              Giao dịch được bảo vệ bằng đăng nhập JWT, mã OTP, xác thực người dùng và lưu lịch sử giao dịch trong hệ thống.
+            </p>
+          </details>
+        </div>
+      </section>
     </div>
 
-    <!-- MAIN HEADER -->
-    <header class="bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-slate-100 shadow-sm">
-        <div class="max-w-[1280px] mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
-            <a href="/bank-ui/index.html" class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-brand-800 rounded-xl flex items-center justify-center text-secondary-700 font-black shadow-lg shadow-red-200">
-                    <svg viewBox="0 0 100 100" class="w-6 h-6">
-                        <path d="M50 12 L82 22 V48 C82 66 69 82 50 88 C31 82 18 66 18 48 V22 Z" fill="#ffffff" />
-                        <path d="M50 20 L74 27 V48 C74 61 64 73 50 78 C36 73 26 61 26 48 V27 Z" fill="#f7b500" opacity="0.9" />
-                        <path d="M43 38 H57 C60 38 62 40 62 43 V46 H52 V43 H44 V55 H57 V52 H62 V55 C62 58 60 60 57 60 H43 C40 60 38 58 38 55 V43 C38 40 40 38 43 38 Z" fill="#ffffff" />
-                        <path d="M47 43 H53 V46 H50.5 V55 H49.5 V46 H47 Z" fill="#b60000" />
-                    </svg>
-                </div>
-                <div>
-                    <span class="text-lg font-black text-brand-800 tracking-tight block">GT <span class="text-slate-800">SmartBank</span></span>
-                    <span class="text-[9px] font-bold text-secondary-700 tracking-widest uppercase block">SMART DIGITAL BANK</span>
-                </div>
-            </a>
-            
-            <nav class="hidden lg:flex items-center gap-1">
-                <a href="/bank-ui/pages/ca-nhan.html" class="px-4 py-2 text-[14px] font-semibold text-brand-800 hover:bg-slate-50 rounded-lg">Cá nhân</a>
-                <a href="/bank-ui/pages/doanh-nghiep.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">Doanh nghiệp</a>
-                <a href="/bank-ui/pages/portal.html?view=vip" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">Khách hàng ưu tiên</a>
-                <a href="/bank-ui/pages/khuyen-mai.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">Khuyến mãi</a>
-                <a href="/bank-ui/pages/ho-tro.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">Hỗ trợ</a>
-            </nav>
+    <!-- RIGHT -->
+    <aside class="space-y-6">
+      <section class="bg-white rounded-[24px] shadow-sm border border-slate-100 p-7">
+        <h3 class="font-black mb-5">Lợi ích vượt trội</h3>
 
-            <div id="header-auth-container" class="flex items-center gap-2">
-                <a href="/bank-ui/pages/login.html" class="px-4 py-2 text-xs font-bold text-slate-700 hover:text-brand-850">Đăng nhập</a>
-                <button onclick="openRegisterModal()" class="px-4 py-2 text-xs font-bold text-white bg-brand-800 hover:bg-brand-900 rounded-full transition-all">Mở tài khoản</button>
+        <div class="space-y-5">
+          <div class="flex gap-4">
+            <div class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center text-red-500">
+              <i data-lucide="trending-up" class="w-5 h-5"></i>
             </div>
+            <div>
+              <b>Lãi suất cạnh tranh</b>
+              <p class="text-sm text-slate-500 mt-1">Lãi suất gửi online cao hơn so với gửi tại quầy.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="w-10 h-10 rounded-xl bg-yellow-50 flex items-center justify-center text-yellow-500">
+              <i data-lucide="clock-3" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <b>Giao dịch 24/7</b>
+              <p class="text-sm text-slate-500 mt-1">Mở sổ, tất toán mọi lúc, kể cả cuối tuần.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-bank-700">
+              <i data-lucide="shield-check" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <b>An toàn tuyệt đối</b>
+              <p class="text-sm text-slate-500 mt-1">Bảo mật nhiều lớp với OTP và xác thực tài khoản.</p>
+            </div>
+          </div>
         </div>
-    </header>
+      </section>
 
-    <!-- BREADCRUMB & HERO HEADER -->
-    <section class="bg-gradient-to-r from-brand-900 to-brand-850 text-white py-12">
-        <div class="max-w-[1280px] mx-auto px-4 md:px-8">
-            <div class="flex items-center gap-2 text-xs text-white/60 font-semibold mb-4">
-                <a href="/bank-ui/index.html" class="hover:text-white transition-colors">Trang chủ</a>
-                <i data-lucide="chevron-right" class="w-3 h-3"></i>
-                <a href="/bank-ui/pages/ca-nhan.html" class="hover:text-white transition-colors">Cá nhân</a>
-                <i data-lucide="chevron-right" class="w-3 h-3"></i>
-                <span class="text-white">Tiết kiệm Online</span>
-            </div>
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                <div>
-                    <h1 class="text-2xl md:text-4xl font-black mb-2">Tiết kiệm Online</h1>
-                    <p class="text-sm text-white/80 max-w-2xl font-medium">Kênh tích lũy an toàn, sinh lời tối đa với lãi suất ưu đãi cộng thêm 0.3%/năm so với gửi tại quầy. Thực hiện nhanh chóng, bảo mật tuyệt đối.</p>
-                </div>
-                <button onclick="openRegisterModal()" class="px-6 py-3 bg-secondary-700 hover:bg-secondary-600 text-slate-900 font-bold rounded-xl text-xs uppercase tracking-wider transition-all">Gửi tiết kiệm ngay</button>
-            </div>
-        </div>
-    </section>
+      <section class="bg-slate-900 rounded-[24px] p-7 text-white shadow-xl">
+        <span class="inline-block bg-yellow-500/20 text-yellow-300 px-3 py-1 rounded-full text-xs font-bold mb-4">
+          Ưu đãi eKYC
+        </span>
 
-    <!-- MAIN BODY CONTENT -->
-    <main class="max-w-[1280px] mx-auto px-4 md:px-8 py-12 grid lg:grid-cols-12 gap-8">
-        
-        <!-- Rates table & calculator -->
-        <div class="lg:col-span-8 space-y-8">
-            
-            <!-- Rates Table -->
-            <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm">
-                <h3 class="font-bold text-slate-800 text-base mb-4 flex items-center gap-2">
-                    <i data-lucide="table" class="w-5 h-5 text-brand-800"></i>
-                    Bảng lãi suất Tiết kiệm Online hiện hành
-                </h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-xs">
-                        <thead>
-                            <tr class="bg-slate-50 border-b border-slate-100 text-slate-500 font-bold">
-                                <th class="px-4 py-3">KỲ HẠN</th>
-                                <th class="px-4 py-3 text-right">LÃI SUẤT TẠI QUẦY (%/năm)</th>
-                                <th class="px-4 py-3 text-right text-brand-800">LÃI SUẤT ONLINE (%/năm)</th>
-                                <th class="px-4 py-3 text-center">CHênh LỆCH</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-100 font-semibold text-slate-700">
-                            <tr>
-                                <td class="px-4 py-3.5">Không kỳ hạn</td>
-                                <td class="px-4 py-3.5 text-right">0.10%</td>
-                                <td class="px-4 py-3.5 text-right text-brand-800">0.20%</td>
-                                <td class="px-4 py-3.5 text-center text-emerald-600 font-bold">+0.10%</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-3.5">1 - 3 tháng</td>
-                                <td class="px-4 py-3.5 text-right">3.20%</td>
-                                <td class="px-4 py-3.5 text-right text-brand-800">3.50%</td>
-                                <td class="px-4 py-3.5 text-center text-emerald-600 font-bold">+0.30%</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-3.5">6 tháng</td>
-                                <td class="px-4 py-3.5 text-right">4.70%</td>
-                                <td class="px-4 py-3.5 text-right text-brand-800">5.00%</td>
-                                <td class="px-4 py-3.5 text-center text-emerald-600 font-bold">+0.30%</td>
-                            </tr>
-                            <tr class="bg-amber-50/20">
-                                <td class="px-4 py-3.5">12 tháng</td>
-                                <td class="px-4 py-3.5 text-right">5.70%</td>
-                                <td class="px-4 py-3.5 text-right text-brand-800 font-bold">6.00%</td>
-                                <td class="px-4 py-3.5 text-center text-emerald-600 font-bold">+0.30%</td>
-                            </tr>
-                            <tr class="bg-amber-50/30">
-                                <td class="px-4 py-3.5">24 tháng</td>
-                                <td class="px-4 py-3.5 text-right">5.90%</td>
-                                <td class="px-4 py-3.5 text-right text-brand-800 font-bold">6.20%</td>
-                                <td class="px-4 py-3.5 text-center text-emerald-600 font-bold">+0.30%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <span class="text-[10px] text-slate-400 block mt-4 italic font-medium">* Lãi suất có hiệu lực từ ngày 01/05/2026 và có thể thay đổi tùy thuộc vào biến động thị trường.</span>
-            </div>
+        <h3 class="text-xl font-black mb-3">Mở tài khoản eKYC chỉ 2 phút</h3>
+        <p class="text-sm text-white/70 leading-6 mb-5">
+          Trải nghiệm dịch vụ ngân hàng số thế hệ mới cùng GT SmartBank ngay hôm nay.
+        </p>
 
-            <!-- Detailed Calculator Widget -->
-            <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm">
-                <h3 class="font-bold text-slate-800 text-base mb-4 flex items-center gap-2">
-                    <i data-lucide="calculator" class="w-5 h-5 text-brand-800"></i>
-                    Công cụ tính toán lãi suất chính xác
-                </h3>
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1.5">Số tiền bạn muốn gửi (VND)</label>
-                            <input type="number" id="calc-amount" value="100000000" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand-800 text-sm font-bold">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1.5">Kỳ hạn gửi tiết kiệm</label>
-                            <select id="calc-term" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand-800 text-sm font-bold">
-                                <option value="1">1 tháng (3.5% / năm)</option>
-                                <option value="3">3 tháng (3.5% / năm)</option>
-                                <option value="6">6 tháng (5.0% / năm)</option>
-                                <option value="12" selected>12 tháng (6.0% / năm)</option>
-                                <option value="24">24 tháng (6.2% / năm)</option>
-                            </select>
-                        </div>
-                        <button id="calc-btn" class="w-full py-3 bg-brand-800 hover:bg-brand-900 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all">Tính toán kết quả</button>
-                    </div>
+        <a href="/bank-ui/pages/login.html"
+           class="block text-center bg-bank-500 hover:bg-bank-700 rounded-xl py-3 font-bold">
+          Đăng kí mở tài khoản
+        </a>
+      </section>
+    </aside>
+  </main>
 
-                    <div class="bg-slate-50 rounded-2xl p-5 border border-slate-150 flex flex-col justify-between">
-                        <div class="space-y-3">
-                            <div class="flex justify-between items-center text-xs">
-                                <span class="text-slate-500 font-semibold">Lãi suất áp dụng:</span>
-                                <span id="calc-rate-val" class="font-bold text-brand-800 text-sm">6.0% / năm</span>
-                            </div>
-                            <div class="flex justify-between items-center text-xs">
-                                <span class="text-slate-500 font-semibold">Phương thức trả lãi:</span>
-                                <span class="font-bold text-slate-700">Cuối kỳ nhận lãi</span>
-                            </div>
-                            <div class="flex justify-between items-center text-xs border-t border-slate-200/60 pt-3">
-                                <span class="text-slate-500 font-semibold">Tiền lãi nhận được:</span>
-                                <span id="calc-interest-val" class="font-bold text-slate-800 text-sm">6,000,000 ₫</span>
-                            </div>
-                        </div>
-                        <div class="border-t border-slate-200 pt-4 mt-4">
-                            <span class="text-[10px] text-slate-400 font-bold block uppercase">Tổng tiền cuối kỳ</span>
-                            <span id="calc-total-val" class="text-lg font-black text-brand-800 mt-1 block">106,000,000 ₫</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <!-- FOOTER -->
+  <footer class="bg-bank-900 text-white mt-4">
+    <div class="max-w-[1200px] mx-auto px-5 py-12 grid md:grid-cols-4 gap-10">
+      <div>
+        <img src="/bank-ui/assets/logo-gt.png" class="h-14 w-auto mb-4 object-contain" alt="GT SmartBank">
+        <p class="text-[13px] text-white/70 leading-6">
+          GT SmartBank tiên phong ứng dụng công nghệ hiện đại, trải nghiệm ngân hàng số an toàn và bảo mật.
+        </p>
+      </div>
 
-            <!-- Conditions / FAQ Accordion -->
-            <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm">
-                <h3 class="font-bold text-slate-800 text-base mb-4">Các câu hỏi thường gặp</h3>
-                <div class="space-y-4">
-                    <details class="group border-b border-slate-100 pb-3" open>
-                        <summary class="flex justify-between items-center font-bold text-xs text-slate-750 cursor-pointer list-none">
-                            <span>Ai được mở sổ tiết kiệm Online?</span>
-                            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-450 group-open:rotate-180 transition-transform"></i>
-                        </summary>
-                        <p class="text-xs text-slate-500 leading-relaxed font-medium mt-2">Mọi khách hàng cá nhân Việt Nam hoặc người nước ngoài cư trú hợp pháp có tài khoản thanh toán mở tại GT SmartBank và đã đăng ký dịch vụ ngân hàng điện tử.</p>
-                    </details>
-                    <details class="group border-b border-slate-100 pb-3">
-                        <summary class="flex justify-between items-center font-bold text-xs text-slate-750 cursor-pointer list-none">
-                            <span>Có thể rút tiền trước hạn được không?</span>
-                            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-450 group-open:rotate-180 transition-transform"></i>
-                        </summary>
-                        <p class="text-xs text-slate-500 leading-relaxed font-medium mt-2">Có. Khách hàng có thể tất toán/rút trước hạn bất cứ lúc nào qua ứng dụng. Tuy nhiên phần tiền rút trước hạn sẽ được áp dụng mức lãi suất không kỳ hạn cực thấp (0.1%/năm).</p>
-                    </details>
-                </div>
-            </div>
+      <div>
+        <h4 class="font-bold mb-4 text-sm">KHÁCH HÀNG CÁ NHÂN</h4>
+        <ul class="space-y-3 text-[13px] text-white/70">
+          <li>Tài khoản & Thẻ</li>
+          <li>Gửi tiết kiệm Online</li>
+          <li>Vay mua nhà, mua xe</li>
+          <li>Chuyển khoản Nhanh 24/7</li>
+        </ul>
+      </div>
 
-        </div>
+      <div>
+        <h4 class="font-bold mb-4 text-sm">DỊCH VỤ</h4>
+        <ul class="space-y-3 text-[13px] text-white/70">
+          <li>Internet Banking</li>
+          <li>Mobile Banking</li>
+          <li>Thanh toán hóa đơn</li>
+          <li>Hỗ trợ khách hàng</li>
+        </ul>
+      </div>
 
-        <!-- Sidebar benefits & cards -->
-        <div class="lg:col-span-4 space-y-6">
-            
-            <!-- Key Benefits Card -->
-            <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-6">
-                <h4 class="font-bold text-slate-800 text-sm uppercase tracking-wider border-b border-slate-100 pb-3">Lợi ích vượt trội</h4>
-                
-                <div class="flex gap-4">
-                    <div class="w-10 h-10 bg-brand-50 rounded-xl text-brand-800 flex items-center justify-center flex-shrink-0"><i data-lucide="trending-up" class="w-5 h-5"></i></div>
-                    <div>
-                        <h5 class="text-xs font-bold text-slate-800">Lãi suất cạnh tranh</h5>
-                        <p class="text-[11px] text-slate-500 mt-1 font-medium">Lãi suất gửi online luôn cao hơn 0.3%/năm so với quầy.</p>
-                    </div>
-                </div>
+      <div>
+        <h4 class="font-bold mb-4 text-sm">TẢI ỨNG DỤNG GT SMARTBANK PAY</h4>
+        <img src="/bank-ui/assets/app.png" class="w-[190px] h-auto object-contain" alt="Tải ứng dụng">
+      </div>
+    </div>
 
-                <div class="flex gap-4">
-                    <div class="w-10 h-10 bg-amber-50 rounded-xl text-amber-600 flex items-center justify-center flex-shrink-0"><i data-lucide="clock" class="w-5 h-5"></i></div>
-                    <div>
-                        <h5 class="text-xs font-bold text-slate-800">Giao dịch 24/7</h5>
-                        <p class="text-[11px] text-slate-500 mt-1 font-medium">Mở sổ, tất toán hay kiểm tra số dư bất kể đêm ngày, ngày lễ tết.</p>
-                    </div>
-                </div>
+    <div class="border-t border-white/10 py-5 text-center text-[12px] text-white/50">
+      © 2026 GT SmartBank. All rights reserved.
+    </div>
+  </footer>
 
-                <div class="flex gap-4">
-                    <div class="w-10 h-10 bg-blue-50 rounded-xl text-blue-600 flex items-center justify-center flex-shrink-0"><i data-lucide="shield-check" class="w-5 h-5"></i></div>
-                    <div>
-                        <h5 class="text-xs font-bold text-slate-800">An toàn tuyệt đối</h5>
-                        <p class="text-[11px] text-slate-500 mt-1 font-medium">Mã hóa bảo mật hai lớp, xác thực OTP SmartToken chống giả mạo.</p>
-                    </div>
-                </div>
-            </div>
+  <!-- CHATBOT -->
+<div id="chatbotButton" onclick="openChatbot()" class="fixed right-5 bottom-5 z-[9999] cursor-pointer">
+  <img src="/bank-ui/assets/home/chatbot.webp" class="w-[190px] h-auto">
+</div>
 
-            <!-- Ad Card -->
-            <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-6 text-white shadow-lg space-y-4">
-                <span class="bg-secondary-700/20 text-secondary-400 border border-secondary-700/20 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider inline-block">Ưu đãi kép</span>
-                <h4 class="text-sm font-bold">Mở tài khoản eKYC chỉ 2 phút</h4>
-                <p class="text-xs text-slate-400 font-medium">Trải nghiệm dịch vụ ngân hàng số thế hệ mới của GT SmartBank ngay hôm nay.</p>
-                <button onclick="openRegisterModal()" class="w-full py-2.5 bg-brand-800 hover:bg-brand-900 text-white rounded-xl text-xs font-bold transition-all">Đăng ký mở tài khoản</button>
-            </div>
+<div id="chatbotBox"
+     class="hidden fixed right-6 bottom-6 z-[10000] w-[400px] h-[480px] bg-white rounded-[26px] shadow-2xl overflow-hidden border border-slate-200">
 
-        </div>
+  <div class="h-[88px] bg-bank-700 text-white px-5 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <img src="/bank-ui/assets/home/chatbot.webp" class="w-14 h-14 rounded-full bg-white object-contain">
+      <div>
+        <h3 class="font-black text-xl">Chat với GT Bot</h3>
+        <p class="text-sm text-white/85">Trợ lý GT SmartBank</p>
+      </div>
+    </div>
 
-    </main>
+    <button type="button" onclick="closeChatbot()"
+            class="w-10 h-10 rounded-full bg-white/15 text-white text-2xl font-bold">
+      −
+    </button>
+  </div>
 
-    <!-- FOOTER -->
-    <footer class="bg-brand-900 text-white pt-16 pb-8 border-t border-white/10 mt-12">
-        <div class="max-w-[1280px] mx-auto px-4 md:px-8 grid grid-cols-2 md:grid-cols-5 gap-8">
-            <div class="col-span-2 space-y-4">
-                <a href="/bank-ui/index.html" class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-brand-800 font-black">
-                        <svg viewBox="0 0 100 100" class="w-6 h-6">
-                            <path d="M50 12 L82 22 V48 C82 66 69 82 50 88 C31 82 18 66 18 48 V22 Z" fill="#b60000" />
-                            <path d="M50 20 L74 27 V48 C74 61 64 73 50 78 C36 73 26 61 26 48 V27 Z" fill="#f7b500" opacity="0.9" />
-                            <path d="M43 38 H57 C60 38 62 40 62 43 V46 H52 V43 H44 V55 H57 V52 H62 V55 C62 58 60 60 57 60 H43 C40 60 38 58 38 55 V43 C38 40 40 38 43 38 Z" fill="#ffffff" />
-                            <path d="M47 43 H53 V46 H50.5 V55 H49.5 V46 H47 Z" fill="#b60000" />
-                        </svg>
-                    </div>
-                    <span class="text-lg font-black tracking-tight">GT <span class="text-slate-350">SmartBank</span></span>
-                </a>
-                <p class="text-xs text-white/70 max-w-sm">Giải pháp ngân hàng thông minh cho cuộc sống hiện đại của bạn.</p>
-            </div>
-            <div class="space-y-3">
-                <h4 class="text-xs font-bold uppercase text-secondary-700">Cá nhân</h4>
-                <ul class="space-y-2 text-xs text-white/60">
-                    <li><a href="/bank-ui/pages/portal.html?view=tai-khoan" class="hover:text-white">Tài khoản & Thẻ</a></li>
-                    <li><a href="/bank-ui/pages/tiet-kiem-online.html" class="hover:text-white">Tiết kiệm Online</a></li>
-                    <li><a href="/bank-ui/pages/vay-tieu-dung.html" class="hover:text-white">Vay tiêu dùng</a></li>
-                </ul>
-            </div>
-            <div class="space-y-3">
-                <h4 class="text-xs font-bold uppercase text-secondary-700">Hỗ trợ</h4>
-                <ul class="space-y-2 text-xs text-white/60">
-                    <li><a href="/bank-ui/pages/ho-tro.html" class="hover:text-white">Trung tâm trợ giúp</a></li>
-                    <li><a href="/bank-ui/pages/chinhanh.html" class="hover:text-white">Tra cứu ATM & Chi nhánh</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="max-w-[1280px] mx-auto px-4 md:px-8 mt-12 pt-6 border-t border-white/10 text-[11px] text-white/50 font-bold font-mono">
-            © 2026 GT SMARTBANK CORP. ALL RIGHTS RESERVED.
-        </div>
-    </footer>
+  <div id="chatMessages"
+       class="h-[220px] overflow-y-auto bg-slate-50 p-5 space-y-4">
 
-    <!-- JS Scripts -->
-    <script src="/bank-ui/js/public.js"></script>
+    <div class="bg-white rounded-2xl p-4 shadow-sm text-[15px] leading-6 text-slate-700 max-w-[85%]">
+      Chào bạn, mình là GT Bot. Mình có thể hỗ trợ về đăng nhập, mở tài khoản, chuyển tiền, OTP, thẻ tín dụng, tiết kiệm, chi nhánh và hướng dẫn demo GT SmartBank.
+    </div>
+  </div>
+
+  <div class="bg-white px-5 pt-3 pb-2 border-t">
+    <div class="flex flex-wrap gap-2">
+      <button onclick="quickAsk('Đăng nhập')"
+              class="px-4 py-2 rounded-full border border-bank-100 bg-white text-bank-700 text-sm font-bold hover:bg-bank-50">
+        Đăng nhập
+      </button>
+
+      <button onclick="quickAsk('Chuyển tiền')"
+              class="px-4 py-2 rounded-full border border-bank-100 bg-white text-bank-700 text-sm font-bold hover:bg-bank-50">
+        Chuyển tiền
+      </button>
+
+      <button onclick="quickAsk('OTP')"
+              class="px-4 py-2 rounded-full border border-bank-100 bg-white text-bank-700 text-sm font-bold hover:bg-bank-50">
+        OTP
+      </button>
+
+      <button onclick="quickAsk('Tiết kiệm online')"
+              class="px-4 py-2 rounded-full border border-bank-100 bg-white text-bank-700 text-sm font-bold hover:bg-bank-50">
+        Tiết kiệm
+      </button>
+    </div>
+  </div>
+
+  <div class="bg-white px-5 pb-5 pt-2 flex gap-3">
+    <input id="chatInput"
+           type="text"
+           placeholder="Bạn cần hỗ trợ gì?"
+           onkeydown="if(event.key === 'Enter') sendChatMessage()"
+           class="flex-1 h-14 rounded-2xl border border-slate-200 px-4 text-[15px] outline-none focus:border-bank-500">
+
+    <button onclick="sendChatMessage()"
+            class="w-14 h-14 rounded-full bg-bank-500 hover:bg-bank-700 text-white flex items-center justify-center">
+      <i data-lucide="arrow-right" class="w-7 h-7"></i>
+    </button>
+  </div>
+</div>
+
     <script>
-        lucide.createIcons();
-    </script>
+  lucide.createIcons();
+
+  function openChatbot() {
+    document.getElementById("chatbotButton").classList.add("hidden");
+    document.getElementById("chatbotBox").classList.remove("hidden");
+  }
+
+  function closeChatbot() {
+    document.getElementById("chatbotBox").classList.add("hidden");
+    document.getElementById("chatbotButton").classList.remove("hidden");
+  }
+
+  function quickAsk(question) {
+    document.getElementById("chatInput").value = question;
+    sendChatMessage();
+  }
+
+  function sendChatMessage() {
+    const input = document.getElementById("chatInput");
+    const box = document.getElementById("chatMessages");
+    const text = input.value.trim();
+    if (!text) return;
+
+    box.innerHTML += `
+      <div class="ml-auto bg-bank-700 text-white rounded-2xl p-3 text-sm max-w-[85%]">
+        ${text}
+      </div>
+    `;
+
+    input.value = "";
+
+    let reply = "GT Bot đã ghi nhận câu hỏi của bạn.";
+
+    const lower = text.toLowerCase();
+
+    if (lower.includes("đăng nhập")) {
+      reply = "Bạn bấm nút Đăng nhập trên thanh menu, nhập số điện thoại và mật khẩu để vào hệ thống GT SmartBank.";
+    } else if (lower.includes("chuyển tiền")) {
+      reply = "Để chuyển tiền, bạn đăng nhập, chọn mục Chuyển tiền, nhập tài khoản nhận, số tiền, nội dung và xác thực OTP.";
+    } else if (lower.includes("otp")) {
+      reply = "OTP là mã xác thực giao dịch. Khi chuyển tiền, hệ thống sẽ yêu cầu nhập OTP để tăng bảo mật.";
+    } else if (lower.includes("tiết kiệm")) {
+      reply = "Tiết kiệm online hỗ trợ nhiều kỳ hạn, lãi suất minh họa lên đến 6.2%/năm và có thể tính lãi ngay trên trang.";
+    }
+
+    setTimeout(() => {
+      box.innerHTML += `
+        <div class="bg-white rounded-2xl p-4 shadow-sm text-[15px] leading-6 text-slate-700 max-w-[85%]">
+          ${reply}
+        </div>
+      `;
+      box.scrollTop = box.scrollHeight;
+    }, 350);
+
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function formatMoney(value) {
+    return new Intl.NumberFormat('vi-VN').format(value) + ' đ';
+  }
+
+  function calculateInterest() {
+    const amount = Number(document.getElementById('amount').value || 0);
+    const rate = Number(document.getElementById('term').value || 0);
+    const interest = amount * rate;
+    const total = amount + interest;
+
+    document.getElementById('rateText').innerText = (rate * 100).toFixed(1) + '% / năm';
+    document.getElementById('interestText').innerText = formatMoney(interest);
+    document.getElementById('totalText').innerText = formatMoney(total);
+  }
+</script>
+
 </body>
 </html>

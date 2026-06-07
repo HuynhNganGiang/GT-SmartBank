@@ -1,20 +1,24 @@
 :root {
-    /* GT SmartBank Red & Gold Premium Palette */
-    --bg-primary: #f5f6fa;
+    /* GT SmartBank Blue Premium Palette */
+    --bg-primary: #f5f8ff;
     --bg-secondary: #ffffff;
-    --card-bg: rgba(255, 255, 255, 0.85);
-    --card-border: rgba(182, 0, 0, 0.08);
-    --text-primary: #222222;
-    --text-secondary: #666666;
-    --accent-primary: #b60000; /* Primary HDBank Red */
-    --accent-secondary: #f7b500; /* Secondary HDBank Gold */
+    --card-bg: rgba(255, 255, 255, 0.88);
+    --card-border: rgba(1, 71, 157, 0.10);
+
+    --text-primary: #1f2937;
+    --text-secondary: #64748b;
+
+    --accent-primary: #01479d;
+    --accent-secondary: #13aeea;
     --accent-yellow: #f7b500;
-    --accent-glow: rgba(182, 0, 0, 0.12);
-    --sidebar-bg: linear-gradient(185deg, #b60000, #800000);
-    
-    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.04);
-    --shadow-md: 0 8px 32px rgba(182, 0, 0, 0.05);
-    --shadow-lg: 0 16px 48px rgba(182, 0, 0, 0.1);
+    --accent-glow: rgba(1, 71, 157, 0.14);
+
+    --sidebar-bg: linear-gradient(185deg, #01479d, #0066cc, #13aeea);
+
+    --shadow-sm: 0 2px 10px rgba(1, 71, 157, 0.06);
+    --shadow-md: 0 8px 32px rgba(1, 71, 157, 0.10);
+    --shadow-lg: 0 16px 48px rgba(1, 71, 157, 0.16);
+
     --border-radius-sm: 10px;
     --border-radius-md: 18px;
     --border-radius-lg: 28px;
@@ -22,28 +26,24 @@
 }
 
 body.dark {
-    /* Dark Mode Palette - Deep Space & Red/Gold Accent */
-    --bg-primary: #0a0a0c;
-    --bg-secondary: #121216;
-    --card-bg: rgba(18, 18, 22, 0.75);
-    --card-border: rgba(255, 255, 255, 0.06);
-    --text-primary: #f5f6fa;
-    --text-secondary: #a0a0b0;
-    --accent-primary: #ff3333; /* Bright Red for dark mode */
-    --accent-secondary: #f7b500; /* Gold */
+    --bg-primary: #07111f;
+    --bg-secondary: #0f172a;
+    --card-bg: rgba(15, 23, 42, 0.78);
+    --card-border: rgba(255, 255, 255, 0.08);
+
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+
+    --accent-primary: #13aeea;
+    --accent-secondary: #38bdf8;
     --accent-yellow: #f7b500;
-    --accent-glow: rgba(255, 51, 51, 0.2);
-    --sidebar-bg: linear-gradient(185deg, #1f1f2e, #0a0a0c);
-}    
+    --accent-glow: rgba(19, 174, 234, 0.22);
+
+    --sidebar-bg: linear-gradient(185deg, #01479d, #0f172a);
+
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
     --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.35);
     --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
 }
 
 html {
@@ -322,7 +322,7 @@ body {
     margin-bottom: 35px;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, #b60000 0%, #4a0000 100%);
+    background: linear-gradient(135deg, #01479d 0%, #0066cc 55%, #13aeea 100%);
     box-shadow: var(--shadow-lg);
     border: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
@@ -1400,7 +1400,7 @@ body {
 }
 
 .fintech-table th {
-    background: rgba(0, 166, 81, 0.05);
+    background: rgba(1, 71, 157, 0.06);
     color: var(--text-secondary);
     padding: 14px 18px;
     font-weight: 600;
@@ -1570,7 +1570,7 @@ body {
 .hover-card-premium:hover {
     transform: translateY(-6px) !important;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02) !important;
-    border-color: rgba(182, 0, 0, 0.15) !important;
+    border-color: rgba(1, 71, 157, 0.18) !important;
 }
 /* Hiệu ứng nổi ảnh phần Tin tức nổi bật */
 .gt-news-card {

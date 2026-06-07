@@ -547,7 +547,7 @@
 }
 
         // Câu trả lời mặc định nếu không khớp từ khóa
-        return "Tôi là Trợ lý số GT SmartBank. Hiện tại tôi chưa hiểu rõ yêu cầu này. Bạn vui lòng sử dụng các gợi ý nhanh bên dưới hoặc liên hệ tổng đài hỗ trợ 24/7 qua số Hotline **1800 9999** để được giúp đỡ nhé!";
+        return "Tôi là Trợ lý số GT SmartBank. Hiện tại tôi chưa hiểu rõ yêu cầu này. Bạn vui lòng chọn gợi ý nhanh bên dưới hoặc gọi Hotline **1800 9999** để được hỗ trợ nhé!";
     }
 
     // Xóa dấu tiếng Việt

@@ -145,10 +145,13 @@ async function saveCustomer() {
     }
 
     // Nếu thêm mới, yêu cầu nhập mật khẩu
-    if (!id && !password) {
-        showToast("Vui lòng nhập mật khẩu khởi tạo cho khách hàng mới.", "warning");
-        return;
-    }
+    if (!password) {
+    alert(id 
+        ? "Khi cập nhật khách hàng, vui lòng nhập lại mật khẩu hoặc mật khẩu mới."
+        : "Vui lòng nhập mật khẩu khởi tạo cho khách hàng mới."
+    );
+    return;
+}
 
     const btnSubmit = document.getElementById("btnSubmitCustomer");
     btnSubmit.disabled = true;
@@ -160,7 +163,7 @@ async function saveCustomer() {
         soDienThoai: phone,
         email: email || null,
         diaChi: address || null,
-        matKhauHash: password || "", // Gửi text thô, Backend Service tự băm
+        matKhauHash: password, // Gửi text thô, Backend Service tự băm
         role: role,
         trangThai: status
     };
@@ -180,14 +183,14 @@ async function saveCustomer() {
         }
 
         if (response && response.success) {
-            showToast(response.message || "Lưu thông tin khách hàng thành công!", "success");
-            cancelEdit();
-            loadCustomers();
-        } else {
-            showToast(response.message || "Lưu thông tin thất bại.", "error");
-        }
+    alert(response.message || "Cập nhật thông tin khách hàng thành công!");
+    cancelEdit();
+    await loadCustomers();
+} else {
+    alert(response?.message || "Cập nhật thông tin thất bại.");
+}
     } catch (error) {
-        showToast(`Lỗi khi lưu dữ liệu khách hàng: ${error.message}`, "error");
+        alert(`Lỗi khi lưu dữ liệu khách hàng: ${error.message}`);
     } finally {
         btnSubmit.disabled = false;
         btnSubmit.innerText = id ? "Cập nhật thông tin" : "Thêm khách hàng";

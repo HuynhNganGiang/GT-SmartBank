@@ -232,24 +232,149 @@ async function settleSavingsAccount(maSo) {
     if (!confirm(confirmMsg)) return;
 
     try {
-        const result = await apiPost(`savings-accounts/${maSo}/settle`);
+        showToast("Đang xử lý tất toán...", "info");
 
-        if (result.success) {
-            const data = result.data;
-            showToast(`🎉 Tất toán sổ tiết kiệm thành công!\nSổ số: ${data.maSo}\nĐã thu hồi gốc và lãi về tài khoản.`, "success", 5000);
-            
-            // Tải lại dữ liệu
-            await loadAccounts();
-            await loadSavingsAccounts();
-        } else {
-            showToast(result.message || "Tất toán thất bại.", "error");
+        const result = await apiPost(`savings-accounts/${maSo}/settle`, {});
+
+        console.log("Kết quả tất toán:", result);
+
+        if (result?.success === true || result?.data || result?.maSo) {
+
+    showSuccessModal(
+        "Tất toán thành công",
+        "Tiền gốc và lãi đã được chuyển về tài khoản thanh toán."
+    );
+
+    setTimeout(() => {
+
+        const btn = document.querySelector("#successModal button");
+
+        if (btn) {
+            btn.onclick = async function () {
+
+                document.getElementById("successModal")?.remove();
+
+                showSavingReceiptModal({
+                    maSo: maSo,
+                    taiKhoanNguon:
+                        result?.data?.soTaiKhoan ||
+                        result?.soTaiKhoan ||
+                        "Tài khoản thanh toán",
+
+                    soTien:
+                        formatVND(
+                            result?.data?.soTienNhan ||
+                            result?.data?.tongTienNhan ||
+                            result?.data?.soTienGoc ||
+                            0
+                        ),
+
+                    ngayTatToan:
+                        new Date().toLocaleString("vi-VN"),
+
+                    trangThai:
+                        "Đã tất toán"
+                });
+
+                await loadAccounts();
+                await loadSavingsAccounts();
+            };
         }
+
+    }, 100);
+
+} else {
+
+            showToast(
+                result?.message || "Tất toán thất bại. API không trả success.",
+                "error",
+                5000
+            );
+        }
+
     } catch (error) {
-        showToast("Lỗi khi gửi yêu cầu tất toán: " + error.message, "error");
+
+        console.error("Lỗi tất toán:", error);
+
+        showToast(
+            "Lỗi khi gửi yêu cầu tất toán: " + error.message,
+            "error",
+            5000
+        );
     }
 }
-
 document.addEventListener("DOMContentLoaded", () => {
     loadAccounts();
     loadSavingsAccounts();
 });
+function showSavingReceiptModal(data) {
+    const oldModal = document.getElementById("savingReceiptModal");
+    if (oldModal) oldModal.remove();
+
+    const modal = document.createElement("div");
+    modal.id = "savingReceiptModal";
+
+    modal.innerHTML = `
+        <div style="
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+        ">
+            <div style="
+                width: 430px;
+                max-width: 92%;
+                background: white;
+                border-radius: 28px;
+                padding: 32px;
+                box-shadow: 0 25px 70px rgba(0,0,0,0.25);
+                font-family: Outfit, Arial, sans-serif;
+                color: #0f172a;
+            ">
+                <div style="text-align:center;">
+                    <div style="font-size:42px;">💰</div>
+                    <h2 style="margin:10px 0 4px; font-size:24px;">
+                        TẤT TOÁN THÀNH CÔNG
+                    </h2>
+                    <p style="margin:0; color:#64748b;">GT SmartBank</p>
+                </div>
+
+                <hr style="border:none; border-top:1px dashed #cbd5e1; margin:22px 0;">
+
+                <p><b>Mã sổ:</b><br>${data.maSo}</p>
+                <p><b>Tài khoản nguồn:</b><br>${data.taiKhoanNguon}</p>
+                <p><b>Số tiền nhận:</b><br>
+                    <span style="font-size:24px; font-weight:800; color:#059669;">
+                        ${data.soTien}
+                    </span>
+                </p>
+                <p><b>Ngày tất toán:</b><br>${data.ngayTatToan}</p>
+                <p><b>Trạng thái:</b><br>
+                    <span style="color:#16a34a; font-weight:800;">
+                        ✓ ${data.trangThai}
+                    </span>
+                </p>
+
+                <button onclick="document.getElementById('savingReceiptModal').remove()"
+                    style="
+                        width:100%;
+                        margin-top:20px;
+                        padding:15px;
+                        border:none;
+                        border-radius:16px;
+                        background:#059669;
+                        color:white;
+                        font-weight:800;
+                        cursor:pointer;
+                    ">
+                    Đóng
+                </button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+}
