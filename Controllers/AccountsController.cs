@@ -8,13 +8,11 @@ using GTSmartBank.DTOs;
 using GTSmartBank.Models;
 using GTSmartBank.Services;
 
-using Microsoft.AspNetCore.Http;
-
 namespace GTSmartBank.Controllers
 {
     [Route("api/accounts")]
     [ApiController]
-    [Authorize(Roles = "User,Admin")]
+    [Authorize(Roles = "User,Admin,Staff")]
     [Tags("Tài khoản")]
     public class AccountsController : ControllerBase
     {
@@ -36,8 +34,8 @@ namespace GTSmartBank.Controllers
 
             var list = await _accountService.GetAllAccountsAsync();
 
-            // If not admin, restrict to accounts owned by the user
-            if (currentUserRoleClaim != "Admin")
+            if (currentUserRoleClaim != "Admin" &&
+                currentUserRoleClaim != "Staff")
             {
                 int maKH = int.Parse(currentUserIdClaim);
                 list = list.Where(x => x.MaKH == maKH);
@@ -61,8 +59,9 @@ namespace GTSmartBank.Controllers
                 return NotFound(ApiResponse<object>.ErrorResult(404, "Tài khoản không tồn tại."));
             }
 
-            // Restrict access if not Admin and not owner
-            if (currentUserRoleClaim != "Admin" && account.MaKH.ToString() != currentUserIdClaim)
+            if (currentUserRoleClaim != "Admin" &&
+                currentUserRoleClaim != "Staff" &&
+                account.MaKH.ToString() != currentUserIdClaim)
             {
                 return Forbid();
             }

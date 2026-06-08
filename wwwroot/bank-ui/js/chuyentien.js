@@ -134,10 +134,7 @@ async function checkDestAccount() {
     }
 
     try {
-        const result = await apiGetFirst([
-            `TaiKhoan/${tkDich}`,
-            `accounts/${tkDich}`
-        ]);
+        const result = await apiGet(`accounts/${tkDich}`);
 
         if (result && result.data) {
             const tenKhachHang = getValue(result.data, "tenKhachHang", "TenKhachHang", "hoTen", "HoTen") || "Khách hàng GT SmartBank";
@@ -179,6 +176,89 @@ function formatTienWord() {
 
     textP.innerText = `Số tiền hiển thị: ${formatVND(soTien)}`;
 }
+function parseMoney(value) {
+    if (value === null || value === undefined) return 0;
+    return Number(String(value).replace(/[^\d.-]/g, "")) || 0;
+}
+
+function safeNotify(message, type = "info") {
+    if (typeof showToast === "function") {
+        showToast(message, type);
+    } else {
+        alert(message);
+    }
+}
+
+function showBankAlert(title, message) {
+    const oldModal = document.getElementById("bankAlertModal");
+    if (oldModal) oldModal.remove();
+
+    const modal = document.createElement("div");
+    modal.id = "bankAlertModal";
+
+    modal.innerHTML = `
+    <div style="
+        position:fixed;
+        inset:0;
+        background:rgba(15,23,42,.55);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        z-index:99999;
+    ">
+        <div style="
+            width:420px;
+            max-width:92%;
+            background:#fff;
+            border-radius:20px;
+            padding:24px;
+            box-shadow:0 25px 70px rgba(0,0,0,.25);
+            text-align:center;
+        ">
+            <div style="
+                font-size:48px;
+                color:#dc2626;
+                margin-bottom:10px;
+            ">
+                ⚠️
+            </div>
+
+            <h3 style="margin-bottom:10px;color:#0f172a;">
+                ${title}
+            </h3>
+
+            <p style="color:#475569;">
+                ${message}
+            </p>
+
+            <button
+                onclick="document.getElementById('bankAlertModal').remove()"
+                style="
+                    margin-top:18px;
+                    padding:12px 30px;
+                    border:none;
+                    border-radius:12px;
+                    background:#dc2626;
+                    color:white;
+                    font-weight:bold;
+                    cursor:pointer;
+                ">
+                Đã hiểu
+            </button>
+        </div>
+    </div>
+    `;
+
+    document.body.appendChild(modal);
+}
+
+function hideDestName() {
+    const destNameBox = document.getElementById("destNameBox");
+    if (destNameBox) {
+        destNameBox.style.display = "none";
+        destNameBox.innerText = "";
+    }
+}
 
 async function getOtpCode() {
     const tkNguon = document.getElementById("tkNguon").value;
@@ -212,12 +292,22 @@ async function getOtpCode() {
     }
 
     const acc = accounts.find(a => String(getValue(a, "soTaiKhoan", "SoTaiKhoan")) === String(tkNguon));
-    const soDu = Number(getValue(acc, "soDu", "SoDu") || 0);
+    const soDu = parseMoney(getValue(acc, "soDu", "SoDu"));
 
-    if (acc && soDu < parseFloat(soTienVal)) {
-        showToast("Số dư tài khoản nguồn không đủ để thực hiện giao dịch.", "error");
-        return;
-    }
+    if (!acc) {
+    showToast("Không tìm thấy tài khoản nguồn.", "error");
+    return;
+}
+
+if (Number(soTienVal) > soDu) {
+
+    showBankAlert(
+        "Không đủ số dư",
+        `Số dư hiện tại của bạn là ${formatVND(soDu)} nhưng số tiền chuyển là ${formatVND(soTienVal)}`
+    );
+
+    return;
+}
 
     const otpContainer = document.getElementById("otpContainer");
     const btnGetOtp = document.getElementById("btnGetOtp");
@@ -239,11 +329,16 @@ async function getOtpCode() {
 console.log("OTP Response:", otpResult);
 
 const otp =
+    otpResult?.data?.maCode ||
+    otpResult?.data?.maOTP ||
     otpResult?.data?.otp ||
+    otpResult?.maCode ||
+    otpResult?.maOTP ||
     otpResult?.otp ||
-    "Lỗi OTP";
+    "XXXXXX";
 
 document.getElementById("otpCodeShow").innerText = otp;
+document.getElementById("maOtp").value = otp !== "XXXXXX" ? otp : "";
 
 showToast("Đã tạo mã OTP thành công.", "success");
 
@@ -286,7 +381,28 @@ async function confirmTransfer() {
     const tkDich = document.getElementById("tkDich").value.trim();
     const soTien = parseFloat(document.getElementById("soTien").value);
     const noiDung = document.getElementById("noiDung").value.trim();
-    const maOtp = document.getElementById("maOtp").value.trim();
+    const maOtp = document.getElementById("maOtp").value.trim();   
+    
+    const acc = accounts.find(a =>
+    String(getValue(a, "soTaiKhoan", "SoTaiKhoan")) === String(tkNguon)
+);
+
+if (!acc) {
+    showToast("Không tìm thấy tài khoản nguồn.", "error");
+    return;
+}
+
+const soDu = parseMoney(getValue(acc, "soDu", "SoDu"));
+
+if (soTien > soDu) {
+
+    showBankAlert(
+        "Không đủ số dư",
+        `Số dư hiện tại của bạn là ${formatVND(soDu)} nhưng số tiền chuyển là ${formatVND(soTien)}`
+    );
+
+    return;
+}
 
     if (!maOtp || maOtp.length !== 6) {
         showToast("Vui lòng nhập mã OTP gồm 6 chữ số.", "warning");

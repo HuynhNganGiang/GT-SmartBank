@@ -13,7 +13,7 @@ namespace GTSmartBank.Controllers
 {
     [Route("api/savings-accounts")]
     [ApiController]
-    [Authorize(Roles = "User,Admin")]
+    [Authorize(Roles = "User,Admin,Staff")]
     [Tags("Sổ tiết kiệm")]
     public class SavingsAccountsController : ControllerBase
     {
@@ -35,7 +35,7 @@ namespace GTSmartBank.Controllers
             if (string.IsNullOrEmpty(currentUserIdClaim))
                 return Unauthorized(ApiResponse<object>.ErrorResult(401, "Không lấy được thông tin người dùng từ token."));
 
-            if (currentUserRoleClaim == "Admin")
+            if (currentUserRoleClaim == "Admin" || currentUserRoleClaim == "Staff")
             {
                 var all = await _savingsAccountService.GetAllSavingsAccountsAsync();
                 return Ok(ApiResponse<IEnumerable<SavingsAccountDTO>>.SuccessResult(all, "Lấy danh sách tất cả sổ tiết kiệm thành công."));
@@ -64,7 +64,8 @@ namespace GTSmartBank.Controllers
             }
 
             // Kiểm tra quyền sở hữu nếu không phải Admin
-            if (currentUserRoleClaim != "Admin")
+            if (currentUserRoleClaim != "Admin" &&
+    currentUserRoleClaim != "Staff")
             {
                 var account = await _accountService.GetAccountDetailsAsync(stk.SoTaiKhoan);
                 if (account == null || account.MaKH.ToString() != currentUserIdClaim)

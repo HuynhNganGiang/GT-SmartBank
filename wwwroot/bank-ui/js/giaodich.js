@@ -16,7 +16,7 @@ async function loadTransactions() {
 
         // Nếu là User, hiển thị bộ lọc tài khoản cá nhân và cấu hình options
         const currentUser = getCurrentUser();
-        if (currentUser && currentUser.role !== "Admin") {
+        if (currentUser && currentUser.role !== "Admin" && currentUser.role !== "Staff") {
             const filterAccountGroup = document.getElementById("filterUserAccountGroup");
             const filterAccountSelect = document.getElementById("filterAccount");
             
@@ -34,11 +34,11 @@ async function loadTransactions() {
 
         // Tải giao dịch dựa trên Role
         let resTransactions;
-        if (currentUser && currentUser.role === "Admin") {
-            resTransactions = await apiGet("transactions");
-        } else {
-            resTransactions = await apiGet("transactions/my");
-        }
+        if (currentUser && (currentUser.role === "Admin" || currentUser.role === "Staff")) {
+    resTransactions = await apiGet("transactions");
+} else {
+    resTransactions = await apiGet("transactions/my");
+}
 
         allTransactions = resTransactions.data || [];
         
@@ -64,7 +64,7 @@ function renderTable(transactions) {
 
     const myAccountNumbers = userAccounts.map(a => a.soTaiKhoan);
     const currentUser = getCurrentUser();
-    const isAdmin = currentUser && currentUser.role === "Admin";
+    const isAdmin = currentUser && (currentUser.role === "Admin" || currentUser.role === "Staff");
 
     transactions.forEach(tx => {
         const tr = document.createElement("tr");

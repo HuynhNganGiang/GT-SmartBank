@@ -17,8 +17,13 @@
                 extend: {
                     fontFamily: { sans: ['Poppins', 'Inter', 'sans-serif'] },
                     colors: {
-                        brand: { 800: '#b60000', 850: '#a00000', 900: '#9c0000' },
-                        secondary: { 700: '#f7b500' }
+                        bank: {
+  50: '#eef8ff',
+  500: '#13aeea',
+  700: '#0057b8',
+  800: '#004a9f',
+  900: '#00408f'
+}
                     }
                 }
             }
@@ -44,57 +49,50 @@
     </div>
 
     <!-- MAIN HEADER -->
-    <header class="bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-slate-100 shadow-sm">
-        <div class="max-w-[1280px] mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
-            <a href="/bank-ui/index.html" class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-brand-800 rounded-xl flex items-center justify-center text-secondary-700 font-black shadow-lg shadow-red-200">
-                    <svg viewBox="0 0 100 100" class="w-6 h-6">
-                        <path d="M50 12 L82 22 V48 C82 66 69 82 50 88 C31 82 18 66 18 48 V22 Z" fill="#ffffff" />
-                        <path d="M50 20 L74 27 V48 C74 61 64 73 50 78 C36 73 26 61 26 48 V27 Z" fill="#f7b500" opacity="0.9" />
-                        <path d="M43 38 H57 C60 38 62 40 62 43 V46 H52 V43 H44 V55 H57 V52 H62 V55 C62 58 60 60 57 60 H43 C40 60 38 58 38 55 V43 C38 40 40 38 43 38 Z" fill="#ffffff" />
-                        <path d="M47 43 H53 V46 H50.5 V55 H49.5 V46 H47 Z" fill="#b60000" />
-                    </svg>
-                </div>
-                <div>
-                    <span class="text-lg font-black text-brand-800 block">GT <span class="text-slate-800">SmartBank</span></span>
-                    <span class="text-[9px] font-bold text-secondary-700 tracking-widest uppercase block">SMART DIGITAL BANK</span>
-                </div>
-            </a>
-            
-            <nav class="hidden lg:flex items-center gap-1">
-                <a href="/bank-ui/pages/ca-nhan.html" class="px-4 py-2 text-[14px] font-semibold text-brand-800 hover:bg-slate-50 rounded-lg">Cá nhân</a>
-                <a href="/bank-ui/pages/doanh-nghiep.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">Doanh nghiệp</a>
-                <a href="/bank-ui/pages/portal.html?view=vip" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">Khách hàng ưu tiên</a>
-                <a href="/bank-ui/pages/khuyen-mai.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">Khuyến mãi</a>
-                <a href="/bank-ui/pages/ho-tro.html" class="px-4 py-2 text-[14px] font-semibold text-slate-700 hover:text-brand-800 hover:bg-slate-50 rounded-lg">Hỗ trợ</a>
-            </nav>
+    <header class="bg-white sticky top-0 z-50 shadow-sm">
+  <div class="max-w-[1200px] mx-auto px-5 h-[78px] flex items-center justify-between">
+    <a href="/bank-ui/index.html" class="flex items-center">
+      <img src="/bank-ui/assets/logo-smartbank-2026.png"
+           alt=""
+           class="h-[65px] w-auto object-contain">
+    </a>
 
-            <div id="header-auth-container" class="flex items-center gap-2">
-                <a href="/bank-ui/pages/login.html" class="px-4 py-2 text-xs font-bold text-slate-700 hover:text-brand-850">Đăng nhập</a>
-                <button onclick="openRegisterModal()" class="px-4 py-2 text-xs font-bold text-white bg-brand-800 hover:bg-brand-900 rounded-full transition-all">Mở tài khoản</button>
-            </div>
-        </div>
-    </header>
+    <nav class="hidden lg:flex items-center gap-9 text-[14px] font-bold">
+      <a href="/bank-ui/pages/ca-nhan.html" class="text-bank-700">Cá nhân</a>
+      <a href="#" class="hover:text-bank-700">Doanh nghiệp</a>
+      <a href="#" class="hover:text-bank-700">Khách hàng ưu tiên</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a href="/bank-ui/pages/login.html" class="text-[14px] font-bold text-bank-800">Đăng nhập</a>
+      <a href="/bank-ui/pages/login.html"
+         class="bg-bank-500 hover:bg-bank-700 text-white px-5 py-3 rounded-full text-[13px] font-bold">
+        Mở tài khoản ngay!
+      </a>
+    </div>
+  </div>
+</header>
 
     <!-- BREADCRUMB & HERO HEADER -->
-    <section class="bg-gradient-to-r from-brand-900 to-brand-850 text-white py-12">
-        <div class="max-w-[1280px] mx-auto px-4 md:px-8">
-            <div class="flex items-center gap-2 text-xs text-white/60 font-semibold mb-4">
-                <a href="/bank-ui/index.html" class="hover:text-white transition-colors">Trang chủ</a>
-                <i data-lucide="chevron-right" class="w-3 h-3"></i>
-                <a href="/bank-ui/pages/ca-nhan.html" class="hover:text-white transition-colors">Cá nhân</a>
-                <i data-lucide="chevron-right" class="w-3 h-3"></i>
-                <span class="text-white">Dịch vụ cho vay</span>
-            </div>
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                <div>
-                    <h1 class="text-2xl md:text-4xl font-black mb-2">Hỗ trợ tài chính & Cho vay ưu đãi</h1>
-                    <p class="text-sm text-white/80 max-w-2xl font-medium">Bứt phá mọi kế hoạch cuộc sống với gói vay đa dạng: vay tiêu dùng tín chấp, vay mua ô tô mới/cũ hay vay mua nhà dài hạn với lãi suất cực hấp dẫn chỉ từ 5.5%/năm.</p>
-                </div>
-                <button onclick="openRegisterModal()" class="px-6 py-3 bg-secondary-700 hover:bg-secondary-600 text-slate-900 font-bold rounded-xl text-xs uppercase tracking-wider transition-all">Đăng ký vay vốn</button>
-            </div>
-        </div>
-    </section>
+    <section class="relative h-[260px] overflow-hidden bg-bank-700">
+  <img src="/bank-ui/assets/Group.png"
+       class="absolute inset-0 w-full h-full object-cover object-left opacity-90"
+       alt="Cho vay ưu đãi">
+
+  <div class="absolute inset-0 bg-gradient-to-r from-bank-900/70 to-cyan-500/80"></div>
+
+  <div class="relative z-10 max-w-[1200px] mx-auto px-5 h-full flex items-center justify-end text-white">
+    <div class="max-w-[650px] text-center">
+      <h1 class="text-3xl md:text-4xl font-black">
+        Hỗ trợ tài chính & Cho vay ưu đãi
+      </h1>
+      <p class="mt-3 text-sm leading-6 text-white/95">
+        Bứt phá mọi kế hoạch cuộc sống với gói vay đa dạng: vay tiêu dùng tín chấp,
+        vay mua ô tô mới/cũ hay vay mua nhà dài hạn với lãi suất cực hấp dẫn chỉ từ 5.5%/năm.
+      </p>
+    </div>
+  </div>
+</section>
 
     <!-- MAIN BODY CONTENT -->
     <main class="max-w-[1280px] mx-auto px-4 md:px-8 py-12 grid lg:grid-cols-12 gap-8">
@@ -104,36 +102,36 @@
             
             <!-- Loan Products Info -->
             <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm">
-                    <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center mb-4">
+                <div class="bg-bank-800 rounded-3xl p-6 shadow-lg">
+                    <div class="w-10 h-10 bg-white/20 text-white rounded-xl flex items-center justify-center mb-4">
                         <i data-lucide="user-check" class="w-5 h-5"></i>
                     </div>
-                    <h4 class="font-bold text-slate-800 text-sm mb-2">Vay tiêu dùng tín chấp</h4>
-                    <p class="text-[11px] text-slate-500 leading-relaxed font-medium">Vay nhanh dựa trên thu nhập thực tế mà không cần tài sản đảm bảo. Hạn mức lên tới 300 triệu đồng, giải ngân cực nhanh.</p>
+                    <h4 class="font-bold text-white text-lg mb-3">Vay tiêu dùng tín chấp</h4>
+                    <p class="text-sm text-white/90 leading-7">Vay nhanh dựa trên thu nhập thực tế mà không cần tài sản đảm bảo. Hạn mức lên tới 300 triệu đồng, giải ngân cực nhanh.</p>
                 </div>
 
-                <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm">
-                    <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-4">
+                <div class="bg-bank-800 rounded-3xl p-6 shadow-lg">
+                    <div class="w-10 h-10 bg-white/20 text-white rounded-xl flex items-center justify-center mb-4">
                         <i data-lucide="car" class="w-5 h-5"></i>
                     </div>
-                    <h4 class="font-bold text-slate-800 text-sm mb-2">Vay mua ô tô</h4>
-                    <p class="text-[11px] text-slate-500 leading-relaxed font-medium">Hỗ trợ vay tới 85% giá trị xe, thời hạn vay lên tới 8 năm. Thủ tục đơn giản, chấp nhận tài sản bảo đảm là chính chiếc xe mua.</p>
+                    <h4 class="font-bold text-white text-lg mb-3">Vay mua ô tô</h4>
+                    <p class="text-sm text-white/90 leading-7">Hỗ trợ vay tới 85% giá trị xe, thời hạn vay lên tới 8 năm. Thủ tục đơn giản, chấp nhận tài sản bảo đảm là chính chiếc xe mua.</p>
                 </div>
 
-                <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm">
-                    <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center mb-4">
+                <div class="bg-bank-800 rounded-3xl p-6 shadow-lg">
+                    <div class="w-10 h-10 bg-white/20 text-white rounded-xl flex items-center justify-center mb-4">
                         <i data-lucide="home" class="w-5 h-5"></i>
                     </div>
-                    <h4 class="font-bold text-slate-800 text-sm mb-2">Vay mua nhà đất</h4>
-                    <p class="text-[11px] text-slate-500 leading-relaxed font-medium">Đồng hành xây dựng tổ ấm mơ ước với thời hạn vay lên tới 25 năm. Hạn mức tài trợ tối đa 80% nhu cầu vốn.</p>
+                    <h4 class="font-bold text-white text-lg mb-3">Vay mua nhà đất</h4>
+                    <p class="text-sm text-white/90 leading-7">Đồng hành xây dựng tổ ấm mơ ước với thời hạn vay lên tới 25 năm. Hạn mức tài trợ tối đa 80% nhu cầu vốn.</p>
                 </div>
             </div>
 
             <!-- Repayment calculator widget -->
             <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm">
-                <h3 class="font-bold text-slate-800 text-base mb-4 flex items-center gap-2">
+                <h3 class="font-bold text-bank-800 text-base mb-4 flex items-center gap-2">
                     <i data-lucide="calculator" class="w-5 h-5 text-brand-800"></i>
-                    Công cụ tính toán gốc lãi hàng tháng
+                    CÔNG CỤ TÍNH TOÁN GỐC LÃI HÀNG THÁNG
                 </h3>
                 
                 <div class="grid md:grid-cols-2 gap-6">
@@ -152,7 +150,8 @@
                                 <input type="number" id="loan-rate" value="7.5" step="0.1" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand-800 text-sm font-bold text-slate-800">
                             </div>
                         </div>
-                        <button id="calc-loan-btn" class="w-full py-3 bg-brand-800 hover:bg-brand-900 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all">Tính toán gốc lãi</button>
+                        <button id="calc-loan-btn"
+class="w-full py-3 bg-bank-800 hover:bg-bank-900 text-white rounded-xl text-xs font-bold uppercase tracking-wider">
                     </div>
 
                     <div class="bg-slate-50 rounded-2xl p-5 border border-slate-150 flex flex-col justify-between">
@@ -172,7 +171,10 @@
                         </div>
                         <div class="border-t border-slate-200 pt-4 mt-4">
                             <span class="text-[10px] text-slate-400 font-bold block uppercase">Tổng tiền lãi phải trả</span>
-                            <span id="loan-total-interest-val" class="text-lg font-black text-brand-800 mt-1 block">95,312,500 ₫</span>
+                            <span id="loan-total-interest-val"
+      class="text-lg font-black text-red-600 mt-1 block">
+    95,312,500 ₫
+</span>
                         </div>
                     </div>
                 </div>
@@ -207,11 +209,48 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-brand-900 text-white pt-16 pb-8 border-t border-white/10 mt-12">
-        <div class="max-w-[1280px] mx-auto px-4 md:px-8 mt-12 pt-6 border-t border-white/10 text-[11px] text-white/50 font-bold font-mono">
-            © 2026 GT SMARTBANK CORP. ALL RIGHTS RESERVED.
-        </div>
-    </footer>
+    <footer class="bg-bank-900 text-white mt-12">
+  <div class="max-w-[1200px] mx-auto px-5 py-12 grid md:grid-cols-4 gap-10">
+
+    <div>
+      <img src="/bank-ui/assets/logo-smartbank-2026.png"
+           alt=""
+           class="h-14 w-auto mb-4 object-contain">
+
+      <p class="text-[13px] text-white/70 leading-6">
+        GT SmartBank tiên phong ứng dụng công nghệ hiện đại, trải nghiệm ngân hàng số uy tín, an toàn và bảo mật tuyệt đối cho mọi khách hàng.
+      </p>
+    </div>
+
+    <div>
+      <h4 class="font-bold mb-4 text-sm">KHÁCH HÀNG CÁ NHÂN</h4>
+      <ul class="space-y-3 text-[13px] text-white/70">
+        <li>Tài khoản & Thẻ</li>
+        <li>Gửi tiết kiệm Online</li>
+        <li>Vay mua nhà, mua xe</li>
+        <li>Chuyển khoản Napas 24/7</li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-bold mb-4 text-sm">KHÁCH HÀNG CÁ NHÂN</h4>
+      <ul class="space-y-3 text-[13px] text-white/70">
+        <li>Tài khoản & Thẻ</li>
+        <li>Gửi tiết kiệm Online</li>
+        <li>Vay mua nhà, mua xe</li>
+        <li>Chuyển khoản Napas 24/7</li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-bold mb-4 text-sm">TẢI ỨNG DỤNG<br>GT SMARTBANK PAY</h4>
+      <img src="/bank-ui/assets/app.png"
+           alt="Tải ứng dụng"
+           class="w-[190px] h-auto object-contain">
+    </div>
+
+  </div>
+</footer>
 
     <script src="/bank-ui/js/public.js"></script>
     <script>

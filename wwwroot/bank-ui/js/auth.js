@@ -7,12 +7,24 @@ async function login() {
     const soDienThoai = soDienThoaiInput.value.trim();
     const matKhau = matKhauInput.value.trim();
 
+    const lockUntil = Number(localStorage.getItem("loginLockUntil") || 0);
+
+    if (lockUntil && Date.now() < lockUntil) {
+        const minutesLeft = Math.ceil((lockUntil - Date.now()) / 60000);
+        showError(`Bạn đã nhập sai quá 5 lần. Tài khoản tạm khóa. Vui lòng thử lại sau ${minutesLeft} phút.`);
+        return;
+    }
+
+    if (lockUntil && Date.now() >= lockUntil) {
+        localStorage.removeItem("loginLockUntil");
+        localStorage.removeItem("loginFailCount");
+    }
+
     if (!soDienThoai || !matKhau) {
         showError("Vui lòng nhập đầy đủ số điện thoại và mật khẩu.");
         return;
     }
 
-    // Hiển thị trạng thái loading
     loginBtn.disabled = true;
     loginBtn.innerText = "Đang đăng nhập...";
     if (errorMsgDiv) errorMsgDiv.style.display = "none";
@@ -24,28 +36,47 @@ async function login() {
         });
 
         if (result.success && result.data && result.data.accessToken) {
-            // Lưu token và thông tin user vào localStorage
+            localStorage.removeItem("loginFailCount");
+            localStorage.removeItem("loginLockUntil");
+
             setToken(result.data.accessToken);
+
             if (result.data.refreshToken) {
                 localStorage.setItem("refreshToken", result.data.refreshToken);
             }
+
             setCurrentUser(result.data.user);
 
-            // Hiển thị thông báo thành công
             loginBtn.innerText = "Đăng nhập thành công!";
             loginBtn.style.backgroundColor = "#28a745";
-            
+
             setTimeout(() => {
                 window.location.href = "/bank-ui/admin/dashboard.html";
             }, 1000);
         } else {
-            showError(result.message || "Đăng nhập thất bại.");
+            handleLoginFail(result.message);
             resetLoginButton();
         }
     } catch (error) {
-        showError(error.message || "Lỗi kết nối đến máy chủ.");
+        handleLoginFail();
         resetLoginButton();
     }
+}
+function handleLoginFail(serverMessage) {
+    let loginFailCount = Number(localStorage.getItem("loginFailCount") || 0);
+    loginFailCount++;
+
+    localStorage.setItem("loginFailCount", loginFailCount);
+
+    if (loginFailCount >= 5) {
+        const lockUntil = Date.now() + 15 * 60 * 1000;
+        localStorage.setItem("loginLockUntil", lockUntil);
+
+        showError("Bạn đã nhập sai quá 5 lần. Tài khoản tạm khóa 15 phút.");
+        return;
+    }
+
+    showError(`Sai số điện thoại hoặc sai mật khẩu. Bạn còn ${5 - loginFailCount} lần thử.`);
 }
 
 function showError(message) {
@@ -70,7 +101,7 @@ function resetLoginButton() {
     const loginBtn = document.getElementById("loginBtn");
     if (loginBtn) {
         loginBtn.disabled = false;
-        loginBtn.innerText = "Đăng nhập";
+        loginBtn.innerText = "Đăng nhập hệ thống";
     }
 }
 

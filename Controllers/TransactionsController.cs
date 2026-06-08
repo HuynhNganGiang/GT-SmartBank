@@ -13,16 +13,20 @@ namespace GTSmartBank.Controllers
 {
     [Route("api/transactions")]
     [ApiController]
-    [Authorize(Roles = "User,Admin")]
+    [Authorize(Roles = "User,Admin,Staff")]
     [Tags("Giao dịch")]
     public class TransactionsController : ControllerBase
     {
         private readonly ITransactionService _transactionService;
+private readonly IAccountService _accountService;
 
-        public TransactionsController(ITransactionService transactionService)
-        {
-            _transactionService = transactionService;
-        }
+public TransactionsController(
+    ITransactionService transactionService,
+    IAccountService accountService)
+{
+    _transactionService = transactionService;
+    _accountService = accountService;
+}
 
         [HttpPost("transfer")]
         [Tags("Chuyển tiền")]
@@ -43,7 +47,21 @@ namespace GTSmartBank.Controllers
             var currentUserIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(currentUserIdClaim))
                 return Unauthorized(ApiResponse<object>.ErrorResult(401, "Không lấy được thông tin người dùng từ token."));
+var currentUserRoleClaim = User.FindFirst(ClaimTypes.Role)?.Value;
 
+var account = await _accountService.GetAccountDetailsAsync(model.TK_Nguon);
+
+if (account == null)
+{
+    return BadRequest(ApiResponse<object>.ErrorResult(400, "Tài khoản nguồn không tồn tại."));
+}
+
+if (currentUserRoleClaim != "Admin" &&
+    currentUserRoleClaim != "Staff" &&
+    account.MaKH.ToString() != currentUserIdClaim)
+{
+    return Forbid();
+}
             try
             {
                 var gd = await _transactionService.TransferAsync(
@@ -76,8 +94,8 @@ namespace GTSmartBank.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetAll()
+[Authorize(Roles = "Admin,Staff")]
+public async Task<IActionResult> GetAll()
         {
             var list = await _transactionService.GetAllTransactionsAsync();
             return Ok(ApiResponse<IEnumerable<TransactionDTO>>.SuccessResult(list, "Lấy danh sách giao dịch thành công."));

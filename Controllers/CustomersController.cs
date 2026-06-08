@@ -7,13 +7,11 @@ using GTSmartBank.DTOs;
 using GTSmartBank.Models;
 using GTSmartBank.Services;
 
-using Microsoft.AspNetCore.Http;
-
 namespace GTSmartBank.Controllers
 {
     [Route("api/customers")]
     [ApiController]
-    [Authorize(Roles = "User,Admin")]
+    [Authorize(Roles = "User,Admin,Staff")]
     [Tags("Khách hàng")]
     public class CustomersController : ControllerBase
     {
@@ -25,7 +23,7 @@ namespace GTSmartBank.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Staff")]
         public async Task<IActionResult> GetAll()
         {
             var list = await _customerService.GetAllCustomersAsync();
@@ -41,8 +39,9 @@ namespace GTSmartBank.Controllers
             if (string.IsNullOrEmpty(currentUserIdClaim))
                 return Unauthorized(ApiResponse<object>.ErrorResult(401, "Không lấy được thông tin người dùng từ token."));
 
-            // Check if current user is Admin OR is fetching their own profile
-            if (currentUserRoleClaim != "Admin" && currentUserIdClaim != id.ToString())
+            if (currentUserRoleClaim != "Admin" &&
+                currentUserRoleClaim != "Staff" &&
+                currentUserIdClaim != id.ToString())
             {
                 return Forbid();
             }
