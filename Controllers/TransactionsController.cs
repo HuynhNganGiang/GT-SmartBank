@@ -4,10 +4,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using GTSmartBank.DTOs;
-using GTSmartBank.Models;
 using GTSmartBank.Services;
-
-using Microsoft.AspNetCore.Http;
 
 namespace GTSmartBank.Controllers
 {
@@ -18,17 +15,18 @@ namespace GTSmartBank.Controllers
     public class TransactionsController : ControllerBase
     {
         private readonly ITransactionService _transactionService;
-private readonly IAccountService _accountService;
+        private readonly IAccountService _accountService;
 
-public TransactionsController(
-    ITransactionService transactionService,
-    IAccountService accountService)
-{
-    _transactionService = transactionService;
-    _accountService = accountService;
-}
+        public TransactionsController(
+            ITransactionService transactionService,
+            IAccountService accountService)
+        {
+            _transactionService = transactionService;
+            _accountService = accountService;
+        }
 
         [HttpPost("transfer")]
+        [Authorize(Roles = "User,Admin,Staff")]
         [Tags("Chuyển tiền")]
         public async Task<IActionResult> Transfer([FromBody] ChuyenTienDTO model)
         {
@@ -45,30 +43,30 @@ public TransactionsController(
                 return BadRequest(ApiResponse<object>.ErrorResult(400, "Vui lòng nhập mã xác thực OTP."));
 
             var currentUserIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUserRoleClaim = User.FindFirst(ClaimTypes.Role)?.Value;
+
             if (string.IsNullOrEmpty(currentUserIdClaim))
                 return Unauthorized(ApiResponse<object>.ErrorResult(401, "Không lấy được thông tin người dùng từ token."));
-var currentUserRoleClaim = User.FindFirst(ClaimTypes.Role)?.Value;
 
-var account = await _accountService.GetAccountDetailsAsync(model.TK_Nguon);
+            var account = await _accountService.GetAccountDetailsAsync(model.TK_Nguon);
 
-if (account == null)
-{
-    return BadRequest(ApiResponse<object>.ErrorResult(400, "Tài khoản nguồn không tồn tại."));
-}
+            if (account == null)
+                return BadRequest(ApiResponse<object>.ErrorResult(400, "Tài khoản nguồn không tồn tại."));
 
-if (currentUserRoleClaim != "Admin" &&
-    currentUserRoleClaim != "Staff" &&
-    account.MaKH.ToString() != currentUserIdClaim)
-{
-    return Forbid();
-}
+            if (currentUserRoleClaim != "Admin" &&
+                currentUserRoleClaim != "Staff" &&
+                account.MaKH.ToString() != currentUserIdClaim)
+            {
+                return Forbid();
+            }
+
             try
             {
                 var gd = await _transactionService.TransferAsync(
-                    model.TK_Nguon, 
-                    model.TK_Dich, 
-                    model.SoTien, 
-                    model.NoiDung, 
+                    model.TK_Nguon,
+                    model.TK_Dich,
+                    model.SoTien,
+                    model.NoiDung,
                     model.MaOTP
                 );
 
@@ -94,22 +92,25 @@ if (currentUserRoleClaim != "Admin" &&
         }
 
         [HttpGet]
-[Authorize(Roles = "Admin,Staff")]
-public async Task<IActionResult> GetAll()
+        [Authorize(Roles = "Admin,Staff")]
+        public async Task<IActionResult> GetAll()
         {
             var list = await _transactionService.GetAllTransactionsAsync();
             return Ok(ApiResponse<IEnumerable<TransactionDTO>>.SuccessResult(list, "Lấy danh sách giao dịch thành công."));
         }
 
         [HttpGet("my")]
+        [Authorize(Roles = "User,Admin,Staff")]
         public async Task<IActionResult> GetMyTransactions()
         {
             var currentUserIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
             if (string.IsNullOrEmpty(currentUserIdClaim))
                 return Unauthorized(ApiResponse<object>.ErrorResult(401, "Không lấy được thông tin người dùng từ token."));
 
             int maKH = int.Parse(currentUserIdClaim);
             var list = await _transactionService.GetTransactionsByCustomerAsync(maKH);
+
             return Ok(ApiResponse<IEnumerable<TransactionDTO>>.SuccessResult(list, "Lấy lịch sử giao dịch cá nhân thành công."));
         }
     }

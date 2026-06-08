@@ -6,6 +6,11 @@ namespace GTSmartBank.DTOs
     {
         public string MaSo { get; set; } = string.Empty;
         public string SoTaiKhoan { get; set; } = string.Empty;
+
+        public int? MaKH { get; set; }
+        public string? HoTen { get; set; }
+        public string? CCCD { get; set; }
+
         public decimal SoTienGoc { get; set; }
         public int KyHan { get; set; }
         public decimal LaiSuat { get; set; }

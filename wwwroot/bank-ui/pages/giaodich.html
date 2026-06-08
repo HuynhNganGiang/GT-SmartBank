@@ -141,7 +141,7 @@
         window.location.href = "/bank-ui/pages/login.html";
     }
 
-    if (userObj && userObj.role !== "Admin") {
+    if (userObj && userObj.role !== "Admin" && userObj.role !== "Staff") {
         const navCustomers = document.getElementById("navCustomers");
         if (navCustomers) navCustomers.style.display = "none";
     }
@@ -151,7 +151,12 @@
             const userFullNameEl = document.getElementById("userFullName");
             const userRoleEl = document.getElementById("userRole");
             if (userFullNameEl) userFullNameEl.innerText = userObj.hoTen;
-            if (userRoleEl) userRoleEl.innerText = userObj.role === "Admin" ? "Quản trị viên" : "Khách hàng";
+            if (userRoleEl) {
+    userRoleEl.innerText =
+        userObj.role === "Admin" ? "Quản trị viên" :
+        userObj.role === "Staff" ? "Nhân viên" :
+        "Khách hàng";
+}
         }
     });
 </script>

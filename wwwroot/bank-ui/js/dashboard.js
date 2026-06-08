@@ -80,6 +80,16 @@ function logout() {
     window.location.href = "/bank-ui/pages/login.html";
 }
 
+
+function getRoleName(role) {
+    if (role === "Admin") return "Quản trị viên";
+    if (role === "Staff") return "Nhân viên";
+    return "Khách hàng";
+}
+function isAdminOrStaff() {
+    return user && (user.role === "Admin" || user.role === "Staff");
+}
+
 function formatVND(amount) {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount || 0);
 }
@@ -124,7 +134,7 @@ async function loadDashboardData() {
 
     // Sync header info
     setEl("userFullName", user.hoTen);
-    setEl("userRole", user.role === "Admin" ? "Quản trị viên" : "Khách hàng");
+    setEl("userRole", getRoleName(user.role));
 
     let hasAnyError = false;
 
@@ -132,7 +142,7 @@ async function loadDashboardData() {
     const adminView = document.getElementById("adminDashboardView");
     const customerView = document.getElementById("customerDashboardView");
 
-    if (user.role === "Admin") {
+    if (isAdminOrStaff()) {
         if (adminView) adminView.classList.remove("hidden");
         if (customerView) customerView.classList.add("hidden");
         

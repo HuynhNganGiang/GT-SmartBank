@@ -1,4 +1,19 @@
 // Quản lý Tài khoản - GT Smart Bank
+// Phân quyền giao diện
+var tkCurrentUser = window.currentUser || (typeof getCurrentUser === "function" ? getCurrentUser() : null);
+window.currentUser = tkCurrentUser;
+var tkIsAdmin = tkCurrentUser?.role === "Admin";
+var tkIsStaff = tkCurrentUser?.role === "Staff";
+var tkCanCreate = tkIsAdmin || tkIsStaff;
+function showNoPermission() {
+    if (typeof showToast === "function") showToast("Bạn không có quyền thực hiện chức năng này.", "error");
+    else alert("Bạn không có quyền thực hiện chức năng này.");
+}
+function isForbiddenError(error) {
+    const msg = String(error?.message || error || "");
+    return error?.status === 403 || msg.includes("403") || msg.toLowerCase().includes("forbid");
+}
+
 
 let allAccounts = [];
 
@@ -188,6 +203,9 @@ async function loadBranchesForDropdown() {
 
 // Lưu thông tin tài khoản (POST mở mới hoặc PUT chỉnh sửa)
 async function saveAccount() {
+    const editingNumber = document.getElementById("editAccountNumber")?.value;
+    if (editingNumber && !tkIsAdmin) { showNoPermission(); return; }
+    if (!editingNumber && !tkCanCreate) { showNoPermission(); return; }
     const isEdit = document.getElementById("isEditMode").value === "true";
     const number = document.getElementById("accountNumber").value.trim();
     const customerId = document.getElementById("accountCustomer").value;
@@ -253,6 +271,7 @@ async function saveAccount() {
 
 // Chuẩn bị form để chỉnh sửa tài khoản
 function setupEditAccount(number, customerId, branchId, type, balance, active) {
+    if (!tkIsAdmin) { showNoPermission(); return; }
     document.getElementById("isEditMode").value = "true";
     
     // Đổ thông tin lên form
@@ -303,6 +322,7 @@ function cancelEdit() {
 
 // Xóa tài khoản thanh toán
 async function deleteAccount(number) {
+    if (!tkIsAdmin) { showNoPermission(); return; }
     if (!confirm(`Bạn có chắc chắn muốn xóa tài khoản ${number}?\nMọi giao dịch chuyển tiền liên quan đến số tài khoản này có thể bị ảnh hưởng!`)) {
         return;
     }

@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 using GTSmartBank.DTOs;
 using GTSmartBank.Services;
 
-using Microsoft.AspNetCore.Http;
-
 namespace GTSmartBank.Controllers
 {
     [Route("api/savings-accounts")]
@@ -40,12 +38,10 @@ namespace GTSmartBank.Controllers
                 var all = await _savingsAccountService.GetAllSavingsAccountsAsync();
                 return Ok(ApiResponse<IEnumerable<SavingsAccountDTO>>.SuccessResult(all, "Lấy danh sách tất cả sổ tiết kiệm thành công."));
             }
-            else
-            {
-                int customerId = int.Parse(currentUserIdClaim);
-                var userSavings = await _savingsAccountService.GetSavingsAccountsByCustomerAsync(customerId);
-                return Ok(ApiResponse<IEnumerable<SavingsAccountDTO>>.SuccessResult(userSavings, "Lấy danh sách sổ tiết kiệm thành công."));
-            }
+
+            int customerId = int.Parse(currentUserIdClaim);
+            var userSavings = await _savingsAccountService.GetSavingsAccountsByCustomerAsync(customerId);
+            return Ok(ApiResponse<IEnumerable<SavingsAccountDTO>>.SuccessResult(userSavings, "Lấy danh sách sổ tiết kiệm của bạn thành công."));
         }
 
         [HttpGet("{id}")]
@@ -58,51 +54,33 @@ namespace GTSmartBank.Controllers
                 return Unauthorized(ApiResponse<object>.ErrorResult(401, "Không lấy được thông tin người dùng từ token."));
 
             var stk = await _savingsAccountService.GetSavingsAccountDetailsAsync(id);
-            if (stk == null)
-            {
-                return NotFound(ApiResponse<object>.ErrorResult(404, "Không tìm thấy sổ tiết kiệm."));
-            }
 
-            // Kiểm tra quyền sở hữu nếu không phải Admin
-            if (currentUserRoleClaim != "Admin" &&
-    currentUserRoleClaim != "Staff")
+            if (stk == null)
+                return NotFound(ApiResponse<object>.ErrorResult(404, "Không tìm thấy sổ tiết kiệm."));
+
+            if (currentUserRoleClaim != "Admin" && currentUserRoleClaim != "Staff")
             {
                 var account = await _accountService.GetAccountDetailsAsync(stk.SoTaiKhoan);
+
                 if (account == null || account.MaKH.ToString() != currentUserIdClaim)
-                {
                     return Forbid();
-                }
             }
 
             return Ok(ApiResponse<SavingsAccountDTO>.SuccessResult(stk, "Lấy thông tin sổ tiết kiệm thành công."));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Staff")]
         public async Task<IActionResult> Open([FromBody] CreateSavingsAccountDTO request)
         {
             if (request == null)
                 return BadRequest(ApiResponse<object>.ErrorResult(400, "Dữ liệu yêu cầu không hợp lệ."));
 
-            var currentUserIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var currentUserRoleClaim = User.FindFirst(ClaimTypes.Role)?.Value;
-
-            if (string.IsNullOrEmpty(currentUserIdClaim))
-                return Unauthorized(ApiResponse<object>.ErrorResult(401, "Không lấy được thông tin người dùng từ token."));
-
-            // Nếu không phải Admin, kiểm tra tài khoản nguồn có thuộc về khách hàng hiện tại không
-            if (currentUserRoleClaim != "Admin")
-            {
-                var account = await _accountService.GetAccountDetailsAsync(request.SoTaiKhoan);
-                if (account == null || account.MaKH.ToString() != currentUserIdClaim)
-                {
-                    return Forbid();
-                }
-            }
-
             try
             {
                 var created = await _savingsAccountService.OpenSavingsAccountAsync(request);
-                return CreatedAtAction(nameof(GetById), new { id = created.MaSo }, ApiResponse<SavingsAccountDTO>.SuccessResult(created, "Mở sổ tiết kiệm thành công."));
+                return CreatedAtAction(nameof(GetById), new { id = created.MaSo },
+                    ApiResponse<SavingsAccountDTO>.SuccessResult(created, "Mở sổ tiết kiệm thành công."));
             }
             catch (ArgumentException ex)
             {
@@ -124,29 +102,13 @@ namespace GTSmartBank.Controllers
         }
 
         [HttpPost("{id}/settle")]
+        [Authorize(Roles = "Admin,Staff")]
         public async Task<IActionResult> Settle(string id)
         {
-            var currentUserIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var currentUserRoleClaim = User.FindFirst(ClaimTypes.Role)?.Value;
-
-            if (string.IsNullOrEmpty(currentUserIdClaim))
-                return Unauthorized(ApiResponse<object>.ErrorResult(401, "Không lấy được thông tin người dùng từ token."));
-
             var stk = await _savingsAccountService.GetSavingsAccountDetailsAsync(id);
-            if (stk == null)
-            {
-                return NotFound(ApiResponse<object>.ErrorResult(404, "Không tìm thấy sổ tiết kiệm."));
-            }
 
-            // Kiểm tra quyền sở hữu nếu không phải Admin
-            if (currentUserRoleClaim != "Admin")
-            {
-                var account = await _accountService.GetAccountDetailsAsync(stk.SoTaiKhoan);
-                if (account == null || account.MaKH.ToString() != currentUserIdClaim)
-                {
-                    return Forbid();
-                }
-            }
+            if (stk == null)
+                return NotFound(ApiResponse<object>.ErrorResult(404, "Không tìm thấy sổ tiết kiệm."));
 
             try
             {
@@ -162,14 +124,10 @@ namespace GTSmartBank.Controllers
                 return NotFound(ApiResponse<object>.ErrorResult(404, ex.Message));
             }
             catch (Exception ex)
-{
-    var errorMessage = ex.InnerException?.Message ?? ex.Message;
-
-    return StatusCode(500, ApiResponse<object>.ErrorResult(
-        500,
-        "Đã xảy ra lỗi hệ thống: " + errorMessage
-    ));
-}
+            {
+                var errorMessage = ex.InnerException?.Message ?? ex.Message;
+                return StatusCode(500, ApiResponse<object>.ErrorResult(500, "Đã xảy ra lỗi hệ thống: " + errorMessage));
+            }
         }
     }
 }

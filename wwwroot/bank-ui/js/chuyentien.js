@@ -1,4 +1,13 @@
 // Chuyển tiền 24/7 - GT SmartBank
+function showNoPermission() {
+    if (typeof showToast === "function") showToast("Bạn không có quyền thực hiện chức năng này.", "error");
+    else alert("Bạn không có quyền thực hiện chức năng này.");
+}
+function isForbiddenError(error) {
+    const msg = String(error?.message || error || "");
+    return error?.status === 403 || msg.includes("403") || msg.toLowerCase().includes("forbid");
+}
+
 
 let accounts = [];
 let otpInterval = null;

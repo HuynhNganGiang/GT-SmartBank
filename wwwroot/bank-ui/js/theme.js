@@ -53,7 +53,14 @@ const isPublicPage = _path.includes("login.html") ||
                      _path.includes("the-tin-dung.html") ||
                      _path.includes("vay-tieu-dung.html");
 const currentUser = getSavedUser();
-
+const currentRole = (
+    currentUser?.role ||
+    currentUser?.Role ||
+    currentUser?.vaiTro ||
+    currentUser?.chucVu ||
+    localStorage.getItem("role") ||
+    ""
+).toString().trim().toLowerCase();
 if (!isPublicPage && !currentUser) {
     window.location.href = "/bank-ui/pages/login.html";
 }
@@ -315,7 +322,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const overlay = document.createElement("div");
         overlay.id = "sidebarOverlay";
         overlay.className = "sidebar-overlay fixed inset-0 z-20 bg-slate-950/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden";
-        overlay.onclick = toggleSidebar;
+        overlay.onclick = function () {
+    if (typeof window.toggleSidebar === "function") {
+        window.toggleSidebar();
+    }
+};
         document.body.appendChild(overlay);
     }
 
@@ -363,7 +374,13 @@ document.addEventListener("DOMContentLoaded", () => {
                             <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor;flex-shrink:0;"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
                             <span class="nav-text">Tổng quan</span>
                         </a>
-                        <a href="/bank-ui/pages/khachhang.html" id="navCustomers" class="nav-link" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;transition:all 0.2s;${isActive('khachhang.html') ? 'background:#ffffff;color:#01479d;box-shadow:0 4px 12px rgba(0,0,0,0.15);' : 'color:#ffffff;'}${currentUser.role !== 'Admin' ? 'display:none;' : ''}" onmouseover="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='rgba(255,255,255,0.1)';this.style.color='white';}" onmouseout="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='';this.style.color='rgba(255,255,255,0.7)';}" data-tooltip="Khách hàng">
+                        <a href="/bank-ui/pages/khachhang.html" id="navCustomers" class="nav-link" style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;transition:all 0.2s;${isActive('khachhang.html') ? 'background:#ffffff;color:#01479d;box-shadow:0 4px 12px rgba(0,0,0,0.15);' : 'color:#ffffff;'}${(
+    currentRole !== 'admin' &&
+    currentRole !== 'staff' &&
+    currentRole !== 'nhanvien' &&
+    currentRole !== 'nhân viên' &&
+    currentRole !== 'employee'
+) ? 'display:none;' : ''}" onmouseover="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='rgba(255,255,255,0.1)';this.style.color='white';}" onmouseout="if(!this.style.background.includes('rgb(255, 255, 255)') && !this.style.background.includes('#ffffff') && !this.style.background.includes('white')){this.style.background='';this.style.color='rgba(255,255,255,0.7)';}" data-tooltip="Khách hàng">
                             <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor;flex-shrink:0;"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                             <span class="nav-text">Khách hàng</span>
                         </a>
@@ -430,8 +447,20 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
 
         const userFullName = currentUser.hoTen;
-        const userRole = currentUser.role === "Admin" ? "Quản trị viên" : "Khách hàng";
 
+let userRole = "Khách hàng";
+
+if (currentRole === "admin") {
+    userRole = "Quản trị viên";
+}
+else if (
+    currentRole === "staff" ||
+    currentRole === "nhanvien" ||
+    currentRole === "nhân viên" ||
+    currentRole === "employee"
+) {
+    userRole = "Nhân viên";
+}
         topbarEl.className = "topbar flex items-center justify-between p-4 md:p-6 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10 w-full";
         
         topbarEl.innerHTML = `
@@ -618,9 +647,27 @@ function autoInjectRevealClasses() {
         el.classList.add("reveal-on-scroll");
     });
 }
+// Chỉ hiện chatbot khi CHƯA đăng nhập
+(function () {
+    const user = getSavedUser();
 
-// Tự động nạp Trợ lý ảo AI Assistant nổi
-(function() {
+    // Nếu đã đăng nhập thì xóa sạch chatbot nếu còn tồn tại
+    if (user) {
+        document.getElementById("ai-assistant-script")?.remove();
+        document.getElementById("aiChatWidget")?.remove();
+        document.getElementById("ai-assistant-styles")?.remove();
+        return;
+    }
+
+    const path = window.location.pathname.toLowerCase();
+
+    const allowChatbot =
+        path.includes("/bank-ui/index.html") ||
+        path === "/" ||
+        path.includes("/bank-ui/pages/login.html");
+
+    if (!allowChatbot) return;
+
     if (!document.getElementById("ai-assistant-script")) {
         const script = document.createElement("script");
         script.id = "ai-assistant-script";

@@ -1,3 +1,23 @@
+// Phân quyền giao diện
+var stkCurrentUser = window.currentUser || (typeof getCurrentUser === "function" ? getCurrentUser() : null);
+window.currentUser = stkCurrentUser;
+var stkIsAdmin = stkCurrentUser?.role === "Admin";
+var stkIsStaff = stkCurrentUser?.role === "Staff";
+var stkCanManageSavings = stkIsAdmin || stkIsStaff;
+function showNoPermission() {
+    if (typeof showToast === "function") showToast("Bạn không có quyền thực hiện chức năng này.", "error");
+    else alert("Bạn không có quyền thực hiện chức năng này.");
+}
+function isForbiddenError(error) {
+    const msg = String(error?.message || error || "");
+    return error?.status === 403 || msg.includes("403") || msg.toLowerCase().includes("forbid");
+}
+function applySavingsPermissionUI() {
+    if (stkCanManageSavings) return;
+    const btnOpen = document.querySelector('button[onclick="openSavingsAccount()"]');
+    if (btnOpen) { btnOpen.disabled = true; btnOpen.innerText = "Bạn không có quyền mở sổ"; btnOpen.classList.add("opacity-60", "cursor-not-allowed"); }
+}
+
 let accounts = [];
 
 function formatVND(amount) {
@@ -57,17 +77,51 @@ async function loadSavingsAccounts() {
             const ngayMoFormatted = new Date(stk.ngayMo).toLocaleDateString("vi-VN");
             const ngayDaoHanFormatted = stk.ngayDaoHan ? new Date(stk.ngayDaoHan).toLocaleDateString("vi-VN") : "N/A";
 
-            details.innerHTML = `
-                <div class="flex justify-between"><span>Tài khoản nguồn:</span> <span class="font-mono text-slate-800 dark:text-white">${stk.soTaiKhoan}</span></div>
-                <div class="flex justify-between"><span>Kỳ hạn:</span> <span class="text-slate-800 dark:text-white">${stk.kyHan} tháng</span></div>
-                <div class="flex justify-between"><span>Lãi suất:</span> <span class="text-amber-500 dark:text-amber-400 font-extrabold">${stk.laiSuat}% / năm</span></div>
-                <div class="flex justify-between"><span>Ngày mở sổ:</span> <span class="text-slate-800 dark:text-white">${ngayMoFormatted}</span></div>
-                <div class="flex justify-between"><span>${isActive ? 'Ngày đáo hạn' : 'Ngày tất toán'}:</span> <span class="text-slate-850 dark:text-slate-200">${ngayDaoHanFormatted}</span></div>
-            `;
+           details.innerHTML = `
+    <div class="flex justify-between">
+        <span>Tài khoản nguồn:</span>
+        <span class="font-mono text-slate-800 dark:text-white">${stk.soTaiKhoan}</span>
+    </div>
+
+    <div class="flex justify-between">
+        <span>Mã KH:</span>
+        <span class="text-slate-800 dark:text-white">${stk.maKH ?? '---'}</span>
+    </div>
+
+    <div class="flex justify-between">
+        <span>Khách hàng:</span>
+        <span class="text-slate-800 dark:text-white">${stk.hoTen ?? '---'}</span>
+    </div>
+
+    <div class="flex justify-between">
+        <span>CCCD:</span>
+        <span class="font-mono text-slate-800 dark:text-white">${stk.cccd ?? '---'}</span>
+    </div>
+
+    <div class="flex justify-between">
+        <span>Kỳ hạn:</span>
+        <span class="text-slate-800 dark:text-white">${stk.kyHan} tháng</span>
+    </div>
+
+    <div class="flex justify-between">
+        <span>Lãi suất:</span>
+        <span class="text-amber-500 dark:text-amber-400 font-extrabold">${stk.laiSuat}% / năm</span>
+    </div>
+
+    <div class="flex justify-between">
+        <span>Ngày mở sổ:</span>
+        <span class="text-slate-800 dark:text-white">${ngayMoFormatted}</span>
+    </div>
+
+    <div class="flex justify-between">
+        <span>${isActive ? 'Ngày đáo hạn' : 'Ngày tất toán'}:</span>
+        <span class="text-slate-850 dark:text-slate-200">${ngayDaoHanFormatted}</span>
+    </div>
+`;
             card.appendChild(details);
 
             // Nút tất toán (chỉ hiển thị nếu sổ đang hoạt động)
-            if (isActive) {
+            if (isActive && stkCanManageSavings) {
                 const btn = document.createElement("button");
                 btn.className = "w-full py-2.5 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-600 text-white shadow-lg shadow-amber-500/10 hover:shadow-amber-500/25 transition-all duration-300 mt-2";
                 btn.innerText = "Tất toán ngay";
@@ -169,6 +223,7 @@ function updateInterestRate() {
 
 // Gửi yêu cầu mở sổ tiết kiệm
 async function openSavingsAccount() {
+    if (!stkCanManageSavings) { showNoPermission(); return; }
     const tkNguon = document.getElementById("tkNguon").value;
     const soTienGoc = parseFloat(document.getElementById("soTienGoc").value);
     const kyHan = parseInt(document.getElementById("kyHan").value);
@@ -222,12 +277,13 @@ async function openSavingsAccount() {
             showToast(result.message || "Không thể thực hiện yêu cầu.", "error");
         }
     } catch (error) {
-        showToast("Lỗi hệ thống: " + error.message, "error");
+        if (isForbiddenError(error)) showNoPermission(); else showToast("Lỗi hệ thống: " + error.message, "error");
     }
 }
 
 // Gửi yêu cầu tất toán sổ tiết kiệm
 async function settleSavingsAccount(maSo) {
+    if (!stkCanManageSavings) { showNoPermission(); return; }
     const confirmMsg = `Bạn xác nhận muốn tất toán Sổ tiết kiệm #${maSo}?\nTiền gốc và lãi thực nhận sẽ được chuyển trả về tài khoản thanh toán thụ hưởng.`;
     if (!confirm(confirmMsg)) return;
 
@@ -297,7 +353,7 @@ async function settleSavingsAccount(maSo) {
         console.error("Lỗi tất toán:", error);
 
         showToast(
-            "Lỗi khi gửi yêu cầu tất toán: " + error.message,
+            (isForbiddenError(error) ? "Bạn không có quyền thực hiện chức năng này." : "Lỗi khi gửi yêu cầu tất toán: " + error.message),
             "error",
             5000
         );
@@ -306,6 +362,7 @@ async function settleSavingsAccount(maSo) {
 document.addEventListener("DOMContentLoaded", () => {
     loadAccounts();
     loadSavingsAccounts();
+    applySavingsPermissionUI();
 });
 function showSavingReceiptModal(data) {
     const oldModal = document.getElementById("savingReceiptModal");

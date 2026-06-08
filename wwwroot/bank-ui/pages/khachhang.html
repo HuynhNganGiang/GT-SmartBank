@@ -183,30 +183,28 @@
 <script src="/bank-ui/js/api.js"></script>
 <script src="/bank-ui/js/theme.js?v=999"></script>
 <script>
-    // Kiểm tra bảo mật và quyền truy cập trước khi render giao diện
-    const token = localStorage.getItem("token");
-    const userStr = localStorage.getItem("user");
-    let user = null;
-    
-    if (userStr) {
-        try {
-            user = JSON.parse(userStr);
-        } catch(e) {}
-    }
+const authToken = localStorage.getItem("token");
+const userStr = localStorage.getItem("user");
+let pageUser = null;
 
-    if (!token || !user) {
-        window.location.href = "/bank-ui/pages/login.html";
-    } else if (user && user.role !== "Admin") {
-        // Chặn người dùng thường truy cập trang quản lý khách hàng
-        if (typeof showToast === "function") {
-            showToast("Bạn không có quyền truy cập trang này!", "error");
-        } else {
-            alert("Bạn không có quyền truy cập trang này!");
-        }
-        setTimeout(() => {
-            window.location.href = "/bank-ui/index.html";
-        }, 1500);
-    }
+if (userStr) {
+    try {
+        pageUser = JSON.parse(userStr);
+    } catch (e) {}
+}
+
+if (!authToken || !pageUser) {
+    window.location.href = "/bank-ui/pages/login.html";
+}
+else if (
+    pageUser.role !== "Admin" &&
+    pageUser.role !== "Staff"
+) {
+    alert("Bạn không có quyền truy cập trang này!");
+    setTimeout(() => {
+        window.location.href = "/bank-ui/index.html";
+    }, 1500);
+}
 </script>
 <script>
     // Điền thông tin người dùng lên Header
@@ -216,7 +214,12 @@
             const userFullNameEl = document.getElementById("userFullName");
             const userRoleEl = document.getElementById("userRole");
             if (userFullNameEl) userFullNameEl.innerText = u.hoTen;
-            if (userRoleEl) userRoleEl.innerText = u.role === "Admin" ? "Quản trị viên" : "Khách hàng";
+            if (userRoleEl) {
+        userRoleEl.innerText =
+        u.role === "Admin" ? "Quản trị viên" :
+        u.role === "Staff" ? "Nhân viên" :
+        "Khách hàng";
+}
         }
     });
 

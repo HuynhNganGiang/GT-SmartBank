@@ -546,10 +546,6 @@
     return "Tôi là Trợ lý số GT SmartBank. Hiện tại tôi chưa hiểu rõ yêu cầu này. Bạn vui lòng chọn gợi ý nhanh bên dưới hoặc gọi Hotline **1800 9999** để được hỗ trợ nhé!";
 }
 
-        // Câu trả lời mặc định nếu không khớp từ khóa
-        return "Tôi là Trợ lý số GT SmartBank. Hiện tại tôi chưa hiểu rõ yêu cầu này. Bạn vui lòng chọn gợi ý nhanh bên dưới hoặc gọi Hotline **1800 9999** để được hỗ trợ nhé!";
-    }
-
     // Xóa dấu tiếng Việt
     function removeVietnameseTones(str) {
         str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");

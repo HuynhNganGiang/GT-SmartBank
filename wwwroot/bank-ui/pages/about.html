@@ -34,6 +34,9 @@
             }
         };
     </script>
+    <style>
+
+</style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased">
 
@@ -302,5 +305,133 @@ Cam kết công khai, rõ ràng trong thông tin, quy trình và chi phí, xây 
 </footer>
 <script src="/bank-ui/js/public.js"></script>
 <script>if (window.lucide) lucide.createIcons();</script>
+
+<!-- CHATBOT -->
+<div id="chatbotButton" onclick="openChatbot()" class="fixed right-5 bottom-5 z-[9999] cursor-pointer">
+  <img src="/bank-ui/assets/home/chatbot.webp" class="w-[190px] h-auto">
+</div>
+
+<div id="chatbotBox"
+     class="hidden fixed right-6 bottom-6 z-[10000] w-[400px] h-[480px] bg-white rounded-[26px] shadow-2xl overflow-hidden border border-slate-200">
+
+  <div class="h-[88px] bg-brand-700 text-white px-5 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <img src="/bank-ui/assets/home/chatbot.webp" class="w-14 h-14 rounded-full bg-white object-contain">
+      <div>
+        <h3 class="font-black text-xl">Chat với GT Bot</h3>
+        <p class="text-sm text-white/85">Trợ lý GT SmartBank</p>
+      </div>
+    </div>
+
+    <button type="button" onclick="closeChatbot()"
+            class="w-10 h-10 rounded-full bg-white/15 text-white text-2xl font-bold">
+      −
+    </button>
+  </div>
+
+  <div id="chatMessages"
+       class="h-[220px] overflow-y-auto bg-slate-50 p-5 space-y-4">
+
+    <div class="bg-white rounded-2xl p-4 shadow-sm text-[15px] leading-6 text-slate-700 max-w-[85%]">
+      Chào bạn, mình là GT Bot. Mình có thể hỗ trợ về đăng nhập, mở tài khoản, chuyển tiền, OTP, thẻ tín dụng, tiết kiệm, chi nhánh và hướng dẫn demo GT SmartBank.
+    </div>
+  </div>
+
+  <div class="bg-white px-5 pt-3 pb-2 border-t">
+    <div class="flex flex-wrap gap-2">
+      <button onclick="quickAsk('Đăng nhập')"
+              class="px-4 py-2 rounded-full border border-brand-100 bg-white text-brand-700 text-sm font-bold hover:bg-brand-50">
+        Đăng nhập
+      </button>
+
+      <button onclick="quickAsk('Chuyển tiền')"
+              class="px-4 py-2 rounded-full border border-brand-100 bg-white text-brand-700 text-sm font-bold hover:bg-brand-50">
+        Chuyển tiền
+      </button>
+
+      <button onclick="quickAsk('OTP')"
+              class="px-4 py-2 rounded-full border border-brand-100 bg-white text-brand-700 text-sm font-bold hover:bg-brand-50">
+        OTP
+      </button>
+
+      <button onclick="quickAsk('Tiết kiệm online')"
+              class="px-4 py-2 rounded-full border border-brand-100 bg-white text-brand-700 text-sm font-bold hover:bg-brand-50">
+        Tiết kiệm
+      </button>
+    </div>
+  </div>
+
+  <div class="bg-white px-5 pb-5 pt-2 flex gap-3">
+    <input id="chatInput"
+           type="text"
+           placeholder="Bạn cần hỗ trợ gì?"
+           onkeydown="if(event.key === 'Enter') sendChatMessage()"
+           class="flex-1 h-14 rounded-2xl border border-slate-200 px-4 text-[15px] outline-none focus:border-brand-500">
+
+    <button onclick="sendChatMessage()"
+            class="w-14 h-14 rounded-full bg-brand-500 hover:bg-brand-700 text-white flex items-center justify-center">
+      <i data-lucide="arrow-right" class="w-7 h-7"></i>
+    </button>
+  </div>
+</div>
+<script>
+  function openChatbot() {
+    document.getElementById("chatbotButton").classList.add("hidden");
+    document.getElementById("chatbotBox").classList.remove("hidden");
+  }
+
+  function closeChatbot() {
+    document.getElementById("chatbotBox").classList.add("hidden");
+    document.getElementById("chatbotButton").classList.remove("hidden");
+  }
+
+  function quickAsk(question) {
+    document.getElementById("chatInput").value = question;
+    sendChatMessage();
+  }
+
+  function sendChatMessage() {
+    const input = document.getElementById("chatInput");
+    const box = document.getElementById("chatMessages");
+    const text = input.value.trim();
+    if (!text) return;
+
+    box.innerHTML += `
+      <div class="ml-auto bg-brand-700 text-white rounded-2xl p-3 text-sm max-w-[85%]">
+        ${text}
+      </div>
+    `;
+
+    input.value = "";
+
+    let reply = "GT Bot đã ghi nhận câu hỏi của bạn.";
+    const lower = text.toLowerCase();
+
+    if (lower.includes("đăng nhập")) {
+      reply = "Bạn bấm nút Đăng nhập trên thanh menu, nhập số điện thoại và mật khẩu để vào hệ thống GT SmartBank.";
+    } else if (lower.includes("chuyển tiền")) {
+      reply = "Để chuyển tiền, bạn đăng nhập, chọn mục Chuyển tiền, nhập tài khoản nhận, số tiền, nội dung và xác thực OTP.";
+    } else if (lower.includes("otp")) {
+      reply = "OTP là mã xác thực giao dịch. Khi chuyển tiền, hệ thống sẽ yêu cầu nhập OTP để tăng bảo mật.";
+    } else if (lower.includes("tiết kiệm")) {
+      reply = "Tiết kiệm online hỗ trợ nhiều kỳ hạn, lãi suất minh họa và có thể tính lãi ngay trên trang.";
+    }
+
+    setTimeout(() => {
+      box.innerHTML += `
+        <div class="bg-white rounded-2xl p-4 shadow-sm text-[15px] leading-6 text-slate-700 max-w-[85%]">
+          ${reply}
+        </div>
+      `;
+      box.scrollTop = box.scrollHeight;
+    }, 350);
+
+    box.scrollTop = box.scrollHeight;
+  }
+
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+</script>
 </body>
 </html>

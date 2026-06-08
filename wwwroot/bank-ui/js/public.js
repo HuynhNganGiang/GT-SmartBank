@@ -395,13 +395,4 @@ function autoInjectRevealClasses() {
     });
 }
 
-// Tự động nạp Trợ lý ảo AI Assistant nổi
-(function() {
-    if (!document.getElementById("ai-assistant-script")) {
-        const script = document.createElement("script");
-        script.id = "ai-assistant-script";
-        script.src = "/bank-ui/js/ai-assistant.js";
-        script.async = true;
-        document.head.appendChild(script);
-    }
-})();
+

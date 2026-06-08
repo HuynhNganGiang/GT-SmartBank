@@ -1408,50 +1408,6 @@
 
 </div>
 
-
-<div class="gt-chatbot" id="gtChatbot">
-    <div class="gt-chatbot-bubble" id="gtChatbotBubble" style="display:none;">Bạn cần hỗ trợ gì?</div>
-
-    <div class="gt-chatbot-panel" id="gtChatbotPanel">
-        <div class="gt-chatbot-head">
-            <div class="gt-chatbot-head-left">
-                <img src="/bank-ui/assets/home/chatbot.webp" alt="GT Bot">
-                <div>
-                    <strong>Chat với GT Bot</strong>
-                    <span>Trợ lý GT SmartBank</span>
-                </div>
-            </div>
-            <div class="gt-chatbot-actions">
-    <button type="button" onclick="minimizeGTChatbot()" title="Thu nhỏ">−</button>
-</div>
-        </div>
-
-        <div class="gt-chatbot-body" id="gtChatbotMessages">
-            <div class="gt-bot-avatar">
-                <img src="/bank-ui/assets/home/chatbot.webp" alt="GT Bot">
-            </div>
-            <div class="gt-msg gt-msg-bot">
-                Chào bạn, mình là GT Bot. Mình có thể hỗ trợ về đăng nhập, mở tài khoản, chuyển tiền, OTP, thẻ tín dụng, tiết kiệm, chi nhánh và hướng dẫn demo GT SmartBank.
-            </div>
-        </div>
-
-        <div class="gt-chatbot-suggest">
-            <button type="button" onclick="askGTBot('Cách đăng nhập GT SmartBank?')">Đăng nhập</button>
-            <button type="button" onclick="askGTBot('Chuyển tiền 24/7 như thế nào?')">Chuyển tiền</button>
-            <button type="button" onclick="askGTBot('OTP là gì?')">OTP</button>
-        </div>
-
-        <form class="gt-chatbot-input" onsubmit="sendGTBotMessage(event)">
-            <input id="gtChatbotInput" type="text" placeholder="Bạn cần hỗ trợ gì?">
-            <button type="submit">➜</button>
-        </form>
-    </div>
-
-    <button type="button" class="gt-chatbot-btn" onclick="toggleGTChatbot()" title="Bạn cần hỗ trợ gì?">
-        <img src="/bank-ui/assets/home/chatbot.webp" alt="GT SmartBank Chatbot">
-    </button>
-</div>
-
 <script src="/bank-ui/js/config.js"></script>
 <script src="/bank-ui/js/public.js"></script>
 <script>
@@ -1599,6 +1555,66 @@
         lucide.createIcons();
     }
 </script>
+<!-- GT CHATBOT -->
+<div id="gtChatbot" class="gt-chatbot">
+
+    <button class="gt-chatbot-btn" onclick="toggleGTChatbot()">
+        <img src="/bank-ui/assets/home/chatbot.webp" alt="GT Bot">
+    </button>
+
+    <div class="gt-chatbot-panel">
+
+        <div class="gt-chatbot-head">
+            <div class="gt-chatbot-head-left">
+                <img src="/bank-ui/assets/home/chatbot.webp">
+                <div>
+                    <strong>GT Bot</strong>
+                    <span>Trợ lý ngân hàng số</span>
+                </div>
+            </div>
+
+            <div class="gt-chatbot-actions">
+                <button onclick="minimizeGTChatbot()">−</button>
+            </div>
+        </div>
+
+        <div class="gt-chatbot-body" id="gtChatbotMessages">
+
+            <div class="gt-bot-avatar">
+                <img src="/bank-ui/assets/home/chatbot.webp">
+            </div>
+
+            <div class="gt-msg gt-msg-bot">
+                Xin chào 👋 Tôi là GT Bot.
+                Tôi có thể hỗ trợ:
+                Đăng nhập, Chuyển tiền, OTP,
+                Tiết kiệm, Thẻ tín dụng...
+            </div>
+
+        </div>
+
+        <div class="gt-chatbot-suggest">
+            <button onclick="askGTBot('Cách đăng nhập')">
+                Đăng nhập
+            </button>
+
+            <button onclick="askGTBot('Chuyển tiền')">
+                Chuyển tiền
+            </button>
+
+            <button onclick="askGTBot('Tiết kiệm online')">
+                Tiết kiệm
+            </button>
+        </div>
+
+        <form class="gt-chatbot-input" onsubmit="sendGTBotMessage(event)">
+            <input id="gtChatbotInput" placeholder="Nhập câu hỏi...">
+            <button type="submit">➤</button>
+        </form>
+
+    </div>
+
+</div>
 
 </body>
 </html>

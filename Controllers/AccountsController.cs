@@ -34,8 +34,7 @@ namespace GTSmartBank.Controllers
 
             var list = await _accountService.GetAllAccountsAsync();
 
-            if (currentUserRoleClaim != "Admin" &&
-                currentUserRoleClaim != "Staff")
+            if (currentUserRoleClaim != "Admin" && currentUserRoleClaim != "Staff")
             {
                 int maKH = int.Parse(currentUserIdClaim);
                 list = list.Where(x => x.MaKH == maKH);
@@ -54,10 +53,9 @@ namespace GTSmartBank.Controllers
                 return Unauthorized(ApiResponse<object>.ErrorResult(401, "Không lấy được thông tin người dùng từ token."));
 
             var account = await _accountService.GetAccountDetailsAsync(id);
+
             if (account == null)
-            {
                 return NotFound(ApiResponse<object>.ErrorResult(404, "Tài khoản không tồn tại."));
-            }
 
             if (currentUserRoleClaim != "Admin" &&
                 currentUserRoleClaim != "Staff" &&
@@ -70,18 +68,17 @@ namespace GTSmartBank.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Staff")]
         public async Task<IActionResult> Create([FromBody] TaiKhoan account)
         {
             if (account == null)
-            {
                 return BadRequest(ApiResponse<object>.ErrorResult(400, "Dữ liệu không hợp lệ."));
-            }
 
             try
             {
                 var created = await _accountService.CreateAccountAsync(account);
-                return CreatedAtAction(nameof(GetByNumber), new { id = created.SoTaiKhoan }, ApiResponse<AccountDTO>.SuccessResult(created, "Mở tài khoản thành công."));
+                return CreatedAtAction(nameof(GetByNumber), new { id = created.SoTaiKhoan },
+                    ApiResponse<AccountDTO>.SuccessResult(created, "Mở tài khoản thành công."));
             }
             catch (System.Exception ex)
             {
@@ -95,9 +92,7 @@ namespace GTSmartBank.Controllers
         public async Task<IActionResult> Update(string id, [FromBody] TaiKhoan account)
         {
             if (account == null || id != account.SoTaiKhoan)
-            {
                 return BadRequest(ApiResponse<object>.ErrorResult(400, "Dữ liệu không hợp lệ."));
-            }
 
             try
             {

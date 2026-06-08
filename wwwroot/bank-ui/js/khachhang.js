@@ -1,4 +1,21 @@
 // Quản lý Khách hàng - GT Smart Bank
+// Phân quyền giao diện
+const khUser =
+typeof getCurrentUser === "function"
+    ? getCurrentUser()
+    : JSON.parse(localStorage.getItem("user") || "null");
+
+const khIsAdmin = khUser?.role === "Admin";
+const khIsStaff = khUser?.role === "Staff";
+function showNoPermission() {
+    if (typeof showToast === "function") showToast("Bạn không có quyền thực hiện chức năng này.", "error");
+    else alert("Bạn không có quyền thực hiện chức năng này.");
+}
+function isForbiddenError(error) {
+    const msg = String(error?.message || error || "");
+    return error?.status === 403 || msg.includes("403") || msg.toLowerCase().includes("forbid");
+}
+
 // Tích hợp API chuẩn RESTful và bảo mật JWT
 
 let allCustomers = [];
@@ -92,10 +109,12 @@ function renderCustomers(customers) {
                 <td class="px-6 py-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${roleClass}">${roleText}</span></td>
                 <td class="px-6 py-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${statusClass}">${statusText}</span></td>
                 <td class="px-6 py-4">
-                    <div class="flex items-center justify-center gap-2">
-                        <button class="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400 hover:bg-sky-500 hover:text-white dark:hover:bg-sky-500 transition-colors" onclick="setupEditCustomer(${id}, '${name.replace(/'/g, "\\'")}', '${cccd}', '${phone}', '${email.replace(/'/g, "\\'")}', '${address.replace(/'/g, "\\'")}', '${role}', ${active})">📝 Sửa</button>
-                        <button class="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-rose-50 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400 hover:bg-rose-500 hover:text-white dark:hover:bg-rose-500 transition-colors" onclick="deleteCustomer(${id})">🗑️ Xóa</button>
-                    </div>
+                    ${khIsAdmin ? `
+                        <div class="flex items-center justify-center gap-2">
+                            <button class="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400 hover:bg-sky-500 hover:text-white dark:hover:bg-sky-500 transition-colors" onclick="setupEditCustomer(${id}, '${name.replace(/'/g, "\\'")}', '${cccd}', '${phone}', '${email.replace(/'/g, "\\'")}', '${address.replace(/'/g, "\\'")}', '${role}', ${active})">📝 Sửa</button>
+                            <button class="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-rose-50 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400 hover:bg-rose-500 hover:text-white dark:hover:bg-rose-500 transition-colors" onclick="deleteCustomer(${id})">🗑️ Xóa</button>
+                        </div>
+                    ` : `<span class="text-xs font-bold text-slate-400">Chỉ xem</span>`}
                 </td>
             </tr>
         `;
@@ -123,6 +142,8 @@ function filterCustomers() {
 
 // Lưu khách hàng (Thêm mới hoặc Cập nhật)
 async function saveCustomer() {
+    const editIdCheck = document.getElementById("editCustomerId")?.value;
+    if (editIdCheck && !khIsAdmin) { showNoPermission(); return; }
     const id = document.getElementById("editCustomerId").value;
     const name = document.getElementById("customerName").value.trim();
     const cccd = document.getElementById("customerCccd").value.trim();
@@ -190,7 +211,7 @@ async function saveCustomer() {
     alert(response?.message || "Cập nhật thông tin thất bại.");
 }
     } catch (error) {
-        alert(`Lỗi khi lưu dữ liệu khách hàng: ${error.message}`);
+        if (isForbiddenError(error)) showNoPermission(); else alert(`Lỗi khi lưu dữ liệu khách hàng: ${error.message}`);
     } finally {
         btnSubmit.disabled = false;
         btnSubmit.innerText = id ? "Cập nhật thông tin" : "Thêm khách hàng";
@@ -199,6 +220,7 @@ async function saveCustomer() {
 
 // Chuẩn bị form để sửa khách hàng
 function setupEditCustomer(id, name, cccd, phone, email, address, role, active) {
+    if (!khIsAdmin) { showNoPermission(); return; }
     document.getElementById("editCustomerId").value = id;
     document.getElementById("customerName").value = name;
     document.getElementById("customerCccd").value = cccd;
@@ -239,6 +261,7 @@ function cancelEdit() {
 
 // Xóa khách hàng
 async function deleteCustomer(id) {
+    if (!khIsAdmin) { showNoPermission(); return; }
     if (!confirm(`Bạn có chắc chắn muốn xóa khách hàng #${id}?\nMọi tài khoản ngân hàng và lịch sử liên quan đến khách hàng này cũng có thể bị ảnh hưởng trong database!`)) {
         return;
     }
@@ -257,6 +280,6 @@ async function deleteCustomer(id) {
             showToast(response.message || "Xóa thất bại.", "error");
         }
     } catch (error) {
-        showToast(`Lỗi khi xóa khách hàng: ${error.message}`, "error");
+        if (isForbiddenError(error)) showNoPermission(); else showToast(`Lỗi khi xóa khách hàng: ${error.message}`, "error");
     }
 }
